@@ -8,7 +8,7 @@ namespace MarsFrenzy
 {
     public class GameManager : MonoBehaviour
     {
-        protected static readonly GameManager instance = new GameManager();
+        protected static GameManager instance;
         public GameDataModel data;
         private List<ModuleManager> modules;
 
@@ -20,11 +20,25 @@ namespace MarsFrenzy
         private Text ductTapeStock;
         private Text timerText;
 
+        private int onboardingStep = 0;
+        public int OnboardingStep
+        {
+            get
+            {
+                return onboardingStep;
+            }
+
+            set
+            {
+                onboardingStep = value;
+            }
+        }
+
         // Use this for initialization
         void Start()
         {
             Debug.Log("Init GameManager");
-
+            setInstance(this);
             timeRuns = false;
             timer = 0;
             frame = 0;
@@ -91,6 +105,11 @@ namespace MarsFrenzy
             }
         }
 
+        private static void setInstance(GameManager _instance)
+        {
+            instance = _instance;
+        }
+
         public static GameManager Instance
         {
             get
@@ -134,6 +153,35 @@ namespace MarsFrenzy
         public void Play()
         {
             timeRuns = true;
+        }
+
+        public void EndDialog()
+        {
+            Play();
+        }
+
+        public bool IsActive(string name)
+        {
+            for (int i = 0; i < modules.Count; i++)
+            {
+                if (modules[i].res.name == name)
+                {
+                    return modules[i].activated;
+                }
+            }
+            return false;
+        }
+
+        public float GetModuleHealth(string name)
+        {
+            for (int i = 0; i < modules.Count; i++)
+            {
+                if (modules[i].res.name == name)
+                {
+                    return modules[i].moduleHealth;
+                }
+            }
+            return -1.0f;
         }
     }
 
