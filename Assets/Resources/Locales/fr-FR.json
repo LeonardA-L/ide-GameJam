@@ -1,3 +1,10 @@
 {
-    "Hello": "Salut"
+    "AskActivateTank": "Salut. Active la citerne stp je veux pas mourir de soif.",
+    "RemindActivateTank": "J'attend là gros active la citerne il faut cliquer dessus",
+    "RemindActivateTankPart2": "T'abuses grave n'empêche",
+
+    "TankIsActive": "Ah bien la citerne est activée.",
+    "AskRepairGenerator": "Bon maintenant répare le générateur",
+
+    "CongratsRepareGenerator": "Ah ben bien joué je pensais pas que tu y arriverais"
 }

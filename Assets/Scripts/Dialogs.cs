@@ -10,30 +10,31 @@ namespace MarsFrenzy
         public static List<DialogEvent> InitDialogs()
         {
             List<DialogEvent> events = new List<DialogEvent>();
-
+            I18n i18n = I18n.Instance;
+            I18n.SetLocale("fr-FR");
             // Write new dialog events here
 
             events.Add(new DialogEvent(
-                CreateListString("Salut. Active la citerne stp je veux pas mourir de soif."),
+                CreateListString(i18n.__("AskActivateTank")),//i18n.__("")
                 Step0
             ));
 
             events.Add(new DialogEvent(
-                CreateListString("J'attend là gros active la citerne il faut cliquer dessus",
-                                 "T'abuses grave n'empêche"),
+                CreateListString(i18n.__("RemindActivateTank"),
+                                 i18n.__("RemindActivateTankPart2")),
                 Step0_Water_Tank_Still_Not_Active
             ));
 
             // EXAMINONS CET EXEMPLE
-            events.Add(new DialogEvent(                                         // Il faut garder cette ligne
-                CreateListString("Ah bien la citerne est activée.",             // Ajouter un message
-                                 "Bon maintenant répare le générateur"),        // *Eventuellement*, ajouter d'autres messages
-                Step0_Water_Tank_Active,                                        // Donner une fonction de condition de déclenchement
-                End_Of_Step0                                                    // *Eventuellement*, ajouter une fonction d'action à effectuer après le dialogue
+            events.Add(new DialogEvent(                                          // Il faut garder cette ligne
+                CreateListString(i18n.__("TankIsActive"),                        // Ajouter un message
+                                 i18n.__("AskRepairGenerator")),                 // *Eventuellement*, ajouter d'autres messages
+                Step0_Water_Tank_Active,                                         // Donner une fonction de condition de déclenchement
+                End_Of_Step0                                                     // *Eventuellement*, ajouter une fonction d'action à effectuer après le dialogue
             ));
 
             events.Add(new DialogEvent(
-                CreateListString("Ah ben bien joué je pensais pas que tu y arriverais"),
+                CreateListString(i18n.__("CongratsRepareGenerator")),
                 Step1_Generator_Is_Repaired,
                 End_Of_Step1
             ));
@@ -51,8 +52,6 @@ namespace MarsFrenzy
 
         static bool Step0()
         {
-            Debug.Log("test " + (OnboardingStep == 0
-                && timeIs(5.0f)) + GameManager.Instance.timer);
             return OnboardingStep == 0    // OnBoardingStep is 0
                 && timeIs(5.0f);         // AND timer is at 5s
         }
