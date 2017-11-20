@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace MarsFrenzy
 {
@@ -15,6 +16,9 @@ namespace MarsFrenzy
         public float starveDecay;
         public bool dead = false;
 
+        public Text hungerGauge;
+        public Text thirstGauge;
+
         // Use this for initialization
         void Start()
         {
@@ -24,7 +28,8 @@ namespace MarsFrenzy
         // Update is called once per frame
         void Update()
         {
-
+            hungerGauge.text = "" + hunger;
+            thirstGauge.text = "" + thirst;
         }
 
         public void Init(GameManager _gm, float _hunger, float _thirst, float _starveDecay)
@@ -48,7 +53,6 @@ namespace MarsFrenzy
 
         public void Tick()
         {
-            Debug.Log(food.amount + " " + water.amount);
             if(food.amount <= 0.0f)
             {
                 hunger -= starveDecay;

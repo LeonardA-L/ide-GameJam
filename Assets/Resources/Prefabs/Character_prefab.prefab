@@ -73,3 +73,5 @@ MonoBehaviour:
   thirst: 0
   starveDecay: 0
   dead: 0
+  hungerGauge: {fileID: 0}
+  thirstGauge: {fileID: 0}

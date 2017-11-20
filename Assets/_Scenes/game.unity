@@ -310,6 +310,18 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6fd1c7056af4a074983a0e749ad4ea72, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &803936287 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114226233377691878, guid: 4675ada665b8f30419ab34eed7c8bf56,
+    type: 2}
+  m_PrefabInternal: {fileID: 125501439}
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+--- !u!114 &997886734 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114033039139615308, guid: 4675ada665b8f30419ab34eed7c8bf56,
+    type: 2}
+  m_PrefabInternal: {fileID: 125501439}
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!114 &1204716714 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114192231736273678, guid: 4675ada665b8f30419ab34eed7c8bf56,
@@ -397,6 +409,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114562441271923498, guid: 9bb642da01f29d144a4d6a2d4af7c85b,
+        type: 2}
+      propertyPath: hungerGauge
+      value: 
+      objectReference: {fileID: 803936287}
+    - target: {fileID: 114562441271923498, guid: 9bb642da01f29d144a4d6a2d4af7c85b,
+        type: 2}
+      propertyPath: thirstGauge
+      value: 
+      objectReference: {fileID: 997886734}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9bb642da01f29d144a4d6a2d4af7c85b, type: 2}
   m_IsPrefabParent: 0
