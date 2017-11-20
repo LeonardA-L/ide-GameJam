@@ -84,7 +84,7 @@ namespace MarsFrenzy
 
         public void Tick()
         {
-            //Debug.Log("Tick " + res.name);
+            float smoothingFactor = 1.0f / (1.0f * gm.data.clockSmoothing);
 
             // deactivate if health is 0
             if (moduleHealth <= 0.0f)
@@ -96,12 +96,12 @@ namespace MarsFrenzy
             // PRODUCTION
             if (activated && fuel.amount > 0)
             {
-                res.amount += res.efficiency * efficiencyModifier;
-                fuel.amount -= 1;
+                res.amount += res.efficiency * efficiencyModifier * smoothingFactor;
+                fuel.amount -= 1 * smoothingFactor;
             }
 
             // DECAY
-            res.amount -= res.decay;
+            res.amount -= res.decay * smoothingFactor;
 
             if (res.amount < 0.0f)
             {
@@ -111,26 +111,18 @@ namespace MarsFrenzy
             // BREAK & REPAIR
             if (activated)
             {
-                moduleHealth -= res.damageRate;
+                moduleHealth -= res.damageRate * smoothingFactor;
             }
 
-            if (repairing && gm.data.ductTape.amount >= gm.data.ductTape.efficiency && moduleHealth + gm.data.ductTape.efficiency <= 100.0f)
+            if (repairing && gm.data.ductTape.amount >= gm.data.ductTape.efficiency && (moduleHealth + gm.data.ductTape.efficiency) * smoothingFactor <= 100.0f)
             {
-                moduleHealth += gm.data.ductTape.efficiency;
-                gm.data.ductTape.amount -= 1;
+                moduleHealth += gm.data.ductTape.efficiency * smoothingFactor;
+                gm.data.ductTape.amount -= 1 * smoothingFactor;
 
                 if (gm.data.ductTape.amount < 0.0f)
                 {
                     gm.data.ductTape.amount = 0.0f;
                 }
-            }
-        }
-
-        private int GameClock
-        {
-            get
-            {
-                return gm.data.gameClock;
             }
         }
 

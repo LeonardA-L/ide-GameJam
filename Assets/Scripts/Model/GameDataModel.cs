@@ -7,6 +7,7 @@ namespace MarsFrenzy
     {
         public ResourceModel[] resources;
         public int gameClock = 1;
+        public int clockSmoothing = 1;
         public ModuleHealthThreshold[] moduleHealthThresholds;
         public ResourceModel ductTape;
 

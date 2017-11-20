@@ -24,6 +24,8 @@ namespace MarsFrenzy
         public CharacterLife character;
         public EndScreen endScreen;
 
+        private int prevFrame = 0;
+
         private int onboardingStep = 0;
         public int OnboardingStep
         {
@@ -89,9 +91,10 @@ namespace MarsFrenzy
                 frame++;
             }
 
-            if (timeRuns && (timer - lastTime) > data.gameClock)
+            if (timeRuns && (timer - lastTime) > data.gameClock / (1.0f * data.clockSmoothing))
             {
-                lastTime = Time.time;
+                prevFrame = frame;
+                lastTime = timer;
                 Tick();
             }
 

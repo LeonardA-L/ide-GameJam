@@ -51,6 +51,7 @@ namespace MarsFrenzy
             _de.StartThis();
             currentDialog = _de;
             parts = _de.parts;
+            events.Remove(_de);
             GameManager.Instance.Pause();
             window.SetActive(true);
             idx = -1;
