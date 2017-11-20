@@ -13,6 +13,7 @@ namespace MarsFrenzy
         private List<ModuleManager> modules;
 
         public bool timeRuns = false;
+        public bool gameOver = false;
         public float timer = 0;
         public int frame = 0;
         private float lastTime;
@@ -21,6 +22,7 @@ namespace MarsFrenzy
         private Text timerText;
 
         public CharacterLife character;
+        public EndScreen endScreen;
 
         private int onboardingStep = 0;
         public int OnboardingStep
@@ -145,6 +147,10 @@ namespace MarsFrenzy
 
         public void ToggleTime()
         {
+            if(!timeRuns && gameOver)
+            {
+                return;
+            }
             timeRuns = !timeRuns;
         }
 
@@ -153,8 +159,18 @@ namespace MarsFrenzy
             timeRuns = false;
         }
 
+        public void Stop()
+        {
+            timeRuns = false;
+            gameOver = true;
+        }
+
         public void Play()
         {
+            if(gameOver)
+            {
+                return;
+            }
             timeRuns = true;
         }
 
@@ -200,6 +216,18 @@ namespace MarsFrenzy
         public bool IsPlayerDead()
         {
             return character.dead;
+        }
+
+        public void TriggerGameOver()
+        {
+            Stop();
+            endScreen.GameOver();
+        }
+
+        public void TriggerVictory()
+        {
+            Stop();
+            endScreen.Victory();
         }
     }
 

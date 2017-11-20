@@ -310,6 +310,12 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6fd1c7056af4a074983a0e749ad4ea72, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &1204716714 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114192231736273678, guid: 4675ada665b8f30419ab34eed7c8bf56,
+    type: 2}
+  m_PrefabInternal: {fileID: 125501439}
+  m_Script: {fileID: 11500000, guid: 36c18de9afa128843ade7c577d34e237, type: 3}
 --- !u!1001 &1655769562
 Prefab:
   m_ObjectHideFlags: 0
@@ -455,9 +461,11 @@ MonoBehaviour:
     playerThirstStart: 100
     starvationDecay: 10
   timeRuns: 0
+  gameOver: 0
   timer: 0
   frame: 0
   character: {fileID: 1685522897}
+  endScreen: {fileID: 1204716714}
 --- !u!1 &2143859670
 GameObject:
   m_ObjectHideFlags: 0
