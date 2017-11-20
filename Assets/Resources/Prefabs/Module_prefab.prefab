@@ -9,76 +9,106 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1712089934548100}
+  m_RootGameObject: {fileID: 1463931115295338}
   m_IsPrefabParent: 1
---- !u!1 &1712089934548100
+--- !u!1 &1138797182152218
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4171639463840866}
-  - component: {fileID: 95831738350893146}
-  - component: {fileID: 65938548936641906}
-  - component: {fileID: 114233867140475816}
+  - component: {fileID: 4107809788747242}
+  - component: {fileID: 33544856807345686}
+  - component: {fileID: 23416102556520680}
   m_Layer: 0
-  m_Name: electricity_view_prefab
-  m_TagString: ModuleView
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1930995503115246
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4695653217861438}
-  - component: {fileID: 33944198904401096}
-  - component: {fileID: 23500048324806318}
-  m_Layer: 0
-  m_Name: Dummy
+  m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4171639463840866
+--- !u!1 &1463931115295338
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4493414222685642}
+  - component: {fileID: 114331703033289174}
+  m_Layer: 0
+  m_Name: Module_prefab
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1778467636947866
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4597703468722534}
+  - component: {fileID: 95144791185308578}
+  - component: {fileID: 65088218700926354}
+  - component: {fileID: 114930371798800538}
+  m_Layer: 0
+  m_Name: Health
+  m_TagString: HealthView
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4107809788747242
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1712089934548100}
+  m_GameObject: {fileID: 1138797182152218}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.68, y: 0, z: 0}
+  m_LocalPosition: {x: 1.5, y: 0, z: 0}
+  m_LocalScale: {x: 0.2, y: 1, z: 0.2}
+  m_Children: []
+  m_Father: {fileID: 4597703468722534}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4493414222685642
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1463931115295338}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 701.77924, y: 623.15015, z: -1226.8258}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4695653217861438}
+  - {fileID: 4597703468722534}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4695653217861438
+--- !u!4 &4597703468722534
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1930995503115246}
+  m_GameObject: {fileID: 1778467636947866}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4171639463840866}
+  m_Children:
+  - {fileID: 4107809788747242}
+  m_Father: {fileID: 4493414222685642}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &23500048324806318
+--- !u!23 &23416102556520680
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1930995503115246}
+  m_GameObject: {fileID: 1138797182152218}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -107,32 +137,32 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &33944198904401096
+--- !u!33 &33544856807345686
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1930995503115246}
+  m_GameObject: {fileID: 1138797182152218}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65938548936641906
+--- !u!65 &65088218700926354
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1712089934548100}
+  m_GameObject: {fileID: 1778467636947866}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!95 &95831738350893146
+  m_Size: {x: 0.2, y: 1, z: 0.2}
+  m_Center: {x: 1.5, y: 0, z: 0}
+--- !u!95 &95144791185308578
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1712089934548100}
+  m_GameObject: {fileID: 1778467636947866}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 0}
@@ -143,15 +173,46 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114233867140475816
+--- !u!114 &114331703033289174
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1712089934548100}
+  m_GameObject: {fileID: 1463931115295338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b7da61480beb2840a79131c75a2e4e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0
+  res:
+    amount: 0
+    decay: 0
+    efficiency: 0
+    damageRate: 0
+    startHealth: 100
+    name: 
+  fuel:
+    amount: 0
+    decay: 0
+    efficiency: 0
+    damageRate: 0
+    startHealth: 100
+    name: 
+  activated: 0
+  repairing: 0
+  health: {fileID: 4597703468722534}
+  stock: {fileID: 0}
+  moduleHealth: 100
+--- !u!114 &114930371798800538
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1778467636947866}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c44b09af3ebaf0c4d8b4183cdee401a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manager: {fileID: 0}
+  manager: {fileID: 114331703033289174}

@@ -10,18 +10,85 @@ namespace MarsFrenzy
     {
         protected static readonly GameManager instance = new GameManager();
         public GameDataModel data;
+        private List<ModuleManager> modules;
+
+        public bool timeRuns = false;
+        public float timer = 0;
+        public int frame = 0;
+        private float lastTime;
+
+        private Text ductTapeStock;
+        private Text timerText;
 
         // Use this for initialization
         void Start()
         {
             Debug.Log("Init GameManager");
+
+            timeRuns = false;
+            timer = 0;
+            frame = 0;
+            lastTime = 0;
+
             data = LoadGameData("gamedata.json");
+
+            modules = new List<ModuleManager>();
+
+            int i = 0;
+            for (; i < data.resources.Length; i++)
+            {
+                int prevI = i - 1;
+                if (prevI < 0)
+                {
+                    prevI += data.resources.Length;
+                }
+                GameObject res = (GameObject)GameObject.Instantiate(Resources.Load("Prefabs/Module_prefab"));
+                res.transform.position = new Vector3(0, 0, 0);
+                res.name = "Module_" + data.resources[i].name;
+                ModuleManager module = res.GetComponent<ModuleManager>();
+                module.id = i;
+                module.Init(i, data.resources[i], data.resources[prevI], this);
+                modules.Add(module);
+            }
+
+            GameObject ductTapeStockObj = GameObject.Find("/UI_prefab/MainCanvas/Resources/ductTape_Stock");
+            ductTapeStock = ductTapeStockObj.GetComponent<Text>();
+
+            GameObject timerTextObj = GameObject.Find("/UI_prefab/MainCanvas/Timer");
+            timerText = timerTextObj.GetComponent<Text>();
+
+            timeRuns = true;
         }
 
         // Update is called once per frame
         void Update()
         {
+            if (timeRuns)
+            {
+                timer += Time.deltaTime;
+                frame++;
+            }
 
+            if ((timer - lastTime) > data.gameClock)
+            {
+                lastTime = Time.time;
+                Tick();
+            }
+
+            ductTapeStock.text = "" + data.ductTape.amount;
+
+            timerText.text = "T:" + timer.ToString("0.00") + "s";
+        }
+
+        private void Tick()
+        {
+            if (timeRuns)
+            {
+                for (int i = 0; i < modules.Count; i++)
+                {
+                    modules[i].Tick();
+                }
+            }
         }
 
         public static GameManager Instance
@@ -52,6 +119,21 @@ namespace MarsFrenzy
                 Debug.LogError("Cannot load game data!");
                 throw new System.Exception("Cannot load data");
             }
+        }
+
+        public void ToggleTime()
+        {
+            timeRuns = !timeRuns;
+        }
+
+        public void Pause()
+        {
+            timeRuns = false;
+        }
+
+        public void Play()
+        {
+            timeRuns = true;
         }
     }
 
