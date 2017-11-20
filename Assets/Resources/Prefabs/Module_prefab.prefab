@@ -69,7 +69,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1138797182152218}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.5, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 0.2, y: 1, z: 0.2}
   m_Children: []
   m_Father: {fileID: 4597703468722534}
@@ -82,7 +82,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1463931115295338}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 701.77924, y: 623.15015, z: -1226.8258}
+  m_LocalPosition: {x: -68.12613, y: 6.410453, z: -39.202965}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4597703468722534}
@@ -96,7 +96,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1778467636947866}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4107809788747242}
@@ -155,7 +155,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.2, y: 1, z: 0.2}
-  m_Center: {x: 1.5, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!95 &95144791185308578
 Animator:
   serializedVersion: 3
@@ -191,6 +191,8 @@ MonoBehaviour:
     efficiency: 0
     damageRate: 0
     startHealth: 100
+    x: 0
+    z: 0
     name: 
   fuel:
     amount: 0
@@ -198,11 +200,12 @@ MonoBehaviour:
     efficiency: 0
     damageRate: 0
     startHealth: 100
+    x: 0
+    z: 0
     name: 
   activated: 0
   repairing: 0
   health: {fileID: 4597703468722534}
-  stock: {fileID: 0}
   moduleHealth: 100
 --- !u!114 &114930371798800538
 MonoBehaviour:

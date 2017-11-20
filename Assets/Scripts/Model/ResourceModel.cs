@@ -10,6 +10,8 @@ namespace MarsFrenzy
         public float efficiency = 0;
         public float damageRate = 0;
         public float startHealth = 100;
+        public float x = 0;
+        public float z = 0;
         public string name;
     }
 }

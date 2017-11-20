@@ -44,7 +44,7 @@ namespace MarsFrenzy
             ViewScript vs = view.GetComponent<ViewScript>();
             vs.manager = this;
 
-            transform.position = new Vector3((id) * 6.0f - 2.0f, 0.5f, (id) * 5.0f - 0.0f);
+            transform.position = new Vector3(res.x, 0.0f, res.z);
 
             GameObject stockObj = GameObject.Find("/UI_prefab/MainCanvas/Resources/" + res.name + "_Stock");
             stock = stockObj.GetComponent<Text>();
