@@ -21,10 +21,13 @@ namespace MarsFrenzy
         public float moduleHealth = 100.0f;
         private float efficiencyModifier = 1;
 
+        private Animator animator;
+
         private GameManager gm;
         // Use this for initialization
         void Start()
         {
+            animator.SetBool("activated", activated);
         }
 
         public void Init(int _id, ResourceModel _resource, ResourceModel _fuelResource, GameManager _manager)
@@ -40,6 +43,8 @@ namespace MarsFrenzy
             view.transform.position = new Vector3(0, 0, 0);
             view.transform.parent = transform;
             view.name = "View";
+
+            animator = view.GetComponent<Animator>();
 
             ViewScript vs = view.GetComponent<ViewScript>();
             vs.manager = this;
@@ -91,6 +96,7 @@ namespace MarsFrenzy
             {
                 moduleHealth = 0.0f;
                 activated = false;
+                animator.SetBool("activated", activated);
             }
 
             // PRODUCTION
@@ -131,6 +137,7 @@ namespace MarsFrenzy
             if (clicked.tag == "ModuleView")
             {
                 activated = !activated;
+                animator.SetBool("activated", activated);
             }
             else if (clicked.tag == "HealthView")
             {
