@@ -12,6 +12,7 @@
     "AskActivateGenerator": "Les patates produisent de l'électrictité. A condition d'activer le générateur bien sûr...",
     "RemindActivateGenerator": "C'est pas l'heure de la sieste! Active l'électricité ou les autres modules vont s'arrêter.",
     "RemindActivateGenerator2": "Annonce de service. Le courant va être coupé dans 3...2...1...",
-    "GeneratorIsActive": "C'est bon ta base est prête. Maintenant il faut produire beaucoup d'électricité pour réparer l'antenne. ",
+	"GeneratorIsActive" : "Enfin un peu d'électricité.",
+    "AllActive": "C'est bon ta base est prête. Maintenant il faut produire beaucoup d'électricité pour réparer l'antenne. ",
 
 }
