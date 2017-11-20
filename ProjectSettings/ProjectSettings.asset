@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 13
-  productGUID: 2d5feead84db38c43a1414072c51fbe2
+  productGUID: 8ebe31c4b85bc0344a604a8a454fdd1a
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   defaultScreenOrientation: 4
@@ -603,9 +603,9 @@ PlayerSettings:
     UNet: 1
   facebookSdkVersion: 7.9.4
   apiCompatibilityLevel: 2
-  cloudProjectId: c6952822-2c1b-4765-bdb2-fc0384fef1c5
-  projectName: GameJam (1)
-  organizationId: leonarda-l
+  cloudProjectId: ef4aff9a-40b6-4fde-b018-699d22f0849e
+  projectName: GameJam
+  organizationId: unity_yvwacwb5nw5fyw
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0
