@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 65938548936641906}
   - component: {fileID: 114233867140475816}
   m_Layer: 0
-  m_Name: electricity_view_prefab
+  m_Name: Electricity_view_prefab
   m_TagString: ModuleView
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

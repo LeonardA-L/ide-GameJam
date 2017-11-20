@@ -1,10 +1,17 @@
 {
-    "AskActivateTank": "Salut. Active la citerne stp je veux pas mourir de soif.",
-    "RemindActivateTank": "J'attend là gros active la citerne il faut cliquer dessus",
-    "RemindActivateTankPart2": "T'abuses grave n'empêche",
+    "IntroTutorial": "Bienvenue Captain Capsule. Ici Captain Crispies. Je suis en orbite autour de Mars. On m'a demandé de veiller sur toi.",
+    "IntroTutorial2" : "Pas inutile vu que tu as cassé ton antenne de communication après ton atterrissage catastrophique. Allez, au boulot.",
+    "AskActivateWater": "Conseil d'ami : tu devrais activer le module eau.",
+    "RemindActivateWater" : "On ne t'a pas appris que l'eau est la base de la survie?",
+    "RemindActivateWater2" :"Tu n'as plus que quelques secondes pour activer le module eau. Ce serait dommage de finir ta vie sur Mars",
+    "WaterIsActive": "Tu as enfin trouvé comment activer l'eau.Pas si mal pour un débutant",
+    "AskActivatePotatoes":"Tu n'as pas un petit creux? Il paraît que les patates ne sont pas mauvaises.",
+    "RemindActivatePotatoes" : "2ème leçon du manuel du parfait astronaute :se nourrir. Justement tu as un module de patates.",
+    "RemindActivatePotatoes2" : "Je me prépare à envoyer ton avis de décès : mort de faim.",
+    "PotatoesAreActive" :"C'est bon ton module patate est lancé. A table!",
+    "AskActivateGenerator": "Les patates produisent de l'électrictité. A condition d'activer le générateur bien sûr...",
+    "RemindActivateGenerator": "C'est pas l'heure de la sieste! Active l'électricité ou les autres modules vont s'arrêter.",
+    "RemindActivateGenerator2": "Annonce de service. Le courant va être coupé dans 3...2...1...",
+    "GeneratorIsActive": "C'est bon ta base est prête. Maintenant il faut produire beaucoup d'électricité pour réparer l'antenne. ",
 
-    "TankIsActive": "Ah bien la citerne est activée.",
-    "AskRepairGenerator": "Bon maintenant répare le générateur",
-
-    "CongratsRepareGenerator": "Ah ben bien joué je pensais pas que tu y arriverais"
 }

@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 65920123755734024}
   - component: {fileID: 114821995101428394}
   m_Layer: 0
-  m_Name: water_view_prefab
+  m_Name: Water_view_prefab
   m_TagString: ModuleView
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
