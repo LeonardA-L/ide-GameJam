@@ -61,7 +61,6 @@ namespace MarsFrenzy
 
         public void Next()
         {
-            Debug.Log("Next in queue");
             idx++;
             if (idx >= parts.Count)
             {

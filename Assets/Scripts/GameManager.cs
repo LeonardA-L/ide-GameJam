@@ -17,6 +17,7 @@ namespace MarsFrenzy
         public float timer = 0;
         public int frame = 0;
         private float lastTime;
+        public float lastDialog = 0;
 
         private Text ductTapeStock;
         private Text timerText;
@@ -180,6 +181,7 @@ namespace MarsFrenzy
         public void EndDialog()
         {
             Play();
+            lastDialog = timer;
         }
 
         public bool IsActive(string name)
@@ -194,6 +196,44 @@ namespace MarsFrenzy
             return false;
         }
 
+        public void SetActive(string name, bool _active)
+        {
+            for (int i = 0; i < modules.Count; i++)
+            {
+                if (modules[i].res.name == name)
+                {
+                    modules[i].activated = _active;
+                }
+            }
+        }
+
+        public void AddAmount(string name, float _howMuch)
+        {
+            for (int i = 0; i < modules.Count; i++)
+            {
+                if (modules[i].res.name == name)
+                {
+                    modules[i].res.amount += _howMuch;
+                    if(modules[i].res.amount < 0.0f)
+                    {
+                        modules[i].res.amount = 0.0f;
+                    }
+                }
+            }
+        }
+
+        public float GetAmount(string name)
+        {
+            for (int i = 0; i < modules.Count; i++)
+            {
+                if (modules[i].res.name == name)
+                {
+                    return modules[i].res.amount;
+                }
+            }
+            return 0.0f;
+        }
+
         public float GetModuleHealth(string name)
         {
             for (int i = 0; i < modules.Count; i++)
@@ -204,6 +244,21 @@ namespace MarsFrenzy
                 }
             }
             return -1.0f;
+        }
+
+        public void AddModuleHealth(string name, float _howMuch)
+        {
+            for (int i = 0; i < modules.Count; i++)
+            {
+                if (modules[i].res.name == name)
+                {
+                    modules[i].moduleHealth += _howMuch;
+                    if(modules[i].moduleHealth < 0.0f)
+                    {
+                        modules[i].moduleHealth = 0.0f;
+                    }
+                }
+            }
         }
 
         public float GetPlayerHunger()

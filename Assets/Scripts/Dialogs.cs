@@ -16,6 +16,7 @@ namespace MarsFrenzy
             // Write new dialog events here
 
             // Step 0
+            
             events.Add(new DialogEvent(
                 CreateListString("IntroTutorial",
                                   "IntroTutorial2"),
@@ -100,12 +101,37 @@ namespace MarsFrenzy
 
         // ############# TRIGGER FUNCTIONS ###############
 
-            // Step 0
+        /*
+            //####### Available Conditions
 
+            //#### Test step
+            && OnboardingStep == 0
+
+            //#### Test time
+            && timeIs(65.0f)                   // Global Clock is 65s
+            && TimeSinceLastDialogIs(15.0f)    // Time since last dialog ENDED is 15s
+
+            //#### Test Activity
+            && isWaterTankActive()
+            && isGeneratorActive()
+            && isPotatoFieldActive()
+
+            //#### Test Module info
+            && GetModuleHealth("water") >= 80.0f // Water module is at 80% health or more
+            && GetAmount("potatoes") > 112       // Stock of potatoes is more than 112 units
+
+            //#### Test Player state
+            && IsPlayerDead()
+            && GetPlayerHunger() >= 95.0f        // Hunger is at 95% or MORE
+            && GetPlayerThirst() < 50.0f         // Thirst is at 50% or LESS
+
+        */
+
+        // Step 0
         static bool Step0()
         {
             return OnboardingStep == 0    // OnBoardingStep is 0
-                && timeIs(2.0f);         // AND timer is at 5s
+                && timeIs(5.0f);         // AND timer is at 5s
         }
 
         static bool Step0_Water_Tank_Still_Not_Active()
@@ -201,6 +227,31 @@ namespace MarsFrenzy
 
         // ############# POST DIALOG ACTIONS ###############
 
+        /* ######### Available Actions
+        
+
+        //#### Change Onboarding step
+        IncrementOnboardingStep();
+        SetOnboardingStep(12);
+
+        //#### Activate a Module
+        Activate("potatoes");
+        Deactivate("water");
+
+        //#### Add amount of stock
+        AddAmount("water", 5);
+        AddAmount("electricity", -7);
+
+        //#### End the game
+        TriggerVictory();
+        TriggerGameOver();
+
+        //#### Add amount of health to module
+        AddModuleHealth("potatoes", -60.0f); // Removes 60%
+
+
+        */
+
         static void End_Of_Step0()
         {
             Debug.Log("User just did step 0");
@@ -218,18 +269,12 @@ namespace MarsFrenzy
         {
             Debug.Log("User just did step 10");
             SetOnboardingStep(15);
-            // Example: Decrease number of potatoes
-            // Example: Deactivate generator for 10s
-            // ...
         }
 
         static void End_Of_Step15()
         {
             Debug.Log("User just did step 15");
             SetOnboardingStep(20);
-            // Example: Decrease number of potatoes
-            // Example: Deactivate generator for 10s
-            // ...
         }
 
 
@@ -237,17 +282,11 @@ namespace MarsFrenzy
         {
             Debug.Log("User just did step 20");
             SetOnboardingStep(25);
-            // Example: Decrease number of potatoes
-            // Example: Deactivate generator for 10s
-            // ...
         }
         static void End_Of_Step25()
         {
             Debug.Log("User just did step 25");
             SetOnboardingStep(30);
-            // Example: Decrease number of potatoes
-            // Example: Deactivate generator for 10s
-            // ...
         }
 
 
@@ -273,6 +312,8 @@ namespace MarsFrenzy
             return parts;
         }
 
+        // ############# GETTERS ############# don't touch
+
         private static bool timeIs(float _time)
         {
             return GameManager.Instance.timer >= _time;
@@ -289,16 +330,6 @@ namespace MarsFrenzy
         private static bool isGeneratorActive()
         {
             return GameManager.Instance.IsActive("electricity");
-        }
-
-        private static void IncrementOnboardingStep()
-        {
-            GameManager.Instance.OnboardingStep = GameManager.Instance.OnboardingStep + 1;
-        }
-
-        private static void SetOnboardingStep(int _val)
-        {
-            GameManager.Instance.OnboardingStep = _val;
         }
 
         private static float GetModuleHealth(string name)
@@ -321,12 +352,64 @@ namespace MarsFrenzy
             return GameManager.Instance.GetPlayerThirst();
         }
 
+        private static float GetAmount(string name)
+        {
+            return GameManager.Instance.GetAmount(name);
+        }
+
+        private static bool TimeSinceLastDialogIs(float _threshold)
+        {
+            return GameManager.Instance.timer - GameManager.Instance.lastDialog >= _threshold;
+        }
+
         private static int OnboardingStep
         {
             get
             {
                 return GameManager.Instance.OnboardingStep;
             }
+        }
+
+        // ############# SETTERS ############# don't touch
+
+        private static void IncrementOnboardingStep()
+        {
+            GameManager.Instance.OnboardingStep = GameManager.Instance.OnboardingStep + 1;
+        }
+
+        private static void SetOnboardingStep(int _val)
+        {
+            GameManager.Instance.OnboardingStep = _val;
+        }
+
+        private static void Activate(string name)
+        {
+            GameManager.Instance.SetActive(name, true);
+        }
+
+        private static void Deactivate(string name)
+        {
+            GameManager.Instance.SetActive(name, false);
+        }
+
+        public static void AddModuleHealth(string name, float _howMuch)
+        {
+            GameManager.Instance.AddModuleHealth(name, _howMuch);
+        }
+
+        public static void AddAmount(string name, float _howMuch)
+        {
+            GameManager.Instance.AddAmount(name, _howMuch);
+        }
+
+        public static void TriggerVictory()
+        {
+            GameManager.Instance.TriggerVictory();
+        }
+
+        public static void TriggerGameOver()
+        {
+            GameManager.Instance.TriggerGameOver();
         }
     }
 }
