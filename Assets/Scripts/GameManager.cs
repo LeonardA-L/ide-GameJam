@@ -20,6 +20,8 @@ namespace MarsFrenzy
         private Text ductTapeStock;
         private Text timerText;
 
+        public CharacterLife character;
+
         private int onboardingStep = 0;
         public int OnboardingStep
         {
@@ -65,6 +67,8 @@ namespace MarsFrenzy
                 modules.Add(module);
             }
 
+            character.Init(this, data.playerHungerStart, data.playerThirstStart, data.starvationDecay);
+
             GameObject ductTapeStockObj = GameObject.Find("/UI_prefab/MainCanvas/Resources/ductTape_Stock");
             ductTapeStock = ductTapeStockObj.GetComponent<Text>();
 
@@ -83,7 +87,7 @@ namespace MarsFrenzy
                 frame++;
             }
 
-            if ((timer - lastTime) > data.gameClock)
+            if (timeRuns && (timer - lastTime) > data.gameClock)
             {
                 lastTime = Time.time;
                 Tick();
@@ -96,13 +100,12 @@ namespace MarsFrenzy
 
         private void Tick()
         {
-            if (timeRuns)
+            for (int i = 0; i < modules.Count; i++)
             {
-                for (int i = 0; i < modules.Count; i++)
-                {
-                    modules[i].Tick();
-                }
+                modules[i].Tick();
             }
+
+            character.Tick();
         }
 
         private static void setInstance(GameManager _instance)
@@ -182,6 +185,21 @@ namespace MarsFrenzy
                 }
             }
             return -1.0f;
+        }
+
+        public float GetPlayerHunger()
+        {
+            return character.hunger;
+        }
+
+        public float GetPlayerThirst()
+        {
+            return character.thirst;
+        }
+
+        public bool IsPlayerDead()
+        {
+            return character.dead;
         }
     }
 

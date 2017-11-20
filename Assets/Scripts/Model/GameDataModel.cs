@@ -9,5 +9,9 @@ namespace MarsFrenzy
         public int gameClock = 1;
         public ModuleHealthThreshold[] moduleHealthThresholds;
         public ResourceModel ductTape;
+
+        public float playerHungerStart = 100.0f;
+        public float playerThirstStart = 100.0f;
+        public float starvationDecay = 10.0f;
     }
 }
