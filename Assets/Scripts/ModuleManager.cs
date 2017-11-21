@@ -77,7 +77,7 @@ namespace MarsFrenzy
 
             transform.position = new Vector3(res.x, 0.0f, res.z);
 
-            GameObject stockObj = GameObject.Find("/UI_prefab/MainCanvas/Resources/" + res.name + "_Stock");
+            GameObject stockObj = GameObject.Find("/UI_prefab/MainCanvas/Resources/BackgroundOrange/" + res.name + "/"+ res.name+"_Stock");
             stock = stockObj.GetComponent<Text>();
 
             // Upgrade UI

@@ -78,10 +78,10 @@ namespace MarsFrenzy
 
             character.Init(this, data.playerHungerStart, data.playerThirstStart, data.starvationDecay);
 
-            GameObject ductTapeStockObj = GameObject.Find("/UI_prefab/MainCanvas/Resources/ductTape_Stock");
+            GameObject ductTapeStockObj = GameObject.Find("/UI_prefab/MainCanvas/Resources/BackgroundBlue/ductTape/ductTape_Stock");
             ductTapeStock = ductTapeStockObj.GetComponent<Text>();
 
-            GameObject scrapStockObj = GameObject.Find("/UI_prefab/MainCanvas/Resources/scrap_Stock");
+            GameObject scrapStockObj = GameObject.Find("/UI_prefab/MainCanvas/Resources/BackgroundBlue/scrap/scrap_Stock");
             scrapStock = scrapStockObj.GetComponent<Text>();
 
             GameObject timerTextObj = GameObject.Find("/UI_prefab/MainCanvas/Timer");
