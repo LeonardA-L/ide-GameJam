@@ -126,37 +126,37 @@ namespace MarsFrenzy
 
 static bool Step500()
 {
-    return Dialogs.timeIs(100.0f);
+    return Dialogs.timeIs(500.0f);
 }
 
  // Step 530 MarsStorm
 
  static bool Step550()
         {
-            return Dialogs.timeIs(105.0f);
+            return Dialogs.timeIs(505.0f);
         }
 
         // Step 600 BeforeEclipse
         static bool Step600()
         {
-            return Dialogs.timeIs(200.0f);
+            return Dialogs.timeIs(800.0f);
         }
 // Step 610 Eclipse
 static bool Step650()
         {
             return Dialogs.OnboardingStep == 650
-                && Dialogs.timeIs(205.0f);
+                && Dialogs.timeIs(805.0f);
         }
     // Step 700  BeforeWaterKo
     static bool Step700()
     {
-        return Dialogs.timeIs(300.0f);
+        return Dialogs.timeIs(1000.0f);
     }
         // Step 710  WaterKo
         static bool Step750()
         {
             return Dialogs.OnboardingStep == 750
-                && Dialogs.timeIs(305.0f);
+                && Dialogs.timeIs(1005.0f);
         }
 
         // Step 800 AvertUpgradePotatoes
@@ -185,7 +185,7 @@ static bool Step650()
         // Step 2000 PlayerVictory
         static bool Step2000()
         {
-            return Dialogs.timeIs(420.0f);
+            return Dialogs.timeIs(10000.0f);
         }
 
 

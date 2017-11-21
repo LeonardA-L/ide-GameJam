@@ -8,7 +8,11 @@
     "AskActivateGenerator": "Les patates produisent de l'électrictité. A condition d'activer le générateur bien sûr...",
     "RemindActivateGenerator": "Annonce de service. Le courant va être coupé dans 3...2...1...",
     "AllActive": "C'est bon ta base est prête. Tous les modules sont activés.",
-
+    "IntroRepair":"On dirait que ton module électricité a un peu surchauffé. Tu peux le réparer en appuyant longuement dessus.",
+    "TutoRepair":"Essaie de remettre en marche ton module électricité.",
+    "RepairOk": "Parfait, le module est réparé.", 
+    "RepairKo":"Je te conseille de réparer ton module dès maintenant.",
+    "RepairEnd":"La réparation consomme du scotch. Attention à ton stock !",
 
 
     "BeforeMarsStorm":"Une tempête solaire approche. Accroche toi, ça va secouer !",	
@@ -22,6 +26,9 @@
     "Noise2": "..... shhhhreçois ? .....",
     "FirstContact": "... Tu me reçois ? Ah. On dirait que la connexion est rétablie.",
     "FirstContact2": "Sacré atterissage ! Je vois que tu es toujours en vie. C'est déjà ça."
+
+
+
 }
 
 
