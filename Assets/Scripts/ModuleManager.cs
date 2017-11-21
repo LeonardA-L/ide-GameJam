@@ -15,7 +15,8 @@ namespace MarsFrenzy
         public bool activated = false;
         public bool repairing = false;
 
-        public Transform health;    // TMP TODO
+        public Transform health;
+        public Animator healthAnimator;
         private Text stock;
 
         public float moduleHealth = 100.0f;
@@ -40,6 +41,7 @@ namespace MarsFrenzy
         void Start()
         {
             animator.SetBool("activated", activated);
+            healthAnimator = health.gameObject.GetComponent<Animator>();
         }
 
         public void Init(int _id, ResourceModel _resource, ResourceModel _fuelResource, GameManager _manager)
@@ -206,7 +208,11 @@ namespace MarsFrenzy
 
         private void updateHealthView()
         {
-            health.localScale = new Vector3(moduleHealth / 100.0f, 1.0f, 1.0f);
+            health.localScale = new Vector3(Mathf.Clamp(moduleHealth / 100.0f, 0.05f, 1.0f), 1.0f, 1.0f);
+            if (healthAnimator)
+            {
+                healthAnimator.SetFloat("health", moduleHealth);
+            }
             if (healthyView != null)
             {
                 float healhyBrokenThreshold = gm.data.moduleHealthThresholds[2].threshold;  // 60%
