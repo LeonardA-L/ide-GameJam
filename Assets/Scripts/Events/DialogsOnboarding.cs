@@ -45,112 +45,105 @@ namespace MarsFrenzy
                 ExitFirstPart
             ));
 
-            // Step 0
-            /*
+            // Step 50
+          
             events.Add(new DialogEvent(
-                Dialogs.CreateListString("IntroTutorial",
-                                  "IntroTutorial2"),
-                Step0
-            ));
-
-            events.Add(new DialogEvent(
-                Dialogs.CreateListString("AskActivateWater"),
-                Step0_Water_Tank_Still_Not_Active
-            ));
-
-            events.Add(new DialogEvent(
-             Dialogs.CreateListString("RemindActivateWater"),
-             Step0_Water_Tank_Still_Not_Active_Remind10
-         ));
-
-            events.Add(new DialogEvent(
-            Dialogs.CreateListString("RemindActivateWater2"),
-            Step0_Water_Tank_Still_Not_Active_Remind20
-        ));
-
-            // EXAMINONS CET EXEMPLE
-            events.Add(new DialogEvent(                                          // Il faut garder cette ligne
-                Dialogs.CreateListString("WaterIsActive"),                 // *Eventuellement*, ajouter d'autres messages
-                Step0_Water_Tank_Active,                                         // Donner une fonction de condition de déclenchement
-                End_Of_Step0                                                     // *Eventuellement*, ajouter une fonction d'action à effectuer après le dialogue
-         ));
-
-
-            //Step 5
-            events.Add(new DialogEvent(                        //si patate déjà activé on passe au step 15
-               Dialogs.CreateListString(),
-               Step5_Potatoes_Field_Active,
-               End_Of_Step5
-            ));
-            events.Add(new DialogEvent(                        //si patate pas activé on passe au step 10
-               Dialogs.CreateListString(),
-               Step5_Potatoes_Field_NotActive,
-               End_Of_Step5_alternative
+                Dialogs.CreateListString("IntroTutorial"),
+                Step50,
+                End_Of_Step50
             ));
 
 
-            //Step 10
+
+            // Step 60 Verif water
+
             events.Add(new DialogEvent(
-                Dialogs.CreateListString("AskActivatePotatoes"),
-                Step10_Potatoes_Field_Still_Not_Active
+                Dialogs.CreateListString(),
+                Step60_Water_Active,
+                End_Of_Step60_Water_Ok
+            ));
+            events.Add(new DialogEvent(
+            Dialogs.CreateListString(),
+            Step60_Water_NotActive,
+            End_Of_Step60_Water_Ko
+           ));
+
+            // Step 65 Activ water
+            events.Add(new DialogEvent(
+             Dialogs.CreateListString("AskActivateWater"),
+             Step65_Water_Active,
+             End_Of_Step65_Water_Active
+             ));
+
+            // Step 68 Remind water
+            events.Add(new DialogEvent(
+            Dialogs.CreateListString("RemindActivateWater"),
+            Step68_Water_Active,
+            End_Of_Step68_Water_Active
+            ));
+
+            // Step 70 Verif potatoes
+
+            events.Add(new DialogEvent(
+                Dialogs.CreateListString(),
+                Step70_Potatoes_Active,
+                End_Of_Step70_Potatoes_Ok
+            ));
+            events.Add(new DialogEvent(
+            Dialogs.CreateListString(),
+            Step70_Potatoes_NotActive,
+            End_Of_Step70_Potatoes_Ko
+           ));
+
+            // Step 75 Activ potatoes
+            events.Add(new DialogEvent(
+             Dialogs.CreateListString("AskActivatePotatoes"),
+             Step75_Potatoes_Active,
+             End_Of_Step75_Potatoes_Active
+             ));
+
+            // Step 78 Remind potatoes
+            events.Add(new DialogEvent(
+         Dialogs.CreateListString("RemindActivatePotatoes"),
+         Step78_Potatoes_Active,
+         End_Of_Step78_Potatoes_Active
          ));
-            events.Add(new DialogEvent(
-               Dialogs.CreateListString("RemindActivatePotatoes"),
-               Step10_Potatoes_Field_Still_Not_Active_Remind10
-         ));
-            events.Add(new DialogEvent(
-              Dialogs.CreateListString("RemindActivatePotatoes2"),
-              Step10_Potatoes_Field_Still_Not_Active_Remind20
-        ));
+
+            // Step 80 Verif electricity
 
             events.Add(new DialogEvent(
-             Dialogs.CreateListString("PotatoesAreActive"),
-             Step10_Potatoes_Field_Active,
-             End_Of_Step10
-        ));
-
-            //Step 15
-            events.Add(new DialogEvent(                        //si électricité déjà activé on passe au step 25
-              Dialogs.CreateListString(),
-              Step15_Generator_Active,
-              End_Of_Step15
-
-       ));
-            events.Add(new DialogEvent(                        //si électricité pas activé on passe au step 20
-          Dialogs.CreateListString(),
-          Step15_Generator_NotActive,
-          End_Of_Step15_alternative
-
-   ));
-
-
-            //Step 20
+                Dialogs.CreateListString(),
+                Step80_Generato_Active,
+                End_Of_Step80_Electricity_Ok
+            ));
+            events.Add(new DialogEvent(
+            Dialogs.CreateListString(),
+            Step80_Generator_NotActive,
+            End_Of_Step80_Electricity_Ko
+           ));
+            // Step 85 Activ electricity
             events.Add(new DialogEvent(
              Dialogs.CreateListString("AskActivateGenerator"),
-             Step20_Generator_Still_Not_Active
-        ));
+             Step85_Generator_Active,
+             End_Of_Step85_Electrictiy_Active
+             ));
+            // Step 88 Remind electricity
             events.Add(new DialogEvent(
              Dialogs.CreateListString("RemindActivateGenerator"),
-             Step20_Generator_Still_Not_Active_Remind10
-        ));
+             Step88_Generator_Active,
+             End_Of_Step88_Electrictiy_Active
+             ));
+
+            // Step 90 All active
             events.Add(new DialogEvent(
-            Dialogs.CreateListString("RemindActivateGenerator2"),
-            Step20_Generator_Still_Not_Active_Remind20
-        ));
-            events.Add(new DialogEvent(
-            Dialogs.CreateListString("GeneratorIsActive"),
-            Step20_Generator_Active
-        ));
-
-            //Step 25
-
-            events.Add(new DialogEvent(                        //si tout activé tuto validé
-                        Dialogs.CreateListString("AllActive"),
-                        Step25_All_Active,
-                        End_Of_Step25
-
-                 ));
-                 */
+             Dialogs.CreateListString("AllActive"),
+             Step90_All_Active,
+             End_Of_Step90_All_Active
+             ));
+           
+            /*
+         
+                */
 
             return events;
         }
@@ -220,122 +213,197 @@ namespace MarsFrenzy
                 && Wait(2.0f);
         }
 
-        // Step 0
-        /*
-        static bool Step0()
+
+        static bool Step50()
         {
-            return Dialogs.OnboardingStep == 0    // Dialogs.OnboardingStep is 0
-                && Dialogs.timeIs(3.0f);         // AND timer is at 5s
+            return Dialogs.OnboardingStep == 50    // Dialogs.OnboardingStep is 0
+                && Dialogs.timeIs(5.0f);         // AND timer is at 5s
         }
 
-        static bool Step0_Water_Tank_Still_Not_Active()
+        static bool Step60_Water_Active()
         {
-            return Dialogs.OnboardingStep == 0     // Dialogs.OnboardingStep is 0
-                && Dialogs.timeIs(5.0f)          // AND timer is at 10s
-                && !Dialogs.isWaterTankActive();    // AND water tank is NOT active
+            return Dialogs.OnboardingStep == 60    
+                && Dialogs.isWaterTankActive();         
         }
-        static bool Step0_Water_Tank_Still_Not_Active_Remind10()
+
+        static bool Step60_Water_NotActive()
         {
-            return Dialogs.OnboardingStep == 0
-                && Dialogs.timeIs(10.0f)
+            return Dialogs.OnboardingStep == 60
                 && !Dialogs.isWaterTankActive();
         }
 
-        static bool Step0_Water_Tank_Still_Not_Active_Remind20()
+        static bool Step65_Water_Active()
         {
-            return Dialogs.OnboardingStep == 0     // Dialogs.OnboardingStep is 0
-                && Dialogs.timeIs(15.0f)          // AND timer is at 10s
-                && !Dialogs.isWaterTankActive();    // AND water tank is NOT active
+            return Dialogs.OnboardingStep == 65
+                && !Dialogs.isWaterTankActive();
+        }
+        static bool Step68_Water_Active()
+        {
+            return Dialogs.OnboardingStep == 68
+                && !Dialogs.TimeSinceLastDialogIs(5.0f)
+                && !Dialogs.isWaterTankActive();
         }
 
-        static bool Step0_Water_Tank_Active()
+        static bool Step70_Potatoes_Active()
         {
-            return Dialogs.OnboardingStep == 0
+            return Dialogs.OnboardingStep == 70
+                && Dialogs.isPotatoFieldActive();
+        }
+
+        static bool Step70_Potatoes_NotActive()
+        {
+            return Dialogs.OnboardingStep == 70
+                && !Dialogs.isPotatoFieldActive();
+        }
+        static bool Step75_Potatoes_Active()
+        {
+            return Dialogs.OnboardingStep == 75
+                && !Dialogs.isPotatoFieldActive();
+        }
+        static bool Step78_Potatoes_Active()
+        {
+            return Dialogs.OnboardingStep == 78
+                && !Dialogs.TimeSinceLastDialogIs(5.0f)
+                && !Dialogs.isPotatoFieldActive();
+        }
+        static bool Step80_Generato_Active()
+        {
+            return Dialogs.OnboardingStep == 80
+                && Dialogs.isGeneratorActive();
+        }
+
+        static bool Step80_Generator_NotActive()
+        {
+            return Dialogs.OnboardingStep == 80
+                && !Dialogs.isGeneratorActive();
+        }
+        static bool Step85_Generator_Active()
+        {
+            return Dialogs.OnboardingStep == 85
+                && !Dialogs.isGeneratorActive();
+        }
+        static bool Step88_Generator_Active()
+        {
+            return Dialogs.OnboardingStep == 88
+                && !Dialogs.TimeSinceLastDialogIs(5.0f)
+                && !Dialogs.isGeneratorActive();
+        }
+        static bool Step90_All_Active()
+        {
+            return Dialogs.OnboardingStep == 90
+                && Dialogs.isGeneratorActive()
+                && Dialogs.isPotatoFieldActive()
                 && Dialogs.isWaterTankActive();
         }
+        /*
+       static bool Step0_Water_Tank_Still_Not_Active()
+       {
+           return Dialogs.OnboardingStep == 0     // Dialogs.OnboardingStep is 0
+               && Dialogs.timeIs(5.0f)          // AND timer is at 10s
+               && !Dialogs.isWaterTankActive();    // AND water tank is NOT active
+       }
+       static bool Step0_Water_Tank_Still_Not_Active_Remind10()
+       {
+           return Dialogs.OnboardingStep == 0
+               && Dialogs.timeIs(10.0f)
+               && !Dialogs.isWaterTankActive();
+       }
 
-        // Step 5
-        static bool Step5_Potatoes_Field_Active()  // si patate déjà activé on passe au step 15
-        {
-            return Dialogs.OnboardingStep == 5
-                && Dialogs.isPotatoFieldActive();
-        }
-        static bool Step5_Potatoes_Field_NotActive()  // si patate pas activé on passe au step 10
-        {
-            return Dialogs.OnboardingStep == 5
-                && !Dialogs.isPotatoFieldActive();
-        }
+       static bool Step0_Water_Tank_Still_Not_Active_Remind20()
+       {
+           return Dialogs.OnboardingStep == 0     // Dialogs.OnboardingStep is 0
+               && Dialogs.timeIs(15.0f)          // AND timer is at 10s
+               && !Dialogs.isWaterTankActive();    // AND water tank is NOT active
+       }
 
-        // Step 10 
-        static bool Step10_Potatoes_Field_Still_Not_Active()
-        {
-            return Dialogs.OnboardingStep == 10
-                && Dialogs.timeIs(20.0f)
-                && !Dialogs.isPotatoFieldActive();
-        }
-        static bool Step10_Potatoes_Field_Still_Not_Active_Remind10()
-        {
-            return Dialogs.OnboardingStep == 10
-                && Dialogs.timeIs(30.0f)
-                && !Dialogs.isPotatoFieldActive();
-        }
-        static bool Step10_Potatoes_Field_Still_Not_Active_Remind20()
-        {
-            return Dialogs.OnboardingStep == 10
-                && Dialogs.timeIs(40.0f)
-                && !Dialogs.isPotatoFieldActive();
-        }
-        static bool Step10_Potatoes_Field_Active()
-        {
-            return Dialogs.OnboardingStep == 10
-                && Dialogs.isPotatoFieldActive();
-        }
+       static bool Step0_Water_Tank_Active()
+       {
+           return Dialogs.OnboardingStep == 0
+               && Dialogs.isWaterTankActive();
+       }
 
-        // Step 15
-        static bool Step15_Generator_Active()  // si électricité déjà activé on passe au step 25
-        {
-            return Dialogs.OnboardingStep == 15
-                && Dialogs.isGeneratorActive();
-        }
-        static bool Step15_Generator_NotActive()  // si électricité pas activé on passe au step 20
-        {
-            return Dialogs.OnboardingStep == 15
-                && !Dialogs.isGeneratorActive();
-        }
+       // Step 5
+       static bool Step5_Potatoes_Field_Active()  // si patate déjà activé on passe au step 15
+       {
+           return Dialogs.OnboardingStep == 5
+               && Dialogs.isPotatoFieldActive();
+       }
+       static bool Step5_Potatoes_Field_NotActive()  // si patate pas activé on passe au step 10
+       {
+           return Dialogs.OnboardingStep == 5
+               && !Dialogs.isPotatoFieldActive();
+       }
+
+       // Step 10 
+       static bool Step10_Potatoes_Field_Still_Not_Active()
+       {
+           return Dialogs.OnboardingStep == 10
+               && Dialogs.timeIs(20.0f)
+               && !Dialogs.isPotatoFieldActive();
+       }
+       static bool Step10_Potatoes_Field_Still_Not_Active_Remind10()
+       {
+           return Dialogs.OnboardingStep == 10
+               && Dialogs.timeIs(30.0f)
+               && !Dialogs.isPotatoFieldActive();
+       }
+       static bool Step10_Potatoes_Field_Still_Not_Active_Remind20()
+       {
+           return Dialogs.OnboardingStep == 10
+               && Dialogs.timeIs(40.0f)
+               && !Dialogs.isPotatoFieldActive();
+       }
+       static bool Step10_Potatoes_Field_Active()
+       {
+           return Dialogs.OnboardingStep == 10
+               && Dialogs.isPotatoFieldActive();
+       }
+
+       // Step 15
+       static bool Step15_Generator_Active()  // si électricité déjà activé on passe au step 25
+       {
+           return Dialogs.OnboardingStep == 15
+               && Dialogs.isGeneratorActive();
+       }
+       static bool Step15_Generator_NotActive()  // si électricité pas activé on passe au step 20
+       {
+           return Dialogs.OnboardingStep == 15
+               && !Dialogs.isGeneratorActive();
+       }
 
 
 
-        //Step 20
-        static bool Step20_Generator_Still_Not_Active()
-        {
-            return Dialogs.OnboardingStep == 20
-                && Dialogs.timeIs(50.0f)
-                && !Dialogs.isGeneratorActive();
-        }
-        static bool Step20_Generator_Still_Not_Active_Remind10()
-        {
-            return Dialogs.OnboardingStep == 20
-                && Dialogs.timeIs(60.0f)
-                && !Dialogs.isGeneratorActive();
-        }
-        static bool Step20_Generator_Still_Not_Active_Remind20()
-        {
-            return Dialogs.OnboardingStep == 20
-                && Dialogs.timeIs(80.0f)
-                && !Dialogs.isGeneratorActive();
-        }
-        static bool Step20_Generator_Active()
-        {
-            return Dialogs.OnboardingStep == 20
-                && Dialogs.isGeneratorActive();
-        }
+       //Step 20
+       static bool Step20_Generator_Still_Not_Active()
+       {
+           return Dialogs.OnboardingStep == 20
+               && Dialogs.timeIs(50.0f)
+               && !Dialogs.isGeneratorActive();
+       }
+       static bool Step20_Generator_Still_Not_Active_Remind10()
+       {
+           return Dialogs.OnboardingStep == 20
+               && Dialogs.timeIs(60.0f)
+               && !Dialogs.isGeneratorActive();
+       }
+       static bool Step20_Generator_Still_Not_Active_Remind20()
+       {
+           return Dialogs.OnboardingStep == 20
+               && Dialogs.timeIs(80.0f)
+               && !Dialogs.isGeneratorActive();
+       }
+       static bool Step20_Generator_Active()
+       {
+           return Dialogs.OnboardingStep == 20
+               && Dialogs.isGeneratorActive();
+       }
 
-        //Step 25
-        static bool Step25_All_Active()  // si tout déjà activé bravo
-        {
-            return Dialogs.OnboardingStep == 25;
-        }
-        */
+       //Step 25
+       static bool Step25_All_Active()  // si tout déjà activé bravo
+       {
+           return Dialogs.OnboardingStep == 25;
+       }
+       */
 
 
 
@@ -381,10 +449,79 @@ namespace MarsFrenzy
 
         static void ExitFirstPart()
         {
-            Debug.Log("User finished intro. Going to step 100");
+            Debug.Log("User finished intro. Going to step 50");
+            Dialogs.SetOnboardingStep(50);
+        }
+        static void End_Of_Step50()
+        {
+            Debug.Log("User just did step 50");
+            Dialogs.SetOnboardingStep(60);
+        }
+        static void End_Of_Step60_Water_Ok()
+        {
+            Debug.Log("User just did step 60");
+            Dialogs.SetOnboardingStep(70);
+        }
+        static void End_Of_Step60_Water_Ko()
+        {
+            Debug.Log("User just did step 60");
+            Dialogs.SetOnboardingStep(65);
+        }
+        static void End_Of_Step65_Water_Active()
+        {
+            Debug.Log("User just did step 65");
+            Dialogs.SetOnboardingStep(68);
+        }
+        static void End_Of_Step68_Water_Active()
+        {
+            Debug.Log("User just did step 68");
+            Dialogs.SetOnboardingStep(70);
+        }
+        static void End_Of_Step70_Potatoes_Ok()
+        {
+            Debug.Log("User just did step 70");
+            Dialogs.SetOnboardingStep(80);
+        }
+        static void End_Of_Step70_Potatoes_Ko()
+        {
+            Debug.Log("User just did step 70");
+            Dialogs.SetOnboardingStep(75);
+        }
+        static void End_Of_Step75_Potatoes_Active()
+        {
+            Debug.Log("User just did step 75");
+            Dialogs.SetOnboardingStep(78);
+        }
+        static void End_Of_Step78_Potatoes_Active()
+        {
+            Debug.Log("User just did step 78");
+            Dialogs.SetOnboardingStep(80);
+        }
+        static void End_Of_Step80_Electricity_Ok()
+        {
+            Debug.Log("User just did step 80");
+            Dialogs.SetOnboardingStep(90);
+        }
+        static void End_Of_Step80_Electricity_Ko()
+        {
+            Debug.Log("User just did step 80");
+            Dialogs.SetOnboardingStep(90);
+        }
+        static void End_Of_Step85_Electrictiy_Active()
+        {
+            Debug.Log("User just did step 85");
+            Dialogs.SetOnboardingStep(88);
+        }
+        static void End_Of_Step88_Electrictiy_Active()
+        {
+            Debug.Log("User just did step 88");
+            Dialogs.SetOnboardingStep(90);
+        }
+        static void End_Of_Step90_All_Active()
+        {
+            Debug.Log("User just did step 90");
             Dialogs.SetOnboardingStep(100);
         }
-
         /*
         static void End_Of_Step0()
         {
