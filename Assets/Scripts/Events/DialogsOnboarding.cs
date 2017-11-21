@@ -89,8 +89,8 @@ namespace MarsFrenzy
             ));
             events.Add(new DialogEvent(
             Dialogs.CreateListString(),
-            Step68_Water_NotActive,
-            End_Of_Step68_Water_NotActive
+            Step68_Water_Active,
+            End_Of_Step68_Water_Active
             ));
 
             // Step 70 Verif potatoes
@@ -169,14 +169,7 @@ namespace MarsFrenzy
              End_Of_Step100
              ));
 
-            // Step 110 TutoRepair
-            events.Add(new DialogEvent(
-             Dialogs.CreateListString("TutoRepair"),
-             Step110_TutoRepair,
-             End_Of_Step110
-             ));
-
-            // Step 120 TutoRepairOk
+              // Step 120 TutoRepairOk
             events.Add(new DialogEvent(
              Dialogs.CreateListString("RepairOk"),
              Step120_VerifRepairOk,
@@ -196,6 +189,13 @@ namespace MarsFrenzy
              Step130_RepairEnd,
              End_Of_Step130
              ));
+            // Step 140 IntroModuleOff
+            events.Add(new DialogEvent(
+             Dialogs.CreateListString("IntroModuleOff"),
+             Step140IntroModuleOff,
+             End_Of_Step140
+             ));
+           
 
             /*
          
@@ -390,30 +390,30 @@ namespace MarsFrenzy
                 && Dialogs.GetModuleHealth("electricity") <= 60.0f;
         }
 
-        static bool Step110_TutoRepair()
-        {
-            return Dialogs.OnboardingStep == 110
-                && Dialogs.TimeSinceLastDialogIs(3.0f);
-        }
-
         static bool Step120_VerifRepairOk()
         {
             return Dialogs.OnboardingStep == 120
                 && Dialogs.GetModuleHealth("electricity") >= 80.0f
-                && Dialogs.TimeSinceLastDialogIs(3.0f);
+                && Dialogs.TimeSinceLastDialogIs(3.0f)
+            && Dialogs.TimeSinceLastDialogIs(15.0f);
         }
         static bool Step120_VerifRepairKo()
         {
             return Dialogs.OnboardingStep == 120
                 && Dialogs.GetModuleHealth("electricity") <= 80.0f
-                && Dialogs.TimeSinceLastDialogIs(3.0f);
+                && Dialogs.TimeSinceLastDialogIs(15.0f);
         }
         static bool Step130_RepairEnd()
         {
-            return Dialogs.OnboardingStep == 120
+            return Dialogs.OnboardingStep == 130
                 && Dialogs.TimeSinceLastDialogIs(3.0f);
         }
-
+        static bool Step140IntroModuleOff()
+        {
+            return Dialogs.OnboardingStep == 140
+                && Dialogs.TimeSinceLastDialogIs(3.0f);
+        }
+       
         /*
       
        */
@@ -560,11 +560,6 @@ namespace MarsFrenzy
         static void End_Of_Step100()
         {
             Debug.Log("User just did step 100");
-            Dialogs.SetOnboardingStep(110);
-        }
-        static void End_Of_Step110()
-        {
-            Debug.Log("User just did step 110");
             Dialogs.SetOnboardingStep(120);
         }
         static void End_Of_Step120Ok()
@@ -582,6 +577,12 @@ namespace MarsFrenzy
             Debug.Log("User just did step 130");
             Dialogs.SetOnboardingStep(140);
         }
+        static void End_Of_Step140()
+        {
+            Debug.Log("User just did step 140");
+            Dialogs.SetOnboardingStep(150);
+        }
+
         /*
         
         */
