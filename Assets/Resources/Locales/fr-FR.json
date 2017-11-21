@@ -5,14 +5,16 @@
     "RemindActivateWater" : "On ne t'a pas appris que l'eau est la base de la survie?",
     "AskActivatePotatoes":"Tu n'as pas un petit creux? Il paraît que les patates ne sont pas mauvaises.",
     "RemindActivatePotatoes" : "2ème leçon du manuel du parfait astronaute :se nourrir. Justement tu as un module de patates.",
-    "AskActivateGenerator": "Les patates produisent de l'électrictité. A condition d'activer le générateur bien sûr...",
+    "AskActivateGenerator": "Les patates produisent de l'électricité. A condition d'activer le générateur bien sûr...",
     "RemindActivateGenerator": "Annonce de service. Le courant va être coupé dans 3...2...1...",
     "AllActive": "C'est bon ta base est prête. Tous les modules sont activés.",
-    "IntroRepair":"On dirait que ton module électricité a un peu surchauffé. Tu peux le réparer en appuyant longuement dessus.",
-    "TutoRepair":"Essaie de remettre en marche ton module électricité.",
+    "IntroRepair":"On dirait que ton module électricité a un peu surchauffé. Tu peux le réparer en appuyant longuement dessus.Essaie de remettre en marche ton module électricité.",
+
     "RepairOk": "Parfait, le module est réparé.", 
     "RepairKo":"Je te conseille de réparer ton module dès maintenant.",
     "RepairEnd":"La réparation consomme du scotch. Attention à ton stock !",
+	"IntroModuleOff":"Pour économiser tes modules, tu peux les mettre en pause en cliquant dessus.",
+	
 
 
     "BeforeMarsStorm":"Une tempête solaire approche. Accroche toi, ça va secouer !",	

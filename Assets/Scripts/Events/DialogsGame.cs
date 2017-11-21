@@ -81,14 +81,16 @@ namespace MarsFrenzy
 
             events.Add(new DialogEvent(
         Dialogs.CreateListString(),
-                Step1000
+                Step1000,
+                Dialogs.TriggerGameOver
             ));
 
             // Step 2000 PlayerVictory
 
             events.Add(new DialogEvent(
         Dialogs.CreateListString(),
-                Step2000
+                Step2000,
+                Dialogs.TriggerVictory
             ));
 
             return events;
