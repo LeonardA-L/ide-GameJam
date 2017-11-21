@@ -27,6 +27,10 @@ namespace MarsFrenzy
 
         private GameObject healthyView;
         private GameObject brokenView;
+
+        public float level = 1;
+
+        public GameObject upgradeUI;
         // Use this for initialization
         void Start()
         {
@@ -50,8 +54,6 @@ namespace MarsFrenzy
 
             foreach (Transform child in view.transform)
             {
-                Debug.Log(child.gameObject.name);
-                Debug.Log(child.gameObject.tag);
                 if (child.gameObject.tag == "ModuleBroken")
                 {
                     brokenView = child.gameObject;
@@ -78,6 +80,26 @@ namespace MarsFrenzy
             GameObject stockObj = GameObject.Find("/UI_prefab/MainCanvas/Resources/" + res.name + "_Stock");
             stock = stockObj.GetComponent<Text>();
 
+            // Upgrade UI
+            upgradeUI.SetActive(false);
+            foreach (Transform child in upgradeUI.transform)
+            {
+                if (child.gameObject.name == res.name + "_logo")
+                {
+                    child.gameObject.SetActive(true);
+                }
+
+                if (child.gameObject.name == "scrap_amount")
+                {
+                    child.gameObject.GetComponent<TextMesh>().text = "" + _manager.data.upgradeCostScrap;
+                }
+                if (child.gameObject.name == "resource_amount")
+                {
+                    child.gameObject.GetComponent<TextMesh>().text = "" + _manager.data.upgradeCostResource;
+                }
+            }
+
+
             gm = _manager;
         }
 
@@ -92,6 +114,7 @@ namespace MarsFrenzy
 
             updateEfficiency();
             updateHealthView();
+            updateUpgradeUI();
 
             // Stop repairing
             if (!Input.GetMouseButton(0))
@@ -160,6 +183,10 @@ namespace MarsFrenzy
             {
                 repairing = true;
             }
+            else if (clicked.name == "Upgrade")
+            {
+                UpgradeModule();
+            }
         }
 
         private void updateHealthView()
@@ -194,6 +221,23 @@ namespace MarsFrenzy
                     break;
                 }
             }
+        }
+
+        private void updateUpgradeUI()
+        {
+            if(level == 1 && !upgradeUI.activeSelf && res.amount >= gm.data.upgradeCostResource && gm.data.scrap.amount >= gm.data.upgradeCostScrap)
+            {
+                upgradeUI.SetActive(true);
+            }
+            if (level > 1 && upgradeUI.activeSelf)
+            {
+                upgradeUI.SetActive(false);
+            }
+        }
+
+        private void UpgradeModule()
+        {
+            level = 2;
         }
     }
 }
