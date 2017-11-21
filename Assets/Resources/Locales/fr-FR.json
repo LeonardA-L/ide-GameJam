@@ -15,4 +15,16 @@
 	"GeneratorIsActive" : "Enfin un peu d'électricité.",
     "AllActive": "C'est bon ta base est prête. Maintenant il faut produire beaucoup d'électricité pour réparer l'antenne. ",
 
+
+
+    "BeforeMarsStorm":"Une tempête solaire approche. Accroche toi, ça va secouer !",	
+    "BeforeEclipse" : "Les communications vont être coupées à cause de l'éclipse solaire.",
+    "BeforeWaterKO" : "Je vois une fuite d'eau dans ton réservoir. Tu devrais aller voir.",
+
 }
+
+
+
+
+
+

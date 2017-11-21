@@ -17,7 +17,7 @@ namespace MarsFrenzy
 
             // Step 0
             
-            if(false)
+            if(true)
             {
                 events.AddRange(DialogsGame.InitDialogs());
             }
