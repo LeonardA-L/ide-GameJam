@@ -191,7 +191,7 @@ namespace MarsFrenzy
 
         private void updateHealthView()
         {
-            health.localScale = new Vector3(1.0f, moduleHealth / 100.0f, 1.0f);
+            health.localScale = new Vector3(moduleHealth / 100.0f, 1.0f, 1.0f);
             if (healthyView != null)
             {
                 float healhyBrokenThreshold = gm.data.moduleHealthThresholds[2].threshold;  // 60%
