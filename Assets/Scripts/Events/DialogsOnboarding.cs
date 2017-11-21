@@ -217,7 +217,7 @@ namespace MarsFrenzy
         static bool Step20()
         {
             return Dialogs.OnboardingStep == 20
-                && Wait(15.0f);
+                && Wait(1.0f);
         }
 
         static bool Step30()
