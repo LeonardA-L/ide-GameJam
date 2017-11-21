@@ -16,6 +16,7 @@ namespace MarsFrenzy
         public bool repairing = false;
 
         public Transform health;
+        public Transform healthBarWrap;
         public Animator healthAnimator;
         private Text stock;
 
@@ -58,6 +59,7 @@ namespace MarsFrenzy
             view.transform.parent = transform;
             view.name = "View";
 
+            healthBarWrap.position = res.healthPlacement;
 
             foreach (Transform child in view.transform)
             {

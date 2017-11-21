@@ -625,7 +625,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1463931115295338}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -35.554108, y: 6.9735435e-17, z: -17.206047}
+  m_LocalPosition: {x: 19.034922, y: -4.1154462e-17, z: 32.73432}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4559726412809208}
@@ -1501,6 +1501,7 @@ MonoBehaviour:
     x: 0
     z: 0
     name: 
+    healthPlacement: {x: 0, y: 0, z: 0}
   fuel:
     amount: 0
     decay: 0
@@ -1510,9 +1511,11 @@ MonoBehaviour:
     x: 0
     z: 0
     name: 
+    healthPlacement: {x: 0, y: 0, z: 0}
   activated: 0
   repairing: 0
   health: {fileID: 4329967566750456}
+  healthBarWrap: {fileID: 4559726412809208}
   healthAnimator: {fileID: 95865201211289196}
   moduleHealth: 100
   tools: {fileID: 1323059348267654}

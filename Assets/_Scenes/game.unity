@@ -284,7 +284,7 @@ Prefab:
     - target: {fileID: 224973774976786036, guid: 4675ada665b8f30419ab34eed7c8bf56,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: -1079.9999
+      value: -1080
       objectReference: {fileID: 0}
     - target: {fileID: 224973774976786036, guid: 4675ada665b8f30419ab34eed7c8bf56,
         type: 2}
@@ -314,7 +314,7 @@ Prefab:
     - target: {fileID: 224627335034448778, guid: 4675ada665b8f30419ab34eed7c8bf56,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: -419.99988
+      value: -420
       objectReference: {fileID: 0}
     - target: {fileID: 224587091394033774, guid: 4675ada665b8f30419ab34eed7c8bf56,
         type: 2}
@@ -454,7 +454,7 @@ Prefab:
     - target: {fileID: 224563495390276174, guid: 4675ada665b8f30419ab34eed7c8bf56,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 276
+      value: 188.5
       objectReference: {fileID: 0}
     - target: {fileID: 224563495390276174, guid: 4675ada665b8f30419ab34eed7c8bf56,
         type: 2}
@@ -739,6 +739,7 @@ MonoBehaviour:
       x: 0
       z: 0
       name: 
+      healthPlacement: {x: 0, y: 0, z: 0}
     scrap:
       amount: 0
       decay: 0
@@ -748,6 +749,7 @@ MonoBehaviour:
       x: 0
       z: 0
       name: 
+      healthPlacement: {x: 0, y: 0, z: 0}
     playerHungerStart: 100
     playerThirstStart: 100
     starvationDecay: 10
