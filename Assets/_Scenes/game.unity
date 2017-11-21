@@ -740,6 +740,7 @@ MonoBehaviour:
       z: 0
       name: 
       healthPlacement: {x: 0, y: 0, z: 0}
+      upgradePlacement: {x: 0, y: 0, z: 0}
     scrap:
       amount: 0
       decay: 0
@@ -750,6 +751,7 @@ MonoBehaviour:
       z: 0
       name: 
       healthPlacement: {x: 0, y: 0, z: 0}
+      upgradePlacement: {x: 0, y: 0, z: 0}
     playerHungerStart: 100
     playerThirstStart: 100
     starvationDecay: 10

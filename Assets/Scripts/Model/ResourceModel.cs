@@ -16,5 +16,6 @@ namespace MarsFrenzy
         public string name;
 
         public Vector3 healthPlacement;
+        public Vector3 upgradePlacement;
     }
 }

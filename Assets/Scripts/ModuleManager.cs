@@ -91,6 +91,7 @@ namespace MarsFrenzy
             stock = stockObj.GetComponent<Text>();
 
             // Upgrade UI
+            upgradeUI.transform.localPosition = res.upgradePlacement;
             upgradeUI.SetActive(false);
             foreach (Transform child in upgradeUI.transform)
             {
