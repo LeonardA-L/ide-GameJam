@@ -7,6 +7,7 @@ namespace MarsFrenzy
 {
     public class DialogManager : MonoBehaviour
     {
+        protected static DialogManager instance;
         public GameObject window;
         public Text text;
         private int idx = 0;
@@ -18,6 +19,7 @@ namespace MarsFrenzy
         // Use this for initialization
         void Start()
         {
+            instance = this;
             window.SetActive(false);
             idx = 0;
             active = false;
@@ -81,6 +83,19 @@ namespace MarsFrenzy
                 currentDialog.postHook();
             }
             GameManager.Instance.EndDialog();
+        }
+
+        public bool IsActive()
+        {
+            return active;
+        }
+
+        public static DialogManager Instance
+        {
+            get
+            {
+                return instance;
+            }
         }
     }
 }
