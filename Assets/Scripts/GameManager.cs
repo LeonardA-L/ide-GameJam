@@ -163,6 +163,12 @@ namespace MarsFrenzy
             timeRuns = false;
         }
 
+        public void PauseMenu()
+        {
+            Pause();
+            endScreen.Pause();
+        }
+
         public void Stop()
         {
             timeRuns = false;

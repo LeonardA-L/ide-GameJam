@@ -134,6 +134,10 @@ namespace MarsFrenzy
 
         public void OnClick(GameObject clicked)
         {
+            if(DialogManager.Instance.IsActive())
+            {
+                return;
+            }
             if (clicked.tag == "ModuleView")
             {
                 activated = !activated;
