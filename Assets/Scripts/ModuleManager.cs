@@ -24,6 +24,9 @@ namespace MarsFrenzy
         private Animator animator;
 
         private GameManager gm;
+
+        private GameObject healthyView;
+        private GameObject brokenView;
         // Use this for initialization
         void Start()
         {
@@ -43,6 +46,27 @@ namespace MarsFrenzy
             view.transform.position = new Vector3(0, 0, 0);
             view.transform.parent = transform;
             view.name = "View";
+
+
+            foreach (Transform child in view.transform)
+            {
+                Debug.Log(child.gameObject.name);
+                Debug.Log(child.gameObject.tag);
+                if (child.gameObject.tag == "ModuleBroken")
+                {
+                    brokenView = child.gameObject;
+                }
+                if (child.gameObject.tag == "ModuleHealthy")
+                {
+                    healthyView = child.gameObject;
+                }
+            }
+
+            if (healthyView != null)
+            {
+                healthyView.SetActive(true);
+                brokenView.SetActive(false);
+            }
 
             animator = view.GetComponent<Animator>();
 
@@ -67,6 +91,20 @@ namespace MarsFrenzy
             stock.text = res.amount.ToString("0.00");
 
             health.localScale = new Vector3(1.0f, moduleHealth / 100.0f, 1.0f);
+            if (healthyView != null)
+            {
+                float healhyBrokenThreshold = 60.0f;
+                if (moduleHealth < healhyBrokenThreshold && healthyView.activeSelf)
+                {
+                    healthyView.SetActive(false);
+                    brokenView.SetActive(true);
+                }
+                if (moduleHealth > healhyBrokenThreshold && !healthyView.activeSelf)
+                {
+                    healthyView.SetActive(true);
+                    brokenView.SetActive(false);
+                }
+            }
 
             // Update efficiency
             efficiencyModifier = 1.0f;
