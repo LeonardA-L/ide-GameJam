@@ -115,13 +115,13 @@ namespace MarsFrenzy
 
             // Step 78 Remind potatoes
             events.Add(new DialogEvent(
-         Dialogs.CreateListString("RemindActivatePotatoes"),
+         Dialogs.CreateListString(),
          Step78_Potatoes_Active,
          End_Of_Step78_Potatoes_Active
          ));
             events.Add(new DialogEvent(
-      Dialogs.CreateListString(),
-      Step78_Potatoes_Active,
+      Dialogs.CreateListString("RemindActivatePotatoes"),
+      Step78_Potatoes_NotActive,
       End_Of_Step78_Potatoes_NotActive
       ));
 
@@ -262,78 +262,82 @@ namespace MarsFrenzy
         static bool Step65_Water_Active()
         {
             return Dialogs.OnboardingStep == 65
-                && Dialogs.TimeSinceLastDialogIs(5.0f)
+                && Dialogs.TimeSinceLastDialogIs(3.0f)
                 && !Dialogs.isWaterTankActive();
         }
         static bool Step68_Water_Active()
         {
             return Dialogs.OnboardingStep == 68
-                && Dialogs.TimeSinceLastDialogIs(5.0f)
+                && Dialogs.TimeSinceLastDialogIs(3.0f)
                 && Dialogs.isWaterTankActive();
         }
         static bool Step68_Water_NotActive()
         {
             return Dialogs.OnboardingStep == 68
-                && Dialogs.TimeSinceLastDialogIs(5.0f)
+                && Dialogs.TimeSinceLastDialogIs(3.0f)
                 && !Dialogs.isWaterTankActive();
         }
 
         static bool Step70_Potatoes_Active()
         {
             return Dialogs.OnboardingStep == 70
+                && Dialogs.TimeSinceLastDialogIs(5.0f)
                 && Dialogs.isPotatoFieldActive();
         }
 
         static bool Step70_Potatoes_NotActive()
         {
             return Dialogs.OnboardingStep == 70
+                && Dialogs.TimeSinceLastDialogIs(5.0f)
                 && !Dialogs.isPotatoFieldActive();
         }
         static bool Step75_Potatoes_Active()
         {
             return Dialogs.OnboardingStep == 75
-                && Dialogs.TimeSinceLastDialogIs(5.0f)
+                && Dialogs.TimeSinceLastDialogIs(3.0f)
                 && !Dialogs.isPotatoFieldActive();
         }
         static bool Step78_Potatoes_Active()
         {
             return Dialogs.OnboardingStep == 78
-                && Dialogs.TimeSinceLastDialogIs(5.0f)
-                && !Dialogs.isPotatoFieldActive();
+                && Dialogs.TimeSinceLastDialogIs(3.0f)
+                && Dialogs.isPotatoFieldActive();
         }
         static bool Step78_Potatoes_NotActive()
         {
             return Dialogs.OnboardingStep == 78
-                && Dialogs.TimeSinceLastDialogIs(5.0f)
+                && Dialogs.TimeSinceLastDialogIs(3.0f)
                 && !Dialogs.isPotatoFieldActive();
         }
         static bool Step80_Generato_Active()
         {
             return Dialogs.OnboardingStep == 80
+                && Dialogs.TimeSinceLastDialogIs(5.0f)
                 && Dialogs.isGeneratorActive();
         }
 
         static bool Step80_Generator_NotActive()
         {
             return Dialogs.OnboardingStep == 80
+                && Dialogs.TimeSinceLastDialogIs(5.0f)
                 && !Dialogs.isGeneratorActive();
         }
         static bool Step85_Generator_Active()
         {
             return Dialogs.OnboardingStep == 85
-                && Dialogs.TimeSinceLastDialogIs(5.0f)
+                && Dialogs.TimeSinceLastDialogIs(3.0f)
                 && !Dialogs.isGeneratorActive();
         }
         static bool Step88_Generator_Active()
         {
             return Dialogs.OnboardingStep == 88
-                && Dialogs.TimeSinceLastDialogIs(5.0f)
-                && !Dialogs.isGeneratorActive();
+                && Dialogs.TimeSinceLastDialogIs(3.0f)
+                && Dialogs.isGeneratorActive();
         }
         static bool Step88_Generator_NotActive()
         {
             return Dialogs.OnboardingStep == 88
-                && Dialogs.TimeSinceLastDialogIs(5.0f)
+                && Dialogs.TimeSinceLastDialogIs(3.0f)
                 && !Dialogs.isGeneratorActive();
         }
         static bool Step90_All_Active()
