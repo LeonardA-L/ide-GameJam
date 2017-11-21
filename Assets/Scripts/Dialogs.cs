@@ -17,11 +17,11 @@ namespace MarsFrenzy
 
             // Step 0
             
-            if(true)
+            if(false)
             {
                 events.AddRange(DialogsGame.InitDialogs());
             }
-            if(false)
+            if(true)
             {
                 events.AddRange(DialogsOnboarding.InitDialogs());
             }
@@ -149,6 +149,11 @@ namespace MarsFrenzy
         public static void TriggerGameOver()
         {
             GameManager.Instance.TriggerGameOver();
+        }
+
+        public static void WidenView()
+        {
+            GameManager.Instance.WidenView();
         }
     }
 }

@@ -29,6 +29,9 @@ namespace MarsFrenzy
         private int prevFrame = 0;
 
         private int onboardingStep = 0;
+
+        public Animator cameraAnimator;
+
         public int OnboardingStep
         {
             get
@@ -327,6 +330,16 @@ namespace MarsFrenzy
         {
             Stop();
             endScreen.Victory();
+        }
+
+        public void WidenView()
+        {
+            cameraAnimator.SetBool("wide", true);
+        }
+
+        public void ShowUI()
+        {
+            
         }
     }
 

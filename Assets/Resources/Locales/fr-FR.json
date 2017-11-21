@@ -23,6 +23,11 @@
     "AvertUpgradePotatoes" : "Plus que 50 patates et tu pourras upgrader ton module. Encore un effort.",
     "AvertUpgradeWater" : "Ton stock d'eau vient d'atteindre 100 litres. Bonne nouvelle : à partir de 50 litres, une upgrade sera disponible.",
     "AvertUpgradeElectricity" : "A partir de 150kw, ton module électricité deviendra plus puissant. Si tu veux l'upgrader bien sûr.",
+
+    "Noise": "..... hhhhhh.....",
+    "Noise2": "..... shhhhreçois ? .....",
+    "FirstContact": "... Tu me reçois ? Ah. On dirait que la connexion est rétablie.",
+    "FirstContact2": "Je vois que tu as redémarré la base. C'est déjà ça."
 }
 
 

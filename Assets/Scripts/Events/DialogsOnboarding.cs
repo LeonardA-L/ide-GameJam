@@ -14,8 +14,39 @@ namespace MarsFrenzy
 
             // Write new dialog events here
 
-            // Step 0
+            // Wait for Module Activation
+            events.Add(new DialogEvent(
+                Dialogs.CreateListString(),
+                WaitForWaterActive,
+                MoveOnboarding
+            ));
+            
+            events.Add(new DialogEvent(
+                Dialogs.CreateListString(),
+                Step10,
+                WidenView
+            ));
 
+            events.Add(new DialogEvent(
+                Dialogs.CreateListString("Noise"),
+                Step20,
+                MoveOnboarding
+            ));
+
+            events.Add(new DialogEvent(
+                Dialogs.CreateListString("Noise2"),
+                Step30,
+                MoveOnboarding
+            ));
+
+            events.Add(new DialogEvent(
+                Dialogs.CreateListString("FirstContact", "FirstContact2"),
+                Step40,
+                ExitFirstPart
+            ));
+
+            // Step 0
+            /*
             events.Add(new DialogEvent(
                 Dialogs.CreateListString("IntroTutorial",
                                   "IntroTutorial2"),
@@ -119,7 +150,7 @@ namespace MarsFrenzy
                         End_Of_Step25
 
                  ));
-
+                 */
 
             return events;
         }
@@ -153,7 +184,44 @@ namespace MarsFrenzy
 
         */
 
+        static bool WaitForWaterActive()
+        {
+            return Dialogs.OnboardingStep == 0
+                && Dialogs.isWaterTankActive();
+        }
+
+        static bool Wait(float _howLong)
+        {
+            return Dialogs.OnboardingStep > 0
+                && Dialogs.TimeSinceLastDialogIs(_howLong);
+        }
+
+        static bool Step10()
+        {
+            return Dialogs.OnboardingStep == 10
+                && Wait(3.0f);
+        }
+
+        static bool Step20()
+        {
+            return Dialogs.OnboardingStep == 20
+                && Wait(15.0f);
+        }
+
+        static bool Step30()
+        {
+            return Dialogs.OnboardingStep == 30
+                && Wait(5.0f);
+        }
+
+        static bool Step40()
+        {
+            return Dialogs.OnboardingStep == 40
+                && Wait(2.0f);
+        }
+
         // Step 0
+        /*
         static bool Step0()
         {
             return Dialogs.OnboardingStep == 0    // Dialogs.OnboardingStep is 0
@@ -267,7 +335,7 @@ namespace MarsFrenzy
         {
             return Dialogs.OnboardingStep == 25;
         }
-
+        */
 
 
 
@@ -299,6 +367,25 @@ namespace MarsFrenzy
 
         */
 
+        static void MoveOnboarding()
+        {
+            Debug.Log("User just did step " + Dialogs.OnboardingStep);
+            Dialogs.SetOnboardingStep(Dialogs.OnboardingStep + 10);
+        }
+
+        static void WidenView()
+        {
+            Dialogs.WidenView();
+            MoveOnboarding();
+        }
+
+        static void ExitFirstPart()
+        {
+            Debug.Log("User finished intro. Going to step 100");
+            Dialogs.SetOnboardingStep(100);
+        }
+
+        /*
         static void End_Of_Step0()
         {
             Debug.Log("User just did step 0");
@@ -347,7 +434,7 @@ namespace MarsFrenzy
             Debug.Log("User just did step 25");
             Dialogs.SetOnboardingStep(30);
         }
-
+        */
 
     }
 }

@@ -37,6 +37,7 @@ GameObject:
   - component: {fileID: 20034085797807224}
   - component: {fileID: 124188794105499834}
   - component: {fileID: 81646692489801854}
+  - component: {fileID: 95181696706725570}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -51,7 +52,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1802726097082438}
   m_LocalRotation: {x: 0.2588191, y: 0, z: 0, w: 0.9659258}
-  m_LocalPosition: {x: 3.24, y: 4.92, z: -8.56}
+  m_LocalPosition: {x: 6.4, y: 5.6, z: -8.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4605225976898816}
@@ -91,7 +92,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 10
+  orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -113,6 +114,23 @@ AudioListener:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1802726097082438}
   m_Enabled: 1
+--- !u!95 &95181696706725570
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1802726097082438}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 529c10303eec45e4fbdf619bf9e5c6d0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!124 &124188794105499834
 Behaviour:
   m_ObjectHideFlags: 1
