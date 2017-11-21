@@ -31,6 +31,10 @@ namespace MarsFrenzy
         public float level = 1;
 
         public GameObject upgradeUI;
+
+        public bool clicking = false;
+        public float clickingTime = 0;
+        public float timeToRepair = 0.4f;
         // Use this for initialization
         void Start()
         {
@@ -119,7 +123,18 @@ namespace MarsFrenzy
             // Stop repairing
             if (!Input.GetMouseButton(0))
             {
+                if (clicking && !repairing)
+                {
+                    activated = !activated;
+                    animator.SetBool("activated", activated);
+                }
                 repairing = false;
+                clicking = false;
+            }
+
+            if (clicking && gm.timer - clickingTime > timeToRepair)
+            {
+                repairing = true;
             }
         }
 
@@ -156,7 +171,7 @@ namespace MarsFrenzy
                 moduleHealth -= res.damageRate * smoothingFactor;
             }
 
-            if (repairing && gm.data.ductTape.amount >= gm.data.ductTape.efficiency && (moduleHealth + gm.data.ductTape.efficiency) * smoothingFactor <= 100.0f)
+            if (repairing && gm.data.ductTape.amount >= gm.data.ductTape.efficiency && (moduleHealth + gm.data.ductTape.efficiency * smoothingFactor) <= 100.0f)
             {
                 moduleHealth += gm.data.ductTape.efficiency * smoothingFactor;
                 gm.data.ductTape.amount -= (level == 1 ? 1.0f : gm.data.upgradeConsumptionFactor) * smoothingFactor;
@@ -176,12 +191,8 @@ namespace MarsFrenzy
             }
             if (clicked.tag == "ModuleView")
             {
-                activated = !activated;
-                animator.SetBool("activated", activated);
-            }
-            else if (clicked.tag == "HealthView")
-            {
-                repairing = true;
+                clicking = true;
+                clickingTime = gm.timer;
             }
             else if (clicked.name == "Upgrade")
             {
