@@ -63,6 +63,34 @@ namespace MarsFrenzy
         Dialogs.CreateListString("AvertUpgradePotatoes"),
                 Step800
             ));
+            // Step 850 AvertUpgradeWater
+
+            events.Add(new DialogEvent(
+        Dialogs.CreateListString("AvertUpgradeWater"),
+                Step850
+            ));
+            // Step 900 AvertUpgradeElectricity
+
+            events.Add(new DialogEvent(
+        Dialogs.CreateListString("AvertUpgradeElectricity"),
+                Step900
+            ));
+
+
+            // Step 1000 PlayerDead
+
+            events.Add(new DialogEvent(
+        Dialogs.CreateListString(),
+                Step1000
+            ));
+
+            // Step 2000 PlayerVictory
+
+            events.Add(new DialogEvent(
+        Dialogs.CreateListString(),
+                Step2000
+            ));
+
             return events;
         }
 
@@ -111,24 +139,24 @@ static bool Step500()
         // Step 600 BeforeEclipse
         static bool Step600()
         {
-            return Dialogs.timeIs(300.0f);
+            return Dialogs.timeIs(200.0f);
         }
 // Step 610 Eclipse
 static bool Step650()
         {
             return Dialogs.OnboardingStep == 650
-                && Dialogs.timeIs(305.0f);
+                && Dialogs.timeIs(205.0f);
         }
     // Step 700  BeforeWaterKo
     static bool Step700()
     {
-        return Dialogs.timeIs(500.0f);
+        return Dialogs.timeIs(300.0f);
     }
         // Step 710  WaterKo
         static bool Step750()
         {
             return Dialogs.OnboardingStep == 750
-                && Dialogs.timeIs(505.0f);
+                && Dialogs.timeIs(305.0f);
         }
 
         // Step 800 AvertUpgradePotatoes
@@ -137,6 +165,28 @@ static bool Step650()
             return Dialogs.GetAmount("potatoes") > 100;
          }
 
+        // Step 850 AvertUpgradePotatoes
+        static bool Step850()
+        {
+            return Dialogs.GetAmount("water") > 100;
+        }
+
+        // Step 900 AvertUpgradePotatoes
+        static bool Step900()
+        {
+            return Dialogs.GetAmount("electricity") > 100;
+        }
+
+        // Step 1000 PlayerDead
+        static bool Step1000()
+        {
+            return Dialogs.IsPlayerDead();
+        }
+        // Step 2000 PlayerVictory
+        static bool Step2000()
+        {
+            return Dialogs.timeIs(420.0f);
+        }
 
 
 

@@ -20,7 +20,9 @@
     "BeforeMarsStorm":"Une tempête solaire approche. Accroche toi, ça va secouer !",	
     "BeforeEclipse" : "Les communications vont être coupées à cause de l'éclipse solaire.",
     "BeforeWaterKO" : "Je vois une fuite d'eau dans ton réservoir. Tu devrais aller voir.",
-
+    "AvertUpgradePotatoes" : "Plus que 50 patates et tu pourras upgrader ton module. Encore un effort.",
+    "AvertUpgradeWater" : "Ton stock d'eau vient d'atteindre 100 litres. Bonne nouvelle : à partir de 50 litres, une upgrade sera disponible.",
+    "AvertUpgradeElectricity" : "A partir de 150kw, ton module électricité deviendra plus puissant. Si tu veux l'upgrader bien sûr.",
 }
 
 
