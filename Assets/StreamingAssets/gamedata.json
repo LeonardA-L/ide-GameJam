@@ -68,9 +68,16 @@
         "amount": 200,
         "efficiency": 5
     },
+
+    "scrap": {
+        "name": "scrap",
+        "amount": 75
+    },
+
     "playerHungerStart": 100.0,
     "playerThirstStart": 100.0,
     "starvationDecay": 10.0,
 
-    "upgradeCost": 300
+    "upgradeCostResource": 150,
+    "upgradeCostScrap": 50
 }

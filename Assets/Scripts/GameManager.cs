@@ -20,6 +20,7 @@ namespace MarsFrenzy
         public float lastDialog = 0;
 
         private Text ductTapeStock;
+        private Text scrapStock;
         private Text timerText;
 
         public CharacterLife character;
@@ -77,6 +78,9 @@ namespace MarsFrenzy
             GameObject ductTapeStockObj = GameObject.Find("/UI_prefab/MainCanvas/Resources/ductTape_Stock");
             ductTapeStock = ductTapeStockObj.GetComponent<Text>();
 
+            GameObject scrapStockObj = GameObject.Find("/UI_prefab/MainCanvas/Resources/scrap_Stock");
+            scrapStock = scrapStockObj.GetComponent<Text>();
+
             GameObject timerTextObj = GameObject.Find("/UI_prefab/MainCanvas/Timer");
             timerText = timerTextObj.GetComponent<Text>();
 
@@ -100,6 +104,7 @@ namespace MarsFrenzy
             }
 
             ductTapeStock.text = "" + data.ductTape.amount;
+            scrapStock.text = "" + data.scrap.amount;
 
             timerText.text = "T:" + timer.ToString("0.00") + "s";
         }
@@ -215,6 +220,26 @@ namespace MarsFrenzy
 
         public void AddAmount(string name, float _howMuch)
         {
+            if (name == "ductTape")
+            {
+                data.ductTape.amount += _howMuch;
+                if (data.ductTape.amount < 0.0f)
+                {
+                    data.ductTape.amount = 0.0f;
+                }
+                return;
+            }
+
+            if (name == "scrap")
+            {
+                data.scrap.amount += _howMuch;
+                if (data.scrap.amount < 0.0f)
+                {
+                    data.scrap.amount = 0.0f;
+                }
+                return;
+            }
+
             for (int i = 0; i < modules.Count; i++)
             {
                 if (modules[i].res.name == name)
@@ -230,6 +255,16 @@ namespace MarsFrenzy
 
         public float GetAmount(string name)
         {
+            if (name == "ductTape")
+            {
+                return data.ductTape.amount;
+            }
+
+            if (name == "scrap")
+            {
+                return data.scrap.amount;
+            }
+
             for (int i = 0; i < modules.Count; i++)
             {
                 if (modules[i].res.name == name)
