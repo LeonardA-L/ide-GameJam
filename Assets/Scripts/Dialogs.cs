@@ -155,5 +155,10 @@ namespace MarsFrenzy
         {
             GameManager.Instance.WidenView();
         }
+
+        public static void ShowUI()
+        {
+            GameManager.Instance.ShowUI();
+        }
     }
 }

@@ -28,8 +28,8 @@ namespace MarsFrenzy
         // Update is called once per frame
         void Update()
         {
-            hungerGauge.text = "" + hunger;
-            thirstGauge.text = "" + thirst;
+            hungerGauge.text = "" + hunger.ToString("0") + "%";
+            thirstGauge.text = "" + thirst.ToString("0") + "%";
         }
 
         public void Init(GameManager _gm, float _hunger, float _thirst, float _starveDecay)

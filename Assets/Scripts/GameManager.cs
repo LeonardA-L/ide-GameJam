@@ -21,7 +21,6 @@ namespace MarsFrenzy
 
         private Text ductTapeStock;
         private Text scrapStock;
-        private Text timerText;
 
         public CharacterLife character;
         public EndScreen endScreen;
@@ -31,6 +30,7 @@ namespace MarsFrenzy
         private int onboardingStep = 0;
 
         public Animator cameraAnimator;
+        public Animator uiAnimator;
 
         public int OnboardingStep
         {
@@ -84,9 +84,6 @@ namespace MarsFrenzy
             GameObject scrapStockObj = GameObject.Find("/UI_prefab/MainCanvas/Resources/BackgroundBlue/scrap/scrap_Stock");
             scrapStock = scrapStockObj.GetComponent<Text>();
 
-            GameObject timerTextObj = GameObject.Find("/UI_prefab/MainCanvas/Timer");
-            timerText = timerTextObj.GetComponent<Text>();
-
             timeRuns = true;
         }
 
@@ -108,8 +105,6 @@ namespace MarsFrenzy
 
             ductTapeStock.text = "" + data.ductTape.amount;
             scrapStock.text = "" + data.scrap.amount;
-
-            timerText.text = "T:" + timer.ToString("0.00") + "s";
         }
 
         private void Tick()
@@ -339,7 +334,7 @@ namespace MarsFrenzy
 
         public void ShowUI()
         {
-            
+            uiAnimator.SetBool("uiActive", true);
         }
     }
 
