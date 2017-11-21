@@ -138,8 +138,8 @@ namespace MarsFrenzy
             // PRODUCTION
             if (activated && fuel.amount > 0)
             {
-                res.amount += res.efficiency * efficiencyModifier.modifier * smoothingFactor;
-                fuel.amount -= 1 * smoothingFactor;
+                res.amount += res.efficiency * efficiencyModifier.modifier * smoothingFactor * (level == 1 ? 1.0f : gm.data.upgradeEfficiencyFactor);
+                fuel.amount -= (level == 1 ? 1.0f : gm.data.upgradeConsumptionFactor) * smoothingFactor;
             }
 
             // DECAY
@@ -159,7 +159,7 @@ namespace MarsFrenzy
             if (repairing && gm.data.ductTape.amount >= gm.data.ductTape.efficiency && (moduleHealth + gm.data.ductTape.efficiency) * smoothingFactor <= 100.0f)
             {
                 moduleHealth += gm.data.ductTape.efficiency * smoothingFactor;
-                gm.data.ductTape.amount -= 1 * smoothingFactor;
+                gm.data.ductTape.amount -= (level == 1 ? 1.0f : gm.data.upgradeConsumptionFactor) * smoothingFactor;
 
                 if (gm.data.ductTape.amount < 0.0f)
                 {
@@ -225,13 +225,22 @@ namespace MarsFrenzy
 
         private void updateUpgradeUI()
         {
-            if(level == 1 && !upgradeUI.activeSelf && res.amount >= gm.data.upgradeCostResource && gm.data.scrap.amount >= gm.data.upgradeCostScrap)
+            if(upgradeUI.activeSelf)
             {
-                upgradeUI.SetActive(true);
+                if(level > 1)
+                {
+                    upgradeUI.SetActive(false);
+                }
+                if(res.amount < gm.data.upgradeCostResource || gm.data.scrap.amount < gm.data.upgradeCostScrap)
+                {
+                    upgradeUI.SetActive(false);
+                }
             }
-            if (level > 1 && upgradeUI.activeSelf)
-            {
-                upgradeUI.SetActive(false);
+            else {
+                if (level == 1 && res.amount >= gm.data.upgradeCostResource && gm.data.scrap.amount >= gm.data.upgradeCostScrap)
+                {
+                    upgradeUI.SetActive(true);
+                }
             }
         }
 

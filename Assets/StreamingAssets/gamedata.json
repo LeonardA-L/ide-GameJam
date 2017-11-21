@@ -79,5 +79,7 @@
     "starvationDecay": 10.0,
 
     "upgradeCostResource": 150,
-    "upgradeCostScrap": 50
+    "upgradeCostScrap": 50,
+    "upgradeConsumptionFactor": 0.9,
+    "upgradeEfficiencyFactor": 1.5 
 }

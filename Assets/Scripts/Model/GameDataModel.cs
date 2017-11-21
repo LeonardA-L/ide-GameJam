@@ -18,5 +18,7 @@ namespace MarsFrenzy
 
         public float upgradeCostResource;
         public float upgradeCostScrap;
+        public float upgradeConsumptionFactor;
+        public float upgradeEfficiencyFactor;
     }
 }
