@@ -70,5 +70,7 @@
     },
     "playerHungerStart": 100.0,
     "playerThirstStart": 100.0,
-    "starvationDecay": 10.0
+    "starvationDecay": 10.0,
+
+    "upgradeCost": 300
 }

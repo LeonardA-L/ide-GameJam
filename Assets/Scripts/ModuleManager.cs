@@ -19,7 +19,7 @@ namespace MarsFrenzy
         private Text stock;
 
         public float moduleHealth = 100.0f;
-        private float efficiencyModifier = 1;
+        private ModuleHealthThreshold efficiencyModifier = null;
 
         private Animator animator;
 
@@ -90,33 +90,8 @@ namespace MarsFrenzy
             }
             stock.text = res.amount.ToString("0.00");
 
-            health.localScale = new Vector3(1.0f, moduleHealth / 100.0f, 1.0f);
-            if (healthyView != null)
-            {
-                float healhyBrokenThreshold = 60.0f;
-                if (moduleHealth < healhyBrokenThreshold && healthyView.activeSelf)
-                {
-                    healthyView.SetActive(false);
-                    brokenView.SetActive(true);
-                }
-                if (moduleHealth > healhyBrokenThreshold && !healthyView.activeSelf)
-                {
-                    healthyView.SetActive(true);
-                    brokenView.SetActive(false);
-                }
-            }
-
-            // Update efficiency
-            efficiencyModifier = 1.0f;
-            for (int i = 0; i < gm.data.moduleHealthThresholds.Length; i++)
-            {
-                ModuleHealthThreshold thr = gm.data.moduleHealthThresholds[i];
-                if (moduleHealth <= thr.threshold)
-                {
-                    efficiencyModifier = thr.modifier;
-                    break;
-                }
-            }
+            updateEfficiency();
+            updateHealthView();
 
             // Stop repairing
             if (!Input.GetMouseButton(0))
@@ -140,7 +115,7 @@ namespace MarsFrenzy
             // PRODUCTION
             if (activated && fuel.amount > 0)
             {
-                res.amount += res.efficiency * efficiencyModifier * smoothingFactor;
+                res.amount += res.efficiency * efficiencyModifier.modifier * smoothingFactor;
                 fuel.amount -= 1 * smoothingFactor;
             }
 
@@ -184,6 +159,40 @@ namespace MarsFrenzy
             else if (clicked.tag == "HealthView")
             {
                 repairing = true;
+            }
+        }
+
+        private void updateHealthView()
+        {
+            health.localScale = new Vector3(1.0f, moduleHealth / 100.0f, 1.0f);
+            if (healthyView != null)
+            {
+                float healhyBrokenThreshold = gm.data.moduleHealthThresholds[2].threshold;  // 60%
+                if (moduleHealth < healhyBrokenThreshold && healthyView.activeSelf)
+                {
+                    healthyView.SetActive(false);
+                    brokenView.SetActive(true);
+                }
+                if (moduleHealth > healhyBrokenThreshold && !healthyView.activeSelf)
+                {
+                    healthyView.SetActive(true);
+                    brokenView.SetActive(false);
+                }
+            }
+        }
+
+        private void updateEfficiency()
+        {
+            // Update efficiency
+            efficiencyModifier = gm.data.moduleHealthThresholds[gm.data.moduleHealthThresholds.Length - 1];
+            for (int i = 0; i < gm.data.moduleHealthThresholds.Length; i++)
+            {
+                ModuleHealthThreshold thr = gm.data.moduleHealthThresholds[i];
+                if (moduleHealth <= thr.threshold)
+                {
+                    efficiencyModifier = thr;
+                    break;
+                }
             }
         }
     }
