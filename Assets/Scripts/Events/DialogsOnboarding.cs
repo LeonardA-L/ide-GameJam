@@ -28,6 +28,12 @@ namespace MarsFrenzy
             ));
 
             events.Add(new DialogEvent(
+                Dialogs.CreateListString(),
+                Step15,
+                ActionShowUi
+            ));
+
+            events.Add(new DialogEvent(
                 Dialogs.CreateListString("Noise"),
                 Step20,
                 MoveOnboarding
@@ -200,6 +206,12 @@ namespace MarsFrenzy
         {
             return Dialogs.OnboardingStep == 10
                 && Wait(3.0f);
+        }
+
+        static bool Step15()
+        {
+            return Dialogs.OnboardingStep == 15
+                && Wait(1.0f);
         }
 
         static bool Step20()
@@ -376,7 +388,14 @@ namespace MarsFrenzy
         static void WidenView()
         {
             Dialogs.WidenView();
-            MoveOnboarding();
+            Dialogs.ShowUI();
+            Dialogs.SetOnboardingStep(15);
+        }
+
+        static void ActionShowUi()
+        {
+            Dialogs.ShowUI();
+            Dialogs.SetOnboardingStep(20);
         }
 
         static void ExitFirstPart()

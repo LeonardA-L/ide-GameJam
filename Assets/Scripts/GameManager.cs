@@ -31,6 +31,7 @@ namespace MarsFrenzy
         private int onboardingStep = 0;
 
         public Animator cameraAnimator;
+        public Animator uiAnimator;
 
         public int OnboardingStep
         {
@@ -339,7 +340,7 @@ namespace MarsFrenzy
 
         public void ShowUI()
         {
-            
+            uiAnimator.SetBool("uiActive", true);
         }
     }
 
