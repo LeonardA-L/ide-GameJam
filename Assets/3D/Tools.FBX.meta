@@ -1,0 +1,226 @@
+fileFormatVersion: 2
+guid: fafc69fd1af13af4f86186574415b5df
+timeCreated: 1511286672
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Bolt
+    100002: Bolt001
+    100004: Bolt002
+    100006: Box001
+    100008: Driller
+    100010: Hammer
+    100012: Pipe Wrench
+    100014: Pliers
+    100016: Saw
+    100018: Screwdriver
+    100020: //RootNode
+    100022: Torus61
+    400000: Bolt
+    400002: Bolt001
+    400004: Bolt002
+    400006: Box001
+    400008: Driller
+    400010: Hammer
+    400012: Pipe Wrench
+    400014: Pliers
+    400016: Saw
+    400018: Screwdriver
+    400020: //RootNode
+    400022: Torus61
+    2300000: Bolt
+    2300002: Bolt001
+    2300004: Bolt002
+    2300006: Box001
+    2300008: Driller
+    2300010: Hammer
+    2300012: Pipe Wrench
+    2300014: Pliers
+    2300016: Saw
+    2300018: Screwdriver
+    2300020: Torus61
+    3300000: Bolt
+    3300002: Bolt001
+    3300004: Bolt002
+    3300006: Box001
+    3300008: Driller
+    3300010: Hammer
+    3300012: Pipe Wrench
+    3300014: Pliers
+    3300016: Saw
+    3300018: Screwdriver
+    3300020: Torus61
+    4300000: Torus61
+    4300002: Driller
+    4300004: Pipe Wrench
+    4300006: Hammer
+    4300008: Pliers
+    4300010: Bolt
+    4300012: Screwdriver
+    4300014: Box001
+    4300016: Saw
+    9500000: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bolt_Metal
+    second: {fileID: 2100000, guid: 8998c66bb26dd8e49b137c8b1431ac44, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Drill_FrontMetal
+    second: {fileID: 2100000, guid: 6995106e7c3937248b5587d3fa92ded3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Drill_MainColor
+    second: {fileID: 2100000, guid: a06007e9eb0d9694e9840515b71e6f60, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Drill_SecondaryColor
+    second: {fileID: 2100000, guid: 4e1255a97d34d43449e28ea88062c6ff, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Hammer_01_Metal
+    second: {fileID: 2100000, guid: 3de3c2c7ba5597c4887bb5b7b37ded72, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Hammer_01_Wood
+    second: {fileID: 2100000, guid: 5b317b2eb5a9c7544b86d3a43dca234a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #12'
+    second: {fileID: 2100000, guid: 9aeb6d910ab2f934ca9565d2d9f6f281, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #27'
+    second: {fileID: 2100000, guid: 7f6035e0345288b42a8edcb17adbbe97, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #28'
+    second: {fileID: 2100000, guid: 3c0d45f648276f643a890ba887e140ce, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #32'
+    second: {fileID: 2100000, guid: 05cd9961c055eaf47ba9f49340aa3373, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Pipe_Wrench_MainColor
+    second: {fileID: 2100000, guid: 378cd2d03c7dffa45bc54f131d359730, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Pipe_Wrench_SecondaryColor
+    second: {fileID: 2100000, guid: de2bb369c03f9094e806730e77fe0a2c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Pipe_Wrench_White
+    second: {fileID: 2100000, guid: 3e53f93522bb7c24e842d6bb70558582, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Pliers_Handle
+    second: {fileID: 2100000, guid: f32e61a956399be4d9b1c18d70beedae, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Pliers_Metal
+    second: {fileID: 2100000, guid: 281c6ea3e56447442885720a4c744127, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Saw_Blade
+    second: {fileID: 2100000, guid: d88e8cf23a1ec6a4492e2676d801cde6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Saw_Handle
+    second: {fileID: 2100000, guid: a6044c753bbbb3c44bdd0a79a60c16a1, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

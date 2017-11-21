@@ -27,6 +27,7 @@ namespace MarsFrenzy
 
         private GameObject healthyView;
         private GameObject brokenView;
+        public GameObject tools;
 
         public float level = 1;
 
@@ -73,6 +74,7 @@ namespace MarsFrenzy
                 healthyView.SetActive(true);
                 brokenView.SetActive(false);
             }
+            tools.SetActive(false);
 
             animator = view.GetComponent<Animator>();
 
@@ -130,11 +132,13 @@ namespace MarsFrenzy
                 }
                 repairing = false;
                 clicking = false;
+                tools.SetActive(false);
             }
 
             if (clicking && gm.timer - clickingTime > timeToRepair)
             {
                 repairing = true;
+                tools.SetActive(true);
             }
         }
 
