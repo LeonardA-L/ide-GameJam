@@ -285,7 +285,7 @@ Prefab:
     - target: {fileID: 224278606684963154, guid: 4675ada665b8f30419ab34eed7c8bf56,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: -57.5
+      value: -78
       objectReference: {fileID: 0}
     - target: {fileID: 224137504987419622, guid: 4675ada665b8f30419ab34eed7c8bf56,
         type: 2}
@@ -295,7 +295,7 @@ Prefab:
     - target: {fileID: 224137504987419622, guid: 4675ada665b8f30419ab34eed7c8bf56,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: -57.5
+      value: -78
       objectReference: {fileID: 0}
     - target: {fileID: 224587091394033774, guid: 4675ada665b8f30419ab34eed7c8bf56,
         type: 2}
@@ -305,7 +305,7 @@ Prefab:
     - target: {fileID: 224587091394033774, guid: 4675ada665b8f30419ab34eed7c8bf56,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 224343189846882034, guid: 4675ada665b8f30419ab34eed7c8bf56,
         type: 2}
@@ -315,7 +315,7 @@ Prefab:
     - target: {fileID: 224343189846882034, guid: 4675ada665b8f30419ab34eed7c8bf56,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 224088563378429588, guid: 4675ada665b8f30419ab34eed7c8bf56,
         type: 2}
@@ -355,7 +355,7 @@ Prefab:
     - target: {fileID: 224099197416462222, guid: 4675ada665b8f30419ab34eed7c8bf56,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 110.9
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 224973774976786036, guid: 4675ada665b8f30419ab34eed7c8bf56,
         type: 2}
@@ -380,7 +380,7 @@ Prefab:
     - target: {fileID: 224055313478479738, guid: 4675ada665b8f30419ab34eed7c8bf56,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 42.071777
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 224458095010260684, guid: 4675ada665b8f30419ab34eed7c8bf56,
         type: 2}
@@ -400,7 +400,7 @@ Prefab:
     - target: {fileID: 224208703516028376, guid: 4675ada665b8f30419ab34eed7c8bf56,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 224212921592350946, guid: 4675ada665b8f30419ab34eed7c8bf56,
         type: 2}
@@ -410,7 +410,7 @@ Prefab:
     - target: {fileID: 224212921592350946, guid: 4675ada665b8f30419ab34eed7c8bf56,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 224103678345700080, guid: 4675ada665b8f30419ab34eed7c8bf56,
         type: 2}
@@ -425,12 +425,12 @@ Prefab:
     - target: {fileID: 224563495390276174, guid: 4675ada665b8f30419ab34eed7c8bf56,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 319
+      value: 225.5
       objectReference: {fileID: 0}
     - target: {fileID: 224563495390276174, guid: 4675ada665b8f30419ab34eed7c8bf56,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 355
+      value: 292
       objectReference: {fileID: 0}
     - target: {fileID: 224610611004827344, guid: 4675ada665b8f30419ab34eed7c8bf56,
         type: 2}
@@ -460,7 +460,7 @@ Prefab:
     - target: {fileID: 224403398707931364, guid: 4675ada665b8f30419ab34eed7c8bf56,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 226.35202
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 224753354401230186, guid: 4675ada665b8f30419ab34eed7c8bf56,
         type: 2}
@@ -535,6 +535,11 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 762493ee51fa5de4aa82548612a499fc, type: 2}
   m_IsPrefabParent: 0
+--- !u!95 &1679226042 stripped
+Animator:
+  m_PrefabParentObject: {fileID: 95181696706725570, guid: 8d90abf48b776fd44929e4582af3e828,
+    type: 2}
+  m_PrefabInternal: {fileID: 266594274}
 --- !u!1001 &1685522896
 Prefab:
   m_ObjectHideFlags: 0
@@ -670,6 +675,7 @@ MonoBehaviour:
   lastDialog: 0
   character: {fileID: 1685522897}
   endScreen: {fileID: 1204716714}
+  cameraAnimator: {fileID: 1679226042}
 --- !u!1 &2143859670
 GameObject:
   m_ObjectHideFlags: 0
