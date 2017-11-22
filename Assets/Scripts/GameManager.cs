@@ -105,8 +105,8 @@ namespace MarsFrenzy
                 Tick();
             }
 
-            ductTapeStock.text = "" + data.ductTape.amount;
-            scrapStock.text = "" + data.scrap.amount;
+            ductTapeStock.text = "" + data.ductTape.amount.ToString("0.00");
+            scrapStock.text = "" + data.scrap.amount.ToString("0.00");
         }
 
         private void Tick()

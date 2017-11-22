@@ -283,6 +283,8 @@ namespace MarsFrenzy
 
         private void UpgradeModule()
         {
+            res.amount -= gm.data.upgradeCostResource;
+            gm.data.scrap.amount -= gm.data.upgradeCostScrap;
             level = 2;
         }
 
