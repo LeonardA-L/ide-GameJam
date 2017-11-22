@@ -15,7 +15,9 @@ namespace MarsFrenzy
         public bool activated = false;
         public bool repairing = false;
 
-        public Transform health;    // TMP TODO
+        public Transform health;
+        public Transform healthBarWrap;
+        public Animator healthAnimator;
         private Text stock;
 
         public float moduleHealth = 100.0f;
@@ -27,14 +29,24 @@ namespace MarsFrenzy
 
         private GameObject healthyView;
         private GameObject brokenView;
+        public GameObject tools;
 
         public float level = 1;
 
         public GameObject upgradeUI;
+
+        public bool clicking = false;
+        public float clickingTime = 0;
+        public float timeToRepair = 0.4f;
+
+        public string queuedAction = null;
+        private Vector3 playerTarget;
+
         // Use this for initialization
         void Start()
         {
-            animator.SetBool("activated", activated);
+            SetActive(false);
+            healthAnimator = health.gameObject.GetComponent<Animator>();
         }
 
         public void Init(int _id, ResourceModel _resource, ResourceModel _fuelResource, GameManager _manager)
@@ -51,6 +63,7 @@ namespace MarsFrenzy
             view.transform.parent = transform;
             view.name = "View";
 
+            healthBarWrap.position = res.healthPlacement;
 
             foreach (Transform child in view.transform)
             {
@@ -69,6 +82,7 @@ namespace MarsFrenzy
                 healthyView.SetActive(true);
                 brokenView.SetActive(false);
             }
+            tools.SetActive(false);
 
             animator = view.GetComponent<Animator>();
 
@@ -76,11 +90,13 @@ namespace MarsFrenzy
             vs.manager = this;
 
             transform.position = new Vector3(res.x, 0.0f, res.z);
+            playerTarget = transform.position + res.playerTarget;
 
             GameObject stockObj = GameObject.Find("/UI_prefab/MainCanvas/Resources/BackgroundOrange/" + res.name + "/"+ res.name+"_Stock");
             stock = stockObj.GetComponent<Text>();
 
             // Upgrade UI
+            upgradeUI.transform.localPosition = res.upgradePlacement;
             upgradeUI.SetActive(false);
             foreach (Transform child in upgradeUI.transform)
             {
@@ -119,7 +135,27 @@ namespace MarsFrenzy
             // Stop repairing
             if (!Input.GetMouseButton(0))
             {
+                if (clicking && !repairing && queuedAction != "repair")
+                {
+                    queuedAction = "toggle";
+                } else if(queuedAction == "repair")
+                {
+                    gm.SetPlayerAction(gm.player.position);
+                    queuedAction = null;
+                }
                 repairing = false;
+                clicking = false;
+                tools.SetActive(false);
+            }
+
+            if (clicking && gm.timer - clickingTime > timeToRepair)
+            {
+                queuedAction = "repair";
+            }
+
+            if(queuedAction != null && (gm.player.position - playerTarget).magnitude < 1.0f)
+            {
+                executeQueuedAction();
             }
         }
 
@@ -131,8 +167,7 @@ namespace MarsFrenzy
             if (moduleHealth <= 0.0f)
             {
                 moduleHealth = 0.0f;
-                activated = false;
-                animator.SetBool("activated", activated);
+                SetActive(false);
             }
 
             // PRODUCTION
@@ -156,7 +191,7 @@ namespace MarsFrenzy
                 moduleHealth -= res.damageRate * smoothingFactor;
             }
 
-            if (repairing && gm.data.ductTape.amount >= gm.data.ductTape.efficiency && (moduleHealth + gm.data.ductTape.efficiency) * smoothingFactor <= 100.0f)
+            if (repairing && gm.data.ductTape.amount >= gm.data.ductTape.efficiency && (moduleHealth + gm.data.ductTape.efficiency * smoothingFactor) <= 100.0f)
             {
                 moduleHealth += gm.data.ductTape.efficiency * smoothingFactor;
                 gm.data.ductTape.amount -= (level == 1 ? 1.0f : gm.data.upgradeConsumptionFactor) * smoothingFactor;
@@ -176,12 +211,9 @@ namespace MarsFrenzy
             }
             if (clicked.tag == "ModuleView")
             {
-                activated = !activated;
-                animator.SetBool("activated", activated);
-            }
-            else if (clicked.tag == "HealthView")
-            {
-                repairing = true;
+                clicking = true;
+                clickingTime = gm.timer;
+                gm.SetPlayerAction(playerTarget);
             }
             else if (clicked.name == "Upgrade")
             {
@@ -191,7 +223,11 @@ namespace MarsFrenzy
 
         private void updateHealthView()
         {
-            health.localScale = new Vector3(1.0f, moduleHealth / 100.0f, 1.0f);
+            health.localScale = new Vector3(Mathf.Clamp(moduleHealth / 100.0f, 0.05f, 1.0f), 1.0f, 1.0f);
+            if (healthAnimator)
+            {
+                healthAnimator.SetFloat("health", moduleHealth);
+            }
             if (healthyView != null)
             {
                 float healhyBrokenThreshold = gm.data.moduleHealthThresholds[2].threshold;  // 60%
@@ -246,7 +282,29 @@ namespace MarsFrenzy
 
         private void UpgradeModule()
         {
+            res.amount -= gm.data.upgradeCostResource;
+            gm.data.scrap.amount -= gm.data.upgradeCostScrap;
             level = 2;
+        }
+
+        private void executeQueuedAction()
+        {
+            if(queuedAction == "toggle")
+            {
+                SetActive(!activated);
+            }
+            else
+            {
+                repairing = true;
+                tools.SetActive(true);
+            }
+            queuedAction = null;
+        }
+
+        public void SetActive(bool _newValue)
+        {
+            activated = _newValue;
+            animator.SetBool("activated", activated);
         }
     }
 }

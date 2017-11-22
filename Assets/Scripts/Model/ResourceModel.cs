@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace MarsFrenzy
 {
@@ -13,5 +14,9 @@ namespace MarsFrenzy
         public float x = 0;
         public float z = 0;
         public string name;
+
+        public Vector3 healthPlacement;
+        public Vector3 upgradePlacement;
+        public Vector3 playerTarget;
     }
 }

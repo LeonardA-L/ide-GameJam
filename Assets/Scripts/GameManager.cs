@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AI;
 using System.IO;
 
 namespace MarsFrenzy
@@ -25,12 +26,16 @@ namespace MarsFrenzy
         public CharacterLife character;
         public EndScreen endScreen;
 
-        private int prevFrame = 0;
-
         private int onboardingStep = 0;
 
         public Animator cameraAnimator;
         public Animator uiAnimator;
+
+        public NavMeshAgent playerAgent;
+        public Transform player;
+        public Vector3 lastPlayerPosition;
+        public Animator playerAnimator;
+        private float agentSpeed;
 
         public int OnboardingStep
         {
@@ -84,6 +89,9 @@ namespace MarsFrenzy
             GameObject scrapStockObj = GameObject.Find("/UI_prefab/MainCanvas/Resources/BackgroundBlue/scrap/scrap_Stock");
             scrapStock = scrapStockObj.GetComponent<Text>();
 
+            playerAnimator = player.gameObject.GetComponent<Animator>();
+            lastPlayerPosition = player.position;
+
             timeRuns = true;
         }
 
@@ -98,13 +106,15 @@ namespace MarsFrenzy
 
             if (timeRuns && (timer - lastTime) > data.gameClock / (1.0f * data.clockSmoothing))
             {
-                prevFrame = frame;
                 lastTime = timer;
                 Tick();
             }
 
-            ductTapeStock.text = "" + data.ductTape.amount;
-            scrapStock.text = "" + data.scrap.amount;
+            ductTapeStock.text = "" + data.ductTape.amount.ToString("0.00");
+            scrapStock.text = "" + data.scrap.amount.ToString("0");
+            
+            playerAnimator.SetFloat("speed", (player.position - lastPlayerPosition).magnitude / Time.deltaTime);
+            lastPlayerPosition = player.position;
         }
 
         private void Tick()
@@ -115,6 +125,11 @@ namespace MarsFrenzy
             }
 
             character.Tick();
+        }
+
+        public void SetPlayerAction(Vector3 goal)
+        {
+            playerAgent.SetDestination(goal);
         }
 
         private static void setInstance(GameManager _instance)
@@ -164,6 +179,8 @@ namespace MarsFrenzy
         public void Pause()
         {
             timeRuns = false;
+            agentSpeed = playerAgent.speed;
+            playerAgent.speed = 0;
         }
 
         public void PauseMenu()
@@ -185,6 +202,7 @@ namespace MarsFrenzy
                 return;
             }
             timeRuns = true;
+            playerAgent.speed = agentSpeed;
         }
 
         public void EndDialog()
@@ -211,7 +229,7 @@ namespace MarsFrenzy
             {
                 if (modules[i].res.name == name)
                 {
-                    modules[i].activated = _active;
+                    modules[i].SetActive(_active);
                 }
             }
         }

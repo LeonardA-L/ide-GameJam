@@ -1,33 +1,36 @@
 {
-    "IntroTutorial": "Bienvenue Captain Capsule. Ici Captain Crispies. Je suis en orbite autour de Mars. On m'a demandé de veiller sur toi.",
-    "IntroTutorial2" : "Pas inutile vu que tu as cassé ton antenne de communication après ton atterrissage catastrophique. Allez, au boulot.",
-    "AskActivateWater": "Conseil d'ami : tu devrais activer le module eau.",
-    "RemindActivateWater" : "On ne t'a pas appris que l'eau est la base de la survie?",
-    "RemindActivateWater2" :"Tu n'as plus que quelques secondes pour activer le module eau. Ce serait dommage de finir ta vie sur Mars",
-    "WaterIsActive": "Tu as enfin trouvé comment activer l'eau.Pas si mal pour un débutant",
-    "AskActivatePotatoes":"Tu n'as pas un petit creux? Il paraît que les patates ne sont pas mauvaises.",
-    "RemindActivatePotatoes" : "2ème leçon du manuel du parfait astronaute :se nourrir. Justement tu as un module de patates.",
-    "RemindActivatePotatoes2" : "Je me prépare à envoyer ton avis de décès : mort de faim.",
-    "PotatoesAreActive" :"C'est bon ton module patate est lancé. A table!",
-    "AskActivateGenerator": "Les patates produisent de l'électrictité. A condition d'activer le générateur bien sûr...",
-    "RemindActivateGenerator": "C'est pas l'heure de la sieste! Active l'électricité ou les autres modules vont s'arrêter.",
-    "RemindActivateGenerator2": "Annonce de service. Le courant va être coupé dans 3...2...1...",
-	"GeneratorIsActive" : "Enfin un peu d'électricité.",
-    "AllActive": "C'est bon ta base est prête. Maintenant il faut produire beaucoup d'électricité pour réparer l'antenne. ",
+    "IntroTutorial": "Je suis en direct de l'orbite de Mars. Pas de panique: j'ai activé la capsule de secours, elle sera prête dans 7mn.",
+    "AskActivateWater": "Conseil de voisin martien : tu devrais activer le module eau.",
+    "RemindActivateWater" : "On ne t'a pas appris que l'eau est la base de la survie ?",
+    "AskActivatePotatoes":"Tu n'as pas un petit creux ? Il paraît que les patates ne sont pas mauvaises.",
+    "RemindActivatePotatoes" : "2ème leçon du manuel Devenir astronaute pour les nuls : se nourrir. Justement tu as un module de patates.",
+   
+   "AskActivateGenerator": "Il paraît que les patates produisent de l'électricité. Si le générateur est activé...",
+    "RemindActivateGenerator": "Annonce de service. Le courant va être coupé dans 3...2...1...",
+    "AllActive": "Base check : OK. N'oublie pas : les patates produisent de l'électricité, l'eau alimente les patates et l'électricité génère de l'eau.",
+    "IntroRepair":"Tu peux réparer tes modules en appuyant longuement dessus.",
 
+    "RepairEnd":"La réparation consomme du scotch. Attention à ton stock !",
+	"IntroModuleOff":"Pour économiser tes modules, tu peux les mettre en pause en cliquant dessus.",
 
 
     "BeforeMarsStorm":"Une tempête solaire approche. Accroche toi, ça va secouer !",	
     "BeforeEclipse" : "Les communications vont être coupées à cause de l'éclipse solaire.",
     "BeforeWaterKO" : "Je vois une fuite d'eau dans ton réservoir. Tu devrais aller voir.",
-    "AvertUpgradePotatoes" : "Plus que 50 patates et tu pourras upgrader ton module. Encore un effort.",
-    "AvertUpgradeWater" : "Ton stock d'eau vient d'atteindre 100 litres. Bonne nouvelle : à partir de 50 litres, une upgrade sera disponible.",
-    "AvertUpgradeElectricity" : "A partir de 150kw, ton module électricité deviendra plus puissant. Si tu veux l'upgrader bien sûr.",
+    "AvertUpgradePotatoes" : "Plus que 25 patates et tu pourras upgrader ton module. Encore un effort, Captain Capsule !",
+    "AvertUpgradeWater" : "Ton stock d'eau vient d'atteindre 25 litres. Au bout de 50 litres d'eau, une upgrade en cadeau.",
+    "AvertUpgradeElectricity" : "Déjà 25kw/h produit ! Encore 25 kw/h et l'upgrade sera à portée de mains.",
 
-    "Noise": "..... hhhhhh.....",
-    "Noise2": "..... shhhhreçois ? .....",
-    "FirstContact": "... Tu me reçois ? Ah. On dirait que la connexion est rétablie.",
-    "FirstContact2": "Je vois que tu as redémarré la base. C'est déjà ça."
+    "Noise": "..... #&#SShhSS#@&#.....",
+    "Noise2": "..... @@@##&%##shhhhreçois ? .....",
+    "FirstContact": "... Tu me reçois ? Ah ! On dirait que la connexion est rétablie.",
+    "FirstContact2": "Sacré atterissage ! Je vois que tu es toujours en vie. Pas mal pour un débutant.",
+
+    "victoryTitle": "Bravo Captain Capsule!",
+    "victorySub": "Tu es un vrai Martien !",
+    "defeatTitle": "Game Over",
+    "defeatSub": "Tu n'est pas fait pour Mars. Tu devrais plutôt essayer la survie sur la Terre."
+
 }
 
 
