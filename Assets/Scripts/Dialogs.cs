@@ -160,5 +160,10 @@ namespace MarsFrenzy
         {
             GameManager.Instance.ShowUI();
         }
+
+        public static void CreateCrate(float _water, float _potatoes, float _electricity, float _scrap, float _ductTape)
+        {
+            GameManager.Instance.CreateCrate(_water, _potatoes, _electricity, _scrap, _ductTape);
+        }
     }
 }

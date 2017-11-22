@@ -37,6 +37,8 @@ namespace MarsFrenzy
         public Animator playerAnimator;
         private float agentSpeed;
 
+        public int[] crateSlots;
+
         public int OnboardingStep
         {
             get
@@ -91,6 +93,8 @@ namespace MarsFrenzy
 
             playerAnimator = player.gameObject.GetComponent<Animator>();
             lastPlayerPosition = player.position;
+
+            crateSlots = new int[data.crateDropPoints.Length];
 
             timeRuns = true;
         }
@@ -353,6 +357,55 @@ namespace MarsFrenzy
         public void ShowUI()
         {
             uiAnimator.SetBool("uiActive", true);
+        }
+
+        public void CreateCrate(float _water, float _potatoes, float _electricity, float _scrap, float _ductTape)
+        {
+
+            int baseRandSlot = (int)(Random.value * data.crateDropPoints.Length);
+            int successSlot = -1;
+            for (int i = 0; i < data.crateDropPoints.Length; i++)
+            {
+                int slot = (baseRandSlot + i) % data.crateDropPoints.Length;
+                if (crateSlots[slot] != 1)
+                {
+                    successSlot = slot;
+                }
+            }
+            if(successSlot == -1)
+            {
+                Debug.Log("Stacking crates, exiting.");
+                return;
+            }
+            GameObject crate = (GameObject)GameObject.Instantiate(Resources.Load("Prefabs/Drop_prefab"));
+            crateSlots[successSlot] = 1;
+            crate.name = "Drop_Crate_"+ successSlot;
+
+            crate.transform.position = new Vector3(data.crateDropPoints[successSlot].x, 15.0f, data.crateDropPoints[successSlot].z);
+            crate.transform.Rotate(new Vector3(0.0f, 180.0f * Random.value, 0.0f));
+
+            DropController dc = crate.GetComponent<DropController>();
+            dc.SetValues(_water <= 0 ? 0 : _water + GetRandomCrateChange(),
+                         _potatoes <= 0 ? 0 : _potatoes + GetRandomCrateChange(),
+                         _electricity <= 0 ? 0 : _electricity + GetRandomCrateChange(),
+                         _scrap <= 0 ? 0 : _scrap + GetRandomCrateChange(),
+                         _ductTape <= 0 ? 0 : _ductTape + GetRandomCrateChange(),
+                         successSlot);
+        }
+
+        private float GetRandomCrateChange()
+        {
+            return (float)System.Math.Round(Random.value * 2.0f - 1.0f, 2);
+        }
+
+        public void CollectCrate(DropController _crate)
+        {
+            modules[0].res.amount += _crate.water;
+            modules[1].res.amount += _crate.potatoes;
+            modules[2].res.amount += _crate.electricity;
+
+            data.ductTape.amount += _crate.ductTape;
+            data.scrap.amount += _crate.scrap;
         }
     }
 
