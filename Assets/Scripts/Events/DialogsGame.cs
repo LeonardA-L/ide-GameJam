@@ -175,7 +175,7 @@ static bool Step500()
         static bool Step600()
         {
             return Dialogs.OnboardingStep >= 580
-            && Dialogs.TimeSinceLastDialogIs(30.0f);
+            && Dialogs.TimeSinceLastDialogIs(50.0f);
         }
 // Step 610 Eclipse
 static bool Step650()
@@ -187,7 +187,7 @@ static bool Step650()
     static bool Step700()
     {
             return Dialogs.OnboardingStep >= 610
-            && Dialogs.TimeSinceLastDialogIs(45.0f);
+            && Dialogs.TimeSinceLastDialogIs(65.0f);
         }
         // Step 710  WaterKo
         static bool Step750()
