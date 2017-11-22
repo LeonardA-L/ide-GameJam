@@ -38,6 +38,10 @@ namespace MarsFrenzy
         public bool clicking = false;
         public float clickingTime = 0;
         public float timeToRepair = 0.4f;
+
+        public string queuedAction = null;
+        private Vector3 playerTarget;
+
         // Use this for initialization
         void Start()
         {
@@ -86,6 +90,7 @@ namespace MarsFrenzy
             vs.manager = this;
 
             transform.position = new Vector3(res.x, 0.0f, res.z);
+            playerTarget = transform.position + res.playerTarget;
 
             GameObject stockObj = GameObject.Find("/UI_prefab/MainCanvas/Resources/BackgroundOrange/" + res.name + "/"+ res.name+"_Stock");
             stock = stockObj.GetComponent<Text>();
@@ -130,10 +135,13 @@ namespace MarsFrenzy
             // Stop repairing
             if (!Input.GetMouseButton(0))
             {
-                if (clicking && !repairing)
+                if (clicking && !repairing && queuedAction != "repair")
                 {
-                    activated = !activated;
-                    animator.SetBool("activated", activated);
+                    queuedAction = "toggle";
+                } else if(queuedAction == "repair")
+                {
+                    gm.SetPlayerAction(gm.player.position);
+                    queuedAction = null;
                 }
                 repairing = false;
                 clicking = false;
@@ -142,8 +150,12 @@ namespace MarsFrenzy
 
             if (clicking && gm.timer - clickingTime > timeToRepair)
             {
-                repairing = true;
-                tools.SetActive(true);
+                queuedAction = "repair";
+            }
+
+            if(queuedAction != null && (gm.player.position - playerTarget).magnitude < 1.0f)
+            {
+                executeQueuedAction();
             }
         }
 
@@ -202,6 +214,7 @@ namespace MarsFrenzy
             {
                 clicking = true;
                 clickingTime = gm.timer;
+                gm.SetPlayerAction(playerTarget);
             }
             else if (clicked.name == "Upgrade")
             {
@@ -271,6 +284,21 @@ namespace MarsFrenzy
         private void UpgradeModule()
         {
             level = 2;
+        }
+
+        private void executeQueuedAction()
+        {
+            if(queuedAction == "toggle")
+            {
+                activated = !activated;
+                animator.SetBool("activated", activated);
+            }
+            else
+            {
+                repairing = true;
+                tools.SetActive(true);
+            }
+            queuedAction = null;
         }
     }
 }
