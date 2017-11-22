@@ -116,7 +116,7 @@
 
     "scrap": {
         "name": "scrap",
-        "amount": 100
+        "amount": 75
     },
 
     "playerHungerStart": 100.0,
