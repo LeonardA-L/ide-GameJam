@@ -85,9 +85,9 @@
         {
             "name": "electricity",
             "amount": 20,
-            "decay": 0.5,
-            "efficiency": 1.7,
-            "damageRate": 0.8,
+            "decay": 0.4,
+            "efficiency": 1.8,
+            "damageRate": 0.6,
             "startHealth": 90,
             "x": 10.67,
             "z": -4.49,
@@ -116,7 +116,7 @@
 
     "scrap": {
         "name": "scrap",
-        "amount": 75
+        "amount": 100
     },
 
     "playerHungerStart": 100.0,

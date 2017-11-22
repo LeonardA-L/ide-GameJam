@@ -187,7 +187,7 @@ static bool Step650()
     static bool Step700()
     {
             return Dialogs.OnboardingStep >= 610
-            && Dialogs.TimeSinceLastDialogIs(40.0f);
+            && Dialogs.TimeSinceLastDialogIs(45.0f);
         }
         // Step 710  WaterKo
         static bool Step750()
@@ -222,7 +222,7 @@ static bool Step650()
         // Step 2000 PlayerVictory
         static bool Step2000()
         {
-            return Dialogs.timeIs(600.0f);
+            return Dialogs.timeIs(420.0f);
         }
 
 
@@ -261,9 +261,9 @@ static bool Step650()
         static void End_Of_Step530()
        {
             Debug.Log("User just did step 550");
-            Dialogs.AddModuleHealth("potatoes",- 10.0f);
-            Dialogs.AddModuleHealth("water",- 10.0f);
-            Dialogs.AddModuleHealth("electricity", - 10.0f);
+            Dialogs.AddModuleHealth("potatoes",- 20.0f);
+            Dialogs.AddModuleHealth("water",- 20.0f);
+            Dialogs.AddModuleHealth("electricity", - 20.0f);
         }
 
 
@@ -297,7 +297,7 @@ static bool Step650()
         static void End_Of_Step750()
         {
             Debug.Log("User just did step 750");
-            Dialogs.AddAmount("water", -40);
+            Dialogs.AddAmount("water", -10);
         }
 
     }
