@@ -128,7 +128,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1255114702654414
 GameObject:
   m_ObjectHideFlags: 1
@@ -659,7 +659,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1979293134024044
 GameObject:
   m_ObjectHideFlags: 1
@@ -1253,7 +1253,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Texture: {fileID: 2800000, guid: 0d7f289014a72ee4a837b16763a63528, type: 3}
+  m_Texture: {fileID: 2800000, guid: 45c04a9c22bd28c4d8d2a772a0206068, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -1562,7 +1562,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Texture: {fileID: 2800000, guid: d1b003da0e891f64b987fc84f5c91304, type: 3}
+  m_Texture: {fileID: 2800000, guid: 301f536d55254c6409ee721301078dd1, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
