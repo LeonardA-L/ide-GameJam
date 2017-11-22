@@ -1,12 +1,12 @@
 {
-    "IntroTutorial": "Je suis en direct de l'orbite de Mars. Pas de panique: j'ai activé la capsule de secours, elle sera prête dans 7mn.",
+    "IntroTutorial": "Je suis en direct de l'orbite de Mars. Pas de panique : j'ai activé la capsule de secours, elle sera prête dans 7 minutes.",
     "AskActivateWater": "Conseil de voisin martien : tu devrais activer le module eau.",
     "RemindActivateWater" : "On ne t'a pas appris que l'eau est la base de la survie ?",
     "AskActivatePotatoes":"Tu n'as pas un petit creux ? Il paraît que les patates ne sont pas mauvaises.",
     "RemindActivatePotatoes" : "2ème leçon du manuel Devenir astronaute pour les nuls : se nourrir. Justement tu as un module de patates.",
    
    "AskActivateGenerator": "Il paraît que les patates produisent de l'électricité. Si le générateur est activé...",
-    "RemindActivateGenerator": "Annonce de service. Le courant va être coupé dans 3...2...1...",
+    "RemindActivateGenerator": "Annonce de service. Le courant va être coupé dans 3... 2... 1...",
     "AllActive": "Base check : OK. N'oublie pas : les patates produisent de l'électricité, l'eau alimente les patates et l'électricité génère de l'eau.",
     "IntroRepair":"Tu peux réparer tes modules en appuyant longuement dessus.",
 
@@ -17,19 +17,19 @@
     "BeforeMarsStorm":"Une tempête solaire approche. Accroche toi, ça va secouer !",	
     "BeforeEclipse" : "Les communications vont être coupées à cause de l'éclipse solaire.",
     "BeforeWaterKO" : "Je vois une fuite d'eau dans ton réservoir. Tu devrais aller voir.",
-    "AvertUpgradePotatoes" : "Plus que 25 patates et tu pourras upgrader ton module. Encore un effort, Captain Capsule !",
-    "AvertUpgradeWater" : "Ton stock d'eau vient d'atteindre 25 litres. Au bout de 50 litres d'eau, une upgrade en cadeau.",
-    "AvertUpgradeElectricity" : "Déjà 25kw/h produit ! Encore 25 kw/h et l'upgrade sera à portée de mains.",
+    "AvertUpgradePotatoes" : "Plus que 25 patates et tu pourras améliorer ton module. Encore un effort, Captain Capsule !",
+    "AvertUpgradeWater" : "Ton stock d'eau vient d'atteindre 25 litres. Au bout de 50 litres d'eau, nous t'offrons une amélioration en cadeau.",
+    "AvertUpgradeElectricity" : "Déjà 25 KW/h produit ! Encore 25 KW/h et l'amélioration sera à portée de mains !",
 
     "Noise": "..... #&#SShhSS#@&#.....",
     "Noise2": "..... @@@##&%##shhhhreçois ? .....",
     "FirstContact": "... Tu me reçois ? Ah ! On dirait que la connexion est rétablie.",
-    "FirstContact2": "Sacré atterissage ! Je vois que tu es toujours en vie. Pas mal pour un débutant.",
+    "FirstContact2": "Sacré atterrissage ! Je vois que tu es toujours en vie. Pas mal pour un débutant !",
 
     "victoryTitle": "Bravo Captain Capsule!",
     "victorySub": "Tu es un vrai Martien !",
     "defeatTitle": "Game Over",
-    "defeatSub": "Tu n'est pas fait pour Mars. Tu devrais plutôt essayer la survie sur la Terre."
+    "defeatSub": "Tu n'est pas fait pour Mars. Tu devrais plutôt essayer la survie sur Terre."
 
 }
 
