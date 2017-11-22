@@ -302,5 +302,11 @@ namespace MarsFrenzy
             }
             queuedAction = null;
         }
+
+        public void SetActive(bool _newValue)
+        {
+            activated = _newValue;
+            animator.SetBool("activated", activated);
+        }
     }
 }
