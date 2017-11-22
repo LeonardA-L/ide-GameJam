@@ -202,6 +202,7 @@ namespace MarsFrenzy
             {
                 clicking = true;
                 clickingTime = gm.timer;
+                gm.SetPlayerAction(transform.position);
             }
             else if (clicked.name == "Upgrade")
             {

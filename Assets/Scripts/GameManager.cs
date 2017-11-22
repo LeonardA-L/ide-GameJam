@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AI;
 using System.IO;
 
 namespace MarsFrenzy
@@ -29,6 +30,8 @@ namespace MarsFrenzy
 
         public Animator cameraAnimator;
         public Animator uiAnimator;
+
+        public NavMeshAgent playerAgent;
 
         public int OnboardingStep
         {
@@ -112,6 +115,11 @@ namespace MarsFrenzy
             }
 
             character.Tick();
+        }
+
+        public void SetPlayerAction(Vector3 goal)
+        {
+            playerAgent.SetDestination(goal);
         }
 
         private static void setInstance(GameManager _instance)
