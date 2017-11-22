@@ -229,7 +229,7 @@ namespace MarsFrenzy
             {
                 if (modules[i].res.name == name)
                 {
-                    modules[i].activated = _active;
+                    modules[i].SetActive(_active);
                 }
             }
         }

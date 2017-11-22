@@ -45,7 +45,7 @@ namespace MarsFrenzy
         // Use this for initialization
         void Start()
         {
-            animator.SetBool("activated", activated);
+            SetActive(false);
             healthAnimator = health.gameObject.GetComponent<Animator>();
         }
 
@@ -167,8 +167,7 @@ namespace MarsFrenzy
             if (moduleHealth <= 0.0f)
             {
                 moduleHealth = 0.0f;
-                activated = false;
-                animator.SetBool("activated", activated);
+                SetActive(false);
             }
 
             // PRODUCTION
@@ -292,8 +291,7 @@ namespace MarsFrenzy
         {
             if(queuedAction == "toggle")
             {
-                activated = !activated;
-                animator.SetBool("activated", activated);
+                SetActive(!activated);
             }
             else
             {
