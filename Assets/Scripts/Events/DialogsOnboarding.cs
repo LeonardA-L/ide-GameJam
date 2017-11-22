@@ -165,7 +165,7 @@ namespace MarsFrenzy
           
             // Step 140 IntroModuleOff
             events.Add(new DialogEvent(
-             Dialogs.CreateListString("IntroModuleOff", "IntroModuleOff2"),
+             Dialogs.CreateListString("IntroModuleOff"),
              Step140IntroModuleOff,
              End_Of_Step140
              ));

@@ -297,7 +297,7 @@ static bool Step650()
         static void End_Of_Step750()
         {
             Debug.Log("User just did step 750");
-            Dialogs.AddAmount("water", -10);
+            Dialogs.AddAmount("water", -15);
         }
 
     }

@@ -85,7 +85,7 @@
         {
             "name": "electricity",
             "amount": 20,
-            "decay": 0.4,
+            "decay": 0,
             "efficiency": 1.8,
             "damageRate": 0.6,
             "startHealth": 90,
@@ -110,7 +110,7 @@
     ],
     "ductTape": {
         "name": "ductTape",
-        "amount": 100,
+        "amount": 50,
         "efficiency": 5
     },
 
