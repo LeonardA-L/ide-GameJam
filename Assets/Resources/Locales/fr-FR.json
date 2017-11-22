@@ -26,9 +26,12 @@
     "Noise": "..... hhhhhh.....",
     "Noise2": "..... shhhhreçois ? .....",
     "FirstContact": "... Tu me reçois ? Ah. On dirait que la connexion est rétablie.",
-    "FirstContact2": "Sacré atterissage ! Je vois que tu es toujours en vie. C'est déjà ça."
+    "FirstContact2": "Sacré atterissage ! Je vois que tu es toujours en vie. C'est déjà ça.",
 
-
+    "victoryTitle": "Victoire",
+    "victorySub": "Vous êtes un vrai petit Martien !",
+    "defeatTitle": "Game Over",
+    "defeatSub": "On dirait que vous n'êtes pas fait.e pour l'aventure..."
 
 }
 
