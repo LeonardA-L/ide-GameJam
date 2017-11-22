@@ -183,7 +183,7 @@ namespace MarsFrenzy
              End_Of_Step120Ko
              ));
 
-            // Step 120 EndRepair
+            // Step 130 EndRepair
             events.Add(new DialogEvent(
              Dialogs.CreateListString("RepairEnd"),
              Step130_RepairEnd,
@@ -377,30 +377,28 @@ namespace MarsFrenzy
         }
         static bool Step90_All_Active()
         {
-            return Dialogs.OnboardingStep == 90
-                && Dialogs.TimeSinceLastDialogIs(1.0f)
+            return Dialogs.TimeSinceLastDialogIs(1.0f)
                 && Dialogs.isGeneratorActive()
                 && Dialogs.isPotatoFieldActive()
                 && Dialogs.isWaterTankActive();
         }
         static bool Step100_IntroRepair()
         {
-            return Dialogs.OnboardingStep == 100
-                && Dialogs.TimeSinceLastDialogIs(3.0f)
+            return Dialogs.TimeSinceLastDialogIs(3.0f)
                 && Dialogs.GetModuleHealth("electricity") <= 60.0f;
         }
 
         static bool Step120_VerifRepairOk()
         {
             return Dialogs.OnboardingStep == 120
-                && Dialogs.GetModuleHealth("electricity") >= 80.0f
+                && Dialogs.GetModuleHealth("electricity") >= 95.0f
                 && Dialogs.TimeSinceLastDialogIs(3.0f)
             && Dialogs.TimeSinceLastDialogIs(15.0f);
         }
         static bool Step120_VerifRepairKo()
         {
             return Dialogs.OnboardingStep == 120
-                && Dialogs.GetModuleHealth("electricity") <= 80.0f
+                && Dialogs.GetModuleHealth("electricity") <= 95.0f
                 && Dialogs.TimeSinceLastDialogIs(15.0f);
         }
         static bool Step130_RepairEnd()
@@ -410,8 +408,8 @@ namespace MarsFrenzy
         }
         static bool Step140IntroModuleOff()
         {
-            return Dialogs.OnboardingStep == 140
-                && Dialogs.TimeSinceLastDialogIs(3.0f);
+            return Dialogs.OnboardingStep >= 130;
+         
         }
        
         /*
@@ -550,12 +548,12 @@ namespace MarsFrenzy
         static void End_Of_Step88_Electrictiy_NotActive()
         {
             Debug.Log("User just did step 88");
-            Dialogs.SetOnboardingStep(90);
+            Dialogs.SetOnboardingStep(100);
         }
         static void End_Of_Step90_All_Active()
         {
             Debug.Log("User just did step 90");
-            Dialogs.SetOnboardingStep(100);
+            Dialogs.SetOnboardingStep(140);
         }
         static void End_Of_Step100()
         {
@@ -575,12 +573,12 @@ namespace MarsFrenzy
         static void End_Of_Step130()
         {
             Debug.Log("User just did step 130");
-            Dialogs.SetOnboardingStep(140);
+            Dialogs.SetOnboardingStep(500);
         }
         static void End_Of_Step140()
         {
             Debug.Log("User just did step 140");
-            Dialogs.SetOnboardingStep(150);
+            Dialogs.SetOnboardingStep(500);
         }
 
         /*

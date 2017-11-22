@@ -1,6 +1,5 @@
 {
-    "IntroTutorial": " Heureusement que ma station est en orbite autour de Mars. Je vais pouvoir te donner un coup de main.",
-    "IntroTutorial2" : "Pas inutile vu que tu as cassé ton antenne de communication après ton atterrissage catastrophique. Allez, au boulot.",
+    "IntroTutorial": " Heureusement que ma station est en orbite autour de Mars. Je vais pouvoir te donner un coup de main en attendant que les équipes de secours arrivent...dans 10mn",
     "AskActivateWater": "Conseil d'ami : tu devrais activer le module eau.",
     "RemindActivateWater" : "On ne t'a pas appris que l'eau est la base de la survie?",
     "AskActivatePotatoes":"Tu n'as pas un petit creux? Il paraît que les patates ne sont pas mauvaises.",
@@ -8,9 +7,9 @@
     "AskActivateGenerator": "Les patates produisent de l'électricité. A condition d'activer le générateur bien sûr...",
     "RemindActivateGenerator": "Annonce de service. Le courant va être coupé dans 3...2...1...",
     "AllActive": "C'est bon ta base est prête. Tous les modules sont activés.",
-    "IntroRepair":"On dirait que ton module électricité a un peu surchauffé. Tu peux le réparer en appuyant longuement dessus.Essaie de remettre en marche ton module électricité.",
+    "IntroRepair":"Tu peux réparer tes modules en appuyant longuement dessus.",
 
-    "RepairOk": "Parfait, le module est réparé.", 
+    "RepairOk": "Parfait, une réparation est toujours utile.", 
     "RepairKo":"Je te conseille de réparer ton module dès maintenant.",
     "RepairEnd":"La réparation consomme du scotch. Attention à ton stock !",
 	"IntroModuleOff":"Pour économiser tes modules, tu peux les mettre en pause en cliquant dessus.",
@@ -20,9 +19,9 @@
     "BeforeMarsStorm":"Une tempête solaire approche. Accroche toi, ça va secouer !",	
     "BeforeEclipse" : "Les communications vont être coupées à cause de l'éclipse solaire.",
     "BeforeWaterKO" : "Je vois une fuite d'eau dans ton réservoir. Tu devrais aller voir.",
-    "AvertUpgradePotatoes" : "Plus que 50 patates et tu pourras upgrader ton module. Encore un effort.",
-    "AvertUpgradeWater" : "Ton stock d'eau vient d'atteindre 100 litres. Bonne nouvelle : à partir de 50 litres, une upgrade sera disponible.",
-    "AvertUpgradeElectricity" : "A partir de 150kw, ton module électricité deviendra plus puissant. Si tu veux l'upgrader bien sûr.",
+    "AvertUpgradePotatoes" : "Plus que 25 patates et tu pourras upgrader ton module. Encore un effort.",
+    "AvertUpgradeWater" : "Ton stock d'eau vient d'atteindre 25 litres. Bonne nouvelle : à partir de 50 litres, une upgrade sera disponible.",
+    "AvertUpgradeElectricity" : "A partir de 50kw, ton module électricité deviendra plus puissant. Si tu veux l'upgrader bien sûr.",
 
     "Noise": "..... hhhhhh.....",
     "Noise2": "..... shhhhreçois ? .....",

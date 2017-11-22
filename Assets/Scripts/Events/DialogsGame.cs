@@ -21,13 +21,26 @@ namespace MarsFrenzy
                 End_Of_Step500
                 ));
 
-            // Step 550 MarsStorm
+            // Step 530 MarsStorm
 
             events.Add(new DialogEvent(
                 Dialogs.CreateListString(),
-                Step550,
-                End_Of_Step550
+                Step530,
+                End_Of_Step530
             ));
+            // Step 550 Repair
+            events.Add(new DialogEvent(
+             Dialogs.CreateListString("IntroRepair"),
+             Step550,
+             End_Of_Step550
+         ));
+            // Step 580 Repair
+            events.Add(new DialogEvent(
+             Dialogs.CreateListString("RepairEnd"),
+             Step580,
+             End_Of_Step580
+         ));
+
             // Step 600 BeforeEclipse
 
             events.Add(new DialogEvent(
@@ -124,59 +137,81 @@ namespace MarsFrenzy
 
 */
 
+
+
+
 // Step 500 BeforeMarsStorm
 
 static bool Step500()
 {
-    return Dialogs.timeIs(500.0f);
-}
+            return Dialogs.OnboardingStep >= 140
+                && Dialogs.TimeSinceLastDialogIs(3.0f);
+        }
 
  // Step 530 MarsStorm
 
- static bool Step550()
+ static bool Step530()
         {
-            return Dialogs.timeIs(505.0f);
+            return Dialogs.OnboardingStep >= 500
+            && Dialogs.TimeSinceLastDialogIs(5.0f);
         }
+
+
+        // Step 550 Repair
+        static bool Step550()
+        {
+            return Dialogs.OnboardingStep >= 530
+            && Dialogs.TimeSinceLastDialogIs(5.0f);
+        }
+        // Step 580 Repair
+        static bool Step580()
+        {
+            return Dialogs.OnboardingStep >= 550
+            && Dialogs.TimeSinceLastDialogIs(5.0f);
+        }
+
 
         // Step 600 BeforeEclipse
         static bool Step600()
         {
-            return Dialogs.timeIs(800.0f);
+            return Dialogs.OnboardingStep >= 580
+            && Dialogs.TimeSinceLastDialogIs(30.0f);
         }
 // Step 610 Eclipse
 static bool Step650()
         {
-            return Dialogs.OnboardingStep == 650
-                && Dialogs.timeIs(805.0f);
+            return Dialogs.OnboardingStep >= 600
+            && Dialogs.TimeSinceLastDialogIs(3.0f);
         }
     // Step 700  BeforeWaterKo
     static bool Step700()
     {
-        return Dialogs.timeIs(1000.0f);
-    }
+            return Dialogs.OnboardingStep >= 610
+            && Dialogs.TimeSinceLastDialogIs(40.0f);
+        }
         // Step 710  WaterKo
         static bool Step750()
         {
-            return Dialogs.OnboardingStep == 750
-                && Dialogs.timeIs(1005.0f);
+            return Dialogs.OnboardingStep >= 700
+            && Dialogs.TimeSinceLastDialogIs(3.0f);
         }
 
         // Step 800 AvertUpgradePotatoes
         static bool Step800()
         {
-            return Dialogs.GetAmount("potatoes") > 100;
+            return Dialogs.GetAmount("potatoes") > 25;
          }
 
         // Step 850 AvertUpgradePotatoes
         static bool Step850()
         {
-            return Dialogs.GetAmount("water") > 100;
+            return Dialogs.GetAmount("water") > 25;
         }
 
         // Step 900 AvertUpgradePotatoes
         static bool Step900()
         {
-            return Dialogs.GetAmount("electricity") > 100;
+            return Dialogs.GetAmount("electricity") > 25;
         }
 
         // Step 1000 PlayerDead
@@ -187,7 +222,7 @@ static bool Step650()
         // Step 2000 PlayerVictory
         static bool Step2000()
         {
-            return Dialogs.timeIs(10000.0f);
+            return Dialogs.timeIs(600.0f);
         }
 
 
@@ -223,12 +258,24 @@ static bool Step650()
             Debug.Log("User just did step 500");
             Dialogs.SetOnboardingStep(550);
         }
-        static void End_Of_Step550()
+        static void End_Of_Step530()
        {
             Debug.Log("User just did step 550");
-            Dialogs.AddModuleHealth("potatoes",- 60.0f);
-            Dialogs.AddModuleHealth("water",- 60.0f);
-            Dialogs.AddModuleHealth("electricity", - 60.0f);
+            Dialogs.AddModuleHealth("potatoes",- 10.0f);
+            Dialogs.AddModuleHealth("water",- 10.0f);
+            Dialogs.AddModuleHealth("electricity", - 10.0f);
+        }
+
+
+        static void End_Of_Step550()
+        {
+            Debug.Log("User just did step 550");
+            Dialogs.SetOnboardingStep(580);
+        }
+        static void End_Of_Step580()
+        {
+            Debug.Log("User just did step 580");
+            Dialogs.SetOnboardingStep(600);
         }
         static void End_Of_Step600()
         {
