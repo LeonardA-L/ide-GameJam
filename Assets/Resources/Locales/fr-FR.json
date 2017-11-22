@@ -9,11 +9,9 @@
     "AllActive": "C'est bon ta base est prête. Tous les modules sont activés.",
     "IntroRepair":"Tu peux réparer tes modules en appuyant longuement dessus.",
 
-    "RepairOk": "Parfait, une réparation est toujours utile.", 
-    "RepairKo":"Je te conseille de réparer ton module dès maintenant.",
     "RepairEnd":"La réparation consomme du scotch. Attention à ton stock !",
 	"IntroModuleOff":"Pour économiser tes modules, tu peux les mettre en pause en cliquant dessus.",
-	
+	"IntroModuleOff2":"N'oublie pas la boucle magique : les patates produisent de l'électricité, l'eau alimente les patates et l'électricité produit de l'eau",
 
 
     "BeforeMarsStorm":"Une tempête solaire approche. Accroche toi, ça va secouer !",	
