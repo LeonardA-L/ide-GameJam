@@ -36,7 +36,7 @@
             "name": "water",
             "amount": 20,
             "decay": 0.6,
-            "efficiency": 1.3,
+            "efficiency": 1.5,
             "damageRate": 0.3,
             "startHealth": 100,
             "x": 11.1,
@@ -56,7 +56,7 @@
             "name": "potatoes",
             "amount": 15,
             "decay": 0.4,
-            "efficiency": 1.5,
+            "efficiency": 1.7,
             "damageRate": 0.5,
             "startHealth": 100,
             "x": 2.41,
@@ -76,9 +76,9 @@
             "name": "electricity",
             "amount": 20,
             "decay": 0.5,
-            "efficiency": 1.0,
+            "efficiency": 1.3,
             "damageRate": 0.7,
-            "startHealth": 70,
+            "startHealth": 100,
             "x": 10.67,
             "z": -8.32,
             "healthPlacement": {
@@ -106,9 +106,9 @@
 
     "playerHungerStart": 100.0,
     "playerThirstStart": 100.0,
-    "starvationDecay": 10.0,
+    "starvationDecay": 5.0,
 
-    "upgradeCostResource": 150,
+    "upgradeCostResource": 100,
     "upgradeCostScrap": 50,
     "upgradeConsumptionFactor": 0.9,
     "upgradeEfficiencyFactor": 1.5 
