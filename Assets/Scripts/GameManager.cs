@@ -32,6 +32,8 @@ namespace MarsFrenzy
         public Animator uiAnimator;
 
         public NavMeshAgent playerAgent;
+        public Transform player;
+        private float agentSpeed;
 
         public int OnboardingStep
         {
@@ -169,6 +171,8 @@ namespace MarsFrenzy
         public void Pause()
         {
             timeRuns = false;
+            agentSpeed = playerAgent.speed;
+            playerAgent.speed = 0;
         }
 
         public void PauseMenu()
@@ -190,6 +194,7 @@ namespace MarsFrenzy
                 return;
             }
             timeRuns = true;
+            playerAgent.speed = agentSpeed;
         }
 
         public void EndDialog()

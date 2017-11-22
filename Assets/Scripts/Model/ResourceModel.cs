@@ -17,5 +17,6 @@ namespace MarsFrenzy
 
         public Vector3 healthPlacement;
         public Vector3 upgradePlacement;
+        public Vector3 playerTarget;
     }
 }
