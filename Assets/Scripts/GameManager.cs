@@ -111,7 +111,7 @@ namespace MarsFrenzy
             }
 
             ductTapeStock.text = "" + data.ductTape.amount.ToString("0.00");
-            scrapStock.text = "" + data.scrap.amount.ToString("0.00");
+            scrapStock.text = "" + data.scrap.amount.ToString("0");
             
             playerAnimator.SetFloat("speed", (player.position - lastPlayerPosition).magnitude / Time.deltaTime);
             lastPlayerPosition = player.position;
