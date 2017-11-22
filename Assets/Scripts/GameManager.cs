@@ -33,6 +33,8 @@ namespace MarsFrenzy
 
         public NavMeshAgent playerAgent;
         public Transform player;
+        public Vector3 lastPlayerPosition;
+        public Animator playerAnimator;
         private float agentSpeed;
 
         public int OnboardingStep
@@ -87,6 +89,9 @@ namespace MarsFrenzy
             GameObject scrapStockObj = GameObject.Find("/UI_prefab/MainCanvas/Resources/BackgroundBlue/scrap/scrap_Stock");
             scrapStock = scrapStockObj.GetComponent<Text>();
 
+            playerAnimator = player.gameObject.GetComponent<Animator>();
+            lastPlayerPosition = player.position;
+
             timeRuns = true;
         }
 
@@ -105,8 +110,11 @@ namespace MarsFrenzy
                 Tick();
             }
 
-            ductTapeStock.text = "" + data.ductTape.amount;
-            scrapStock.text = "" + data.scrap.amount;
+            ductTapeStock.text = "" + data.ductTape.amount.ToString("0.00");
+            scrapStock.text = "" + data.scrap.amount.ToString("0.00");
+            
+            playerAnimator.SetFloat("speed", (player.position - lastPlayerPosition).magnitude / Time.deltaTime);
+            lastPlayerPosition = player.position;
         }
 
         private void Tick()
