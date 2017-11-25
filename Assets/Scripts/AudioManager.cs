@@ -63,12 +63,23 @@ namespace MarsFrenzy
             if(source)
             {
                 source.Play();
+            } else
+            {
+                throw new System.Exception("Audio Source not found");
             }
         }
 
         public void StopSound(string _name)
         {
-
+            AudioSource source = sounds[_name];
+            if (source)
+            {
+                source.Stop();
+            }
+            else
+            {
+                throw new System.Exception("Audio Source not found");
+            }
         }
     }
 

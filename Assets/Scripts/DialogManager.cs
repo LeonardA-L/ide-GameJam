@@ -66,6 +66,7 @@ namespace MarsFrenzy
             animator.SetBool("active", true);
             idx = -1;
             active = true;
+            AudioManager.Instance.PlaySound("communication");
             Next();
         }
 

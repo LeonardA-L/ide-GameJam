@@ -1288,6 +1288,7 @@ GameObject:
   - component: {fileID: 95948255267337950}
   - component: {fileID: 114562441271923498}
   - component: {fileID: 195224728427213652}
+  - component: {fileID: 81766560979237074}
   m_Layer: 0
   m_Name: Character_prefab
   m_TagString: Untagged
@@ -3279,6 +3280,13 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1847059231917282}
   m_Mesh: {fileID: 4300014, guid: 5c187a5f1d067564da07342276b2decc, type: 3}
+--- !u!81 &81766560979237074
+AudioListener:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1970451711336020}
+  m_Enabled: 1
 --- !u!95 &95835803905627768
 Animator:
   serializedVersion: 3

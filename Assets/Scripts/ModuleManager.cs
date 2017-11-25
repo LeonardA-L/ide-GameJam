@@ -137,20 +137,10 @@ namespace MarsFrenzy
             // Stop repairing
             if (!Input.GetMouseButton(0))
             {
-                if (clicking && !repairing && queuedAction != "repair")
-                {
-                    queuedAction = "toggle";
-                } else if(queuedAction == "repair")
-                {
-                    gm.SetPlayerAction(gm.player.position);
-                    queuedAction = null;
-                }
-                repairing = false;
-                clicking = false;
-                tools.SetActive(false);
+                StopAction();
             }
 
-            if (clicking && gm.timer - clickingTime > timeToRepair)
+            if (!repairing && clicking && gm.timer - clickingTime > timeToRepair)
             {
                 queuedAction = "repair";
             }
@@ -159,6 +149,24 @@ namespace MarsFrenzy
             {
                 executeQueuedAction();
             }
+        }
+
+        private void StopAction()
+        {
+            if (clicking && !repairing && queuedAction != "repair")
+            {
+                queuedAction = "toggle";
+            }
+            else if (queuedAction == "repair")
+            {
+                gm.SetPlayerAction(gm.player.position);
+                queuedAction = null;
+            }
+            repairing = false;
+            AudioManager.Instance.StopSound("moduleRepairs");
+
+            clicking = false;
+            tools.SetActive(false);
         }
 
         public void Tick()
@@ -193,7 +201,8 @@ namespace MarsFrenzy
                 moduleHealth -= res.damageRate * smoothingFactor;
             }
 
-            if (repairing && gm.data.ductTape.amount >= gm.data.ductTape.efficiency && (moduleHealth + gm.data.ductTape.efficiency * smoothingFactor) <= 100.0f)
+            bool notAt100percent = (moduleHealth + gm.data.ductTape.efficiency * smoothingFactor) <= 100.0f;
+            if (repairing && gm.data.ductTape.amount >= gm.data.ductTape.efficiency && notAt100percent)
             {
                 moduleHealth += gm.data.ductTape.efficiency * smoothingFactor;
                 gm.data.ductTape.amount -= (level == 1 ? 1.0f : gm.data.upgradeConsumptionFactor) * smoothingFactor;
@@ -202,6 +211,9 @@ namespace MarsFrenzy
                 {
                     gm.data.ductTape.amount = 0.0f;
                 }
+            } else if(repairing && gm.data.ductTape.amount >= gm.data.ductTape.efficiency && !notAt100percent)
+            {
+                StopAction();
             }
         }
 
@@ -295,9 +307,11 @@ namespace MarsFrenzy
             {
                 SetActive(!activated);
             }
-            else
+            else if(queuedAction == "repair")
             {
                 repairing = true;
+                AudioManager.Instance.PlaySound("moduleRepairs");
+
                 tools.SetActive(true);
             }
             queuedAction = null;

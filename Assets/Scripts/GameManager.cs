@@ -34,6 +34,7 @@ namespace MarsFrenzy
         public NavMeshAgent playerAgent;
         public Transform player;
         public Vector3 lastPlayerPosition;
+        private bool playerWalking;
         public Animator playerAnimator;
         private float agentSpeed;
 
@@ -139,7 +140,11 @@ namespace MarsFrenzy
             playerAnimator.SetFloat("speed", (player.position - lastPlayerPosition).magnitude / Time.deltaTime);
             lastPlayerPosition = player.position;
 
-            //Debug.Log(playerAgent.remainingDistance);
+            if(playerWalking && playerAgent.remainingDistance < 0.1f)
+            {
+                playerWalking = false;
+                AudioManager.Instance.StopSound("characterWalking");
+            }
         }
 
         private void Tick()
@@ -158,6 +163,8 @@ namespace MarsFrenzy
             {
                 return;
             }
+            playerWalking = true;
+            AudioManager.Instance.PlaySound("characterWalking");
             playerAgent.SetDestination(goal);
         }
 
@@ -382,6 +389,7 @@ namespace MarsFrenzy
         public void TriggerVictory()
         {
             Stop();
+            AudioManager.Instance.PlaySound("win");
             endScreen.Victory();
         }
 
