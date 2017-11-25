@@ -36,8 +36,8 @@ GameObject:
   - component: {fileID: 4269556498138762}
   - component: {fileID: 20034085797807224}
   - component: {fileID: 124188794105499834}
-  - component: {fileID: 81646692489801854}
   - component: {fileID: 95181696706725570}
+  - component: {fileID: 114015496401616944}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -107,13 +107,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &81646692489801854
-AudioListener:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1802726097082438}
-  m_Enabled: 1
 --- !u!95 &95181696706725570
 Animator:
   serializedVersion: 3
@@ -131,6 +124,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114015496401616944
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1802726097082438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04e902e2c9d7f9747b3ab5835dd9eaf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!124 &124188794105499834
 Behaviour:
   m_ObjectHideFlags: 1
