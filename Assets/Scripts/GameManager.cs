@@ -152,6 +152,10 @@ namespace MarsFrenzy
 
         public void SetPlayerAction(Vector3 goal)
         {
+            if (DialogManager.Instance.IsActive())
+            {
+                return;
+            }
             playerAgent.SetDestination(goal);
         }
 
