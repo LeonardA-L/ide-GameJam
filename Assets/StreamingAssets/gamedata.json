@@ -116,7 +116,7 @@
 
     "scrap": {
         "name": "scrap",
-        "amount": 100
+        "amount": 75
     },
 
     "playerHungerStart": 100.0,
@@ -126,5 +126,29 @@
     "upgradeCostResource": 50,
     "upgradeCostScrap": 50,
     "upgradeConsumptionFactor": 0.9,
-    "upgradeEfficiencyFactor": 1.5 
+    "upgradeEfficiencyFactor": 1.5,
+
+    "crateDropPoints": [
+        {
+            "x":-2.03,
+            "y":0,
+            "z":30.91
+
+        },
+        {
+            "x":5.38,
+            "y":0,
+            "z":36.09
+        },
+        {
+            "x":3.59,
+            "y":0,
+            "z":-2.85
+        },
+        {
+            "x":14.52,
+            "y":0,
+            "z":4.09
+        }
+    ]
 }

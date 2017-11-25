@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace MarsFrenzy
 {
@@ -20,5 +21,7 @@ namespace MarsFrenzy
         public float upgradeCostScrap;
         public float upgradeConsumptionFactor;
         public float upgradeEfficiencyFactor;
+
+        public Vector3[] crateDropPoints;
     }
 }

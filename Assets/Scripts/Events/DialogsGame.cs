@@ -89,6 +89,43 @@ namespace MarsFrenzy
                 Step900
             ));
 
+            // Step 910 Drop1
+
+            events.Add(new DialogEvent(
+        Dialogs.CreateListString("Drop1"),
+                Step910,
+                End_Of_Step910
+            ));
+
+            // Step 920 Drop2
+
+            events.Add(new DialogEvent(
+        Dialogs.CreateListString(),
+                Step920,
+                End_Of_Step920
+            ));
+
+            // Step 930 Drop3
+
+            events.Add(new DialogEvent(
+        Dialogs.CreateListString(),
+                Step930,
+                End_Of_Step930
+            ));
+            // Step 940 Drop4
+
+            events.Add(new DialogEvent(
+        Dialogs.CreateListString(),
+                Step940,
+                End_Of_Step940
+            ));
+            // Step 950 Drop5
+
+            events.Add(new DialogEvent(
+        Dialogs.CreateListString(),
+                Step950,
+                End_Of_Step950
+            ));
 
             // Step 1000 PlayerDead
 
@@ -214,6 +251,37 @@ static bool Step650()
             return Dialogs.GetAmount("electricity") > 25;
         }
 
+        // Step 910 Drop1
+        static bool Step910()
+        {
+            return Dialogs.timeIs(200.0f);
+        }
+
+        // Step 920 Drop2
+        static bool Step920()
+        {
+            return Dialogs.timeIs(250.0f);
+        }
+
+        // Step 930 Drop3
+        static bool Step930()
+        {
+            return Dialogs.timeIs(300.0f);
+        }
+
+        // Step 940 Drop4
+        static bool Step940()
+        {
+            return Dialogs.timeIs(340.0f);
+        }
+
+        // Step 950 Drop5
+        static bool Step950()
+        {
+            return Dialogs.timeIs(380.0f);
+        }
+
+
         // Step 1000 PlayerDead
         static bool Step1000()
         {
@@ -298,6 +366,36 @@ static bool Step650()
         {
             Debug.Log("User just did step 750");
             Dialogs.AddAmount("water", -15);
+        }
+        static void End_Of_Step910()
+        {
+            Debug.Log("User just did step 910");
+            Dialogs.CreateCrate(0, 0, 0, 15, 0); //* Dialogs.CreateCrate(_water, _potatoes, _electricity, _scrap, ductTape)
+
+        }
+        static void End_Of_Step920()
+        {
+            Debug.Log("User just did step 920");
+            Dialogs.CreateCrate(0, 0, 0, 0, 15); //* Dialogs.CreateCrate(_water, _potatoes, _electricity, _scrap, ductTape)
+
+        }
+        static void End_Of_Step930()
+        {
+            Debug.Log("User just did step 930");
+            Dialogs.CreateCrate(0, 0, 0, 15, 0); //* Dialogs.CreateCrate(_water, _potatoes, _electricity, _scrap, ductTape)
+
+        }
+        static void End_Of_Step940()
+        {
+            Debug.Log("User just did step 940");
+            Dialogs.CreateCrate(10, 0, 0, 0, 0); //* Dialogs.CreateCrate(_water, _potatoes, _electricity, _scrap, ductTape)
+
+        }
+        static void End_Of_Step950()
+        {
+            Debug.Log("User just did step 940");
+            Dialogs.CreateCrate(0, 10, 0, 0, 0); //* Dialogs.CreateCrate(_water, _potatoes, _electricity, _scrap, ductTape)
+
         }
 
     }

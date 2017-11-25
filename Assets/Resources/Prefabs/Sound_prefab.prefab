@@ -19,6 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4224366784827738}
+  - component: {fileID: 114914193200216848}
   m_Layer: 0
   m_Name: Sound_prefab
   m_TagString: Untagged
@@ -34,7 +35,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4153644579090102}
-  - component: {fileID: 114226350909500002}
   - component: {fileID: 82589711510551496}
   m_Layer: 0
   m_Name: CharacterWalking
@@ -52,7 +52,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4403880680699690}
   - component: {fileID: 82263533472543722}
-  - component: {fileID: 114903717941778268}
   m_Layer: 0
   m_Name: Communication
   m_TagString: Untagged
@@ -69,7 +68,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4513015210294962}
   - component: {fileID: 82070289798669796}
-  - component: {fileID: 114364481195739738}
   m_Layer: 0
   m_Name: Events
   m_TagString: Untagged
@@ -86,7 +84,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4530528147165194}
   - component: {fileID: 82860416008756868}
-  - component: {fileID: 114046996074104554}
   m_Layer: 0
   m_Name: Win
   m_TagString: Untagged
@@ -103,7 +100,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4671039865299746}
   - component: {fileID: 82663155104249828}
-  - component: {fileID: 114738953184760394}
   m_Layer: 0
   m_Name: Alarm
   m_TagString: Untagged
@@ -120,7 +116,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4341663331370006}
   - component: {fileID: 82084755989209152}
-  - component: {fileID: 114462276964341070}
   m_Layer: 0
   m_Name: ThemeMusic
   m_TagString: Untagged
@@ -137,7 +132,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4282883831090060}
   - component: {fileID: 82433922942559050}
-  - component: {fileID: 114948287607420386}
   m_Layer: 0
   m_Name: GameOver
   m_TagString: Untagged
@@ -348,7 +342,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 243279141456569068, guid: 4027853baa8f52242b12fd3b6718a6a2,
     type: 2}
   m_audioClip: {fileID: 8300000, guid: e8200da32f7c9ba468fca6e18713b839, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -823,80 +817,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!114 &114046996074104554
+--- !u!114 &114914193200216848
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1364197802561842}
+  m_GameObject: {fileID: 1090431218926024}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 586acb66804df97439b6bbb19da3deb0, type: 3}
+  m_Script: {fileID: 11500000, guid: a35c356bdadef7f498323a766f83c65c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114226350909500002
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1127691620605646}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03f9016b8e734cc4c8b042b5d236f00e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114364481195739738
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1179716296626184}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 417ba4f3258591c43ac256f968412cca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114462276964341070
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1443008319456578}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5cf61c55ed5f604ab8bda3abb5a723c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114738953184760394
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1384878456383120}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb8e70ca0f41c254ca3699d197e9945d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114903717941778268
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1140072971628028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83529bc2ca2dc9242a8f7f9c363cfa5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114948287607420386
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1921869855567448}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ede88a6fc545d384c99f444b31f2d18f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  characterWalking: {fileID: 82589711510551496}
+  events: {fileID: 82070289798669796}
+  communication: {fileID: 82263533472543722}
+  alarm: {fileID: 82663155104249828}
+  win: {fileID: 82860416008756868}
+  gameOver: {fileID: 82433922942559050}
+  moduleFull: {fileID: 0}
+  moduleRepairs: {fileID: 0}
+  moduleStopProduction: {fileID: 0}
+  moduleUpdate: {fileID: 0}
+  modulePotato: {fileID: 0}
+  moduleWater: {fileID: 0}
+  moduleElectricity: {fileID: 0}

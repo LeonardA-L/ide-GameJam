@@ -37,6 +37,10 @@ namespace MarsFrenzy
         public Animator playerAnimator;
         private float agentSpeed;
 
+        public int[] crateSlots;
+
+        private List<ParticleSystem> particles;
+
         public int OnboardingStep
         {
             get
@@ -50,6 +54,8 @@ namespace MarsFrenzy
             }
         }
 
+        private List<Animator> animators;
+
         // Use this for initialization
         void Start()
         {
@@ -59,6 +65,10 @@ namespace MarsFrenzy
             timer = 0;
             frame = 0;
             lastTime = 0;
+
+            animators = new List<Animator>();
+
+            particles = new List<ParticleSystem>();
 
             data = LoadGameData("gamedata.json");
 
@@ -92,6 +102,19 @@ namespace MarsFrenzy
             playerAnimator = player.gameObject.GetComponent<Animator>();
             lastPlayerPosition = player.position;
 
+            RegisterAnimator(playerAnimator);
+            RegisterAnimator(cameraAnimator);
+            RegisterAnimator(uiAnimator);
+
+            crateSlots = new int[data.crateDropPoints.Length];
+
+            GameObject[] particlesGOs;
+            particlesGOs = GameObject.FindGameObjectsWithTag("Particles");
+            foreach (GameObject particle in particlesGOs)
+            {
+                particles.Add(particle.GetComponent<ParticleSystem>());
+            }
+
             timeRuns = true;
         }
 
@@ -115,6 +138,8 @@ namespace MarsFrenzy
             
             playerAnimator.SetFloat("speed", (player.position - lastPlayerPosition).magnitude / Time.deltaTime);
             lastPlayerPosition = player.position;
+
+            //Debug.Log(playerAgent.remainingDistance);
         }
 
         private void Tick()
@@ -129,6 +154,10 @@ namespace MarsFrenzy
 
         public void SetPlayerAction(Vector3 goal)
         {
+            if (DialogManager.Instance.IsActive())
+            {
+                return;
+            }
             playerAgent.SetDestination(goal);
         }
 
@@ -167,20 +196,20 @@ namespace MarsFrenzy
             }
         }
 
-        public void ToggleTime()
-        {
-            if(!timeRuns && gameOver)
-            {
-                return;
-            }
-            timeRuns = !timeRuns;
-        }
-
         public void Pause()
         {
             timeRuns = false;
             agentSpeed = playerAgent.speed;
             playerAgent.speed = 0;
+
+            foreach(Animator anim in animators) {
+                anim.enabled = false;
+            }
+
+            foreach (ParticleSystem particle in particles)
+            {
+                particle.Pause();
+            }
         }
 
         public void PauseMenu()
@@ -203,6 +232,16 @@ namespace MarsFrenzy
             }
             timeRuns = true;
             playerAgent.speed = agentSpeed;
+
+            foreach (Animator anim in animators)
+            {
+                anim.enabled = true;
+            }
+
+            foreach (ParticleSystem particle in particles)
+            {
+                particle.Play();
+            }
         }
 
         public void EndDialog()
@@ -336,6 +375,7 @@ namespace MarsFrenzy
         public void TriggerGameOver()
         {
             Stop();
+            AudioManager.Instance.PlaySound("gameOver");
             endScreen.GameOver();
         }
 
@@ -353,6 +393,60 @@ namespace MarsFrenzy
         public void ShowUI()
         {
             uiAnimator.SetBool("uiActive", true);
+        }
+
+        public void CreateCrate(float _water, float _potatoes, float _electricity, float _scrap, float _ductTape)
+        {
+
+            int baseRandSlot = (int)(Random.value * data.crateDropPoints.Length);
+            int successSlot = -1;
+            for (int i = 0; i < data.crateDropPoints.Length; i++)
+            {
+                int slot = (baseRandSlot + i) % data.crateDropPoints.Length;
+                if (crateSlots[slot] != 1)
+                {
+                    successSlot = slot;
+                }
+            }
+            if(successSlot == -1)
+            {
+                Debug.Log("Stacking crates, exiting.");
+                return;
+            }
+            GameObject crate = (GameObject)GameObject.Instantiate(Resources.Load("Prefabs/Drop_prefab"));
+            crateSlots[successSlot] = 1;
+            crate.name = "Drop_Crate_"+ successSlot;
+
+            crate.transform.position = new Vector3(data.crateDropPoints[successSlot].x, 15.0f, data.crateDropPoints[successSlot].z);
+            crate.transform.Rotate(new Vector3(0.0f, 180.0f * Random.value, 0.0f));
+
+            DropController dc = crate.GetComponent<DropController>();
+            dc.SetValues(_water <= 0 ? 0 : _water + GetRandomCrateChange(),
+                         _potatoes <= 0 ? 0 : _potatoes + GetRandomCrateChange(),
+                         _electricity <= 0 ? 0 : _electricity + GetRandomCrateChange(),
+                         _scrap <= 0 ? 0 : _scrap + GetRandomCrateChange(),
+                         _ductTape <= 0 ? 0 : _ductTape + GetRandomCrateChange(),
+                         successSlot);
+        }
+
+        private float GetRandomCrateChange()
+        {
+            return (float)System.Math.Round(Random.value * 2.0f - 1.0f, 2);
+        }
+
+        public void CollectCrate(DropController _crate)
+        {
+            modules[0].res.amount += _crate.water;
+            modules[1].res.amount += _crate.potatoes;
+            modules[2].res.amount += _crate.electricity;
+
+            data.ductTape.amount += _crate.ductTape;
+            data.scrap.amount += _crate.scrap;
+        }
+
+        public void RegisterAnimator(Animator _animator)
+        {
+            animators.Add(_animator);
         }
     }
 

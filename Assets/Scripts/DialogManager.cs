@@ -10,6 +10,7 @@ namespace MarsFrenzy
         protected static DialogManager instance;
         public GameObject window;
         public Text text;
+        private Animator animator;
         private int idx = 0;
         private List<string> parts;
         private bool active = false;
@@ -20,19 +21,17 @@ namespace MarsFrenzy
         void Start()
         {
             instance = this;
-            window.SetActive(false);
+            //window.SetActive(false);
             idx = 0;
             active = false;
             events = Dialogs.InitDialogs();
+            animator = gameObject.GetComponent<Animator>();
+            animator.SetBool("active", false);
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (active && Input.GetMouseButtonDown(0))
-            {
-                Next();
-            }
             if (!active)
             {
                 for (int i = 0; i < events.Count; i++)
@@ -47,6 +46,14 @@ namespace MarsFrenzy
             }
         }
 
+        public void HandleClick()
+        {
+            if(active)
+            {
+                Next();
+            }
+        }
+
         public void StartDialog(DialogEvent _de)
         {
             Debug.Log("Start Dialog");
@@ -55,7 +62,8 @@ namespace MarsFrenzy
             parts = _de.parts;
             events.Remove(_de);
             GameManager.Instance.Pause();
-            window.SetActive(true);
+            //window.SetActive(true);
+            animator.SetBool("active", true);
             idx = -1;
             active = true;
             Next();
@@ -74,7 +82,8 @@ namespace MarsFrenzy
 
         public void EndDialog()
         {
-            window.SetActive(false);
+            //window.SetActive(false);
+            animator.SetBool("active", false);
             idx = 0;
             parts = null;
             active = false;
