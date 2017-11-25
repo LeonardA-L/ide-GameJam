@@ -9,14 +9,14 @@ namespace MarsFrenzy
         protected static AudioManager instance;
         // General sounds
         public AudioSource characterWalking;
-        public AudioSource events;
+        //public AudioSource events;
         public AudioSource communication;
-        public AudioSource alarm;
+        //public AudioSource alarm;
         public AudioSource win;
         public AudioSource gameOver;
 
         // Module specific
-        public AudioSource moduleFull;
+        //public AudioSource moduleFull;
         public AudioSource moduleRepairs;
         public AudioSource moduleStopProduction;
         public AudioSource moduleUpdate;
@@ -33,20 +33,20 @@ namespace MarsFrenzy
             sounds = new Dictionary<string, AudioSource>();
 
             sounds.Add("characterWalking", characterWalking);
-            sounds.Add("events", events);
+            //sounds.Add("events", events);
             sounds.Add("communication", communication);
-            sounds.Add("alarm", alarm);
+            //sounds.Add("alarm", alarm);
             sounds.Add("win", win);
             sounds.Add("gameOver", gameOver);
 
             // Module specific
-            sounds.Add("moduleFull", moduleFull);
+            //sounds.Add("moduleFull", moduleFull);
             sounds.Add("moduleRepairs", moduleRepairs);
             sounds.Add("moduleStopProduction", moduleStopProduction);
             sounds.Add("moduleUpdate", moduleUpdate);
-            sounds.Add("modulePotato", modulePotato);
-            sounds.Add("moduleWater", moduleWater);
-            sounds.Add("moduleElectricity", moduleElectricity);
+            sounds.Add("modulepotatoes", modulePotato);
+            sounds.Add("modulewater", moduleWater);
+            sounds.Add("moduleelectricity", moduleElectricity);
         }
 
         public static AudioManager Instance

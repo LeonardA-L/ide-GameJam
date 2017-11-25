@@ -299,6 +299,8 @@ namespace MarsFrenzy
             res.amount -= gm.data.upgradeCostResource;
             gm.data.scrap.amount -= gm.data.upgradeCostScrap;
             level = 2;
+            AudioManager.Instance.PlaySound("moduleUpdate");
+
         }
 
         private void executeQueuedAction()
@@ -306,6 +308,14 @@ namespace MarsFrenzy
             if(queuedAction == "toggle")
             {
                 SetActive(!activated);
+                if (activated)
+                {
+                    AudioManager.Instance.PlaySound("module" + res.name);
+                } else
+                {
+                    AudioManager.Instance.PlaySound("moduleStopProduction");
+                }
+
             }
             else if(queuedAction == "repair")
             {
