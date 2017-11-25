@@ -34,20 +34,8 @@ namespace MarsFrenzy
             ));
 
             events.Add(new DialogEvent(
-                Dialogs.CreateListString("Noise"),
+                Dialogs.CreateListString("Noise", "Noise2", "FirstContact", "FirstContact2"),
                 Step20,
-                MoveOnboarding
-            ));
-
-            events.Add(new DialogEvent(
-                Dialogs.CreateListString("Noise2"),
-                Step30,
-                MoveOnboarding
-            ));
-
-            events.Add(new DialogEvent(
-                Dialogs.CreateListString("FirstContact", "FirstContact2"),
-                Step40,
                 ExitFirstPart
             ));
 
@@ -235,18 +223,6 @@ namespace MarsFrenzy
         {
             return Dialogs.OnboardingStep == 20
                 && Dialogs.timeIs(1.0f);
-        }
-
-        static bool Step30()
-        {
-            return Dialogs.OnboardingStep == 30
-                && Dialogs.timeIs(2.0f);
-        }
-
-        static bool Step40()
-        {
-            return Dialogs.OnboardingStep == 40
-                && Dialogs.timeIs(3.0f);
         }
 
 
