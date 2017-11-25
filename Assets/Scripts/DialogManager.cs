@@ -29,10 +29,6 @@ namespace MarsFrenzy
         // Update is called once per frame
         void Update()
         {
-            if (active && Input.GetMouseButtonDown(0))
-            {
-                Next();
-            }
             if (!active)
             {
                 for (int i = 0; i < events.Count; i++)
@@ -44,6 +40,14 @@ namespace MarsFrenzy
                         break;
                     }
                 }
+            }
+        }
+
+        public void HandleClick()
+        {
+            if(active)
+            {
+                Next();
             }
         }
 
