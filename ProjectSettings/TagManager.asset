@@ -8,6 +8,7 @@ TagManager:
   - HealthView
   - ModuleHealthy
   - ModuleBroken
+  - Particles
   layers:
   - Default
   - TransparentFX

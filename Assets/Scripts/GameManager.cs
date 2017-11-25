@@ -39,6 +39,8 @@ namespace MarsFrenzy
 
         public int[] crateSlots;
 
+        private List<ParticleSystem> particles;
+
         public int OnboardingStep
         {
             get
@@ -52,6 +54,8 @@ namespace MarsFrenzy
             }
         }
 
+        private List<Animator> animators;
+
         // Use this for initialization
         void Start()
         {
@@ -61,6 +65,10 @@ namespace MarsFrenzy
             timer = 0;
             frame = 0;
             lastTime = 0;
+
+            animators = new List<Animator>();
+
+            particles = new List<ParticleSystem>();
 
             data = LoadGameData("gamedata.json");
 
@@ -94,7 +102,18 @@ namespace MarsFrenzy
             playerAnimator = player.gameObject.GetComponent<Animator>();
             lastPlayerPosition = player.position;
 
+            RegisterAnimator(playerAnimator);
+            RegisterAnimator(cameraAnimator);
+            RegisterAnimator(uiAnimator);
+
             crateSlots = new int[data.crateDropPoints.Length];
+
+            GameObject[] particlesGOs;
+            particlesGOs = GameObject.FindGameObjectsWithTag("Particles");
+            foreach (GameObject particle in particlesGOs)
+            {
+                particles.Add(particle.GetComponent<ParticleSystem>());
+            }
 
             timeRuns = true;
         }
@@ -171,20 +190,20 @@ namespace MarsFrenzy
             }
         }
 
-        public void ToggleTime()
-        {
-            if(!timeRuns && gameOver)
-            {
-                return;
-            }
-            timeRuns = !timeRuns;
-        }
-
         public void Pause()
         {
             timeRuns = false;
             agentSpeed = playerAgent.speed;
             playerAgent.speed = 0;
+
+            foreach(Animator anim in animators) {
+                anim.enabled = false;
+            }
+
+            foreach (ParticleSystem particle in particles)
+            {
+                particle.Pause();
+            }
         }
 
         public void PauseMenu()
@@ -207,6 +226,16 @@ namespace MarsFrenzy
             }
             timeRuns = true;
             playerAgent.speed = agentSpeed;
+
+            foreach (Animator anim in animators)
+            {
+                anim.enabled = true;
+            }
+
+            foreach (ParticleSystem particle in particles)
+            {
+                particle.Play();
+            }
         }
 
         public void EndDialog()
@@ -406,6 +435,11 @@ namespace MarsFrenzy
 
             data.ductTape.amount += _crate.ductTape;
             data.scrap.amount += _crate.scrap;
+        }
+
+        public void RegisterAnimator(Animator _animator)
+        {
+            animators.Add(_animator);
         }
     }
 

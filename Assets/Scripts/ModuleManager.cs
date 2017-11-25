@@ -86,6 +86,9 @@ namespace MarsFrenzy
 
             animator = view.GetComponent<Animator>();
 
+            _manager.RegisterAnimator(animator);
+            _manager.RegisterAnimator(healthAnimator);
+
             ViewScript vs = view.GetComponent<ViewScript>();
             vs.manager = this;
 
@@ -114,7 +117,6 @@ namespace MarsFrenzy
                     child.gameObject.GetComponent<TextMesh>().text = "" + _manager.data.upgradeCostResource;
                 }
             }
-
 
             gm = _manager;
         }
