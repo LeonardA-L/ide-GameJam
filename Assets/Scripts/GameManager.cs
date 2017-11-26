@@ -129,6 +129,20 @@ namespace MarsFrenzy
             {
                 timer += Time.deltaTime;
                 frame++;
+                
+                // Detect click on ground
+                if (Input.GetMouseButtonDown(0))
+                {
+                    RaycastHit hit;
+
+                    if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100))
+                    {
+                        if(hit.transform.gameObject.tag == "Ground")
+                        {
+                            SetPlayerAction(hit.point);
+                        }
+                    }
+                }
             }
 
             if (timeRuns && (timer - lastTime) > data.gameClock / (1.0f * data.clockSmoothing))
@@ -406,6 +420,11 @@ namespace MarsFrenzy
         public void RegisterAnimator(Animator _animator)
         {
             animators.Add(_animator);
+        }
+
+        public void GroundAction()
+        {
+
         }
     }
 

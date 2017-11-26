@@ -148,11 +148,7 @@ MonoBehaviour:
     efficiency: 0
     damageRate: 0
     startHealth: 100
-    x: 0
-    z: 0
     name: 
-    healthPlacement: {x: 0, y: 0, z: 0}
-    upgradePlacement: {x: 0, y: 0, z: 0}
     playerTarget: {x: 0, y: 0, z: 0}
   fuel:
     amount: 0
@@ -160,11 +156,7 @@ MonoBehaviour:
     efficiency: 0
     damageRate: 0
     startHealth: 100
-    x: 0
-    z: 0
     name: 
-    healthPlacement: {x: 0, y: 0, z: 0}
-    upgradePlacement: {x: 0, y: 0, z: 0}
     playerTarget: {x: 0, y: 0, z: 0}
   activated: 0
   repairing: 0
@@ -375,11 +367,7 @@ MonoBehaviour:
     efficiency: 0
     damageRate: 0
     startHealth: 100
-    x: 0
-    z: 0
     name: 
-    healthPlacement: {x: 0, y: 0, z: 0}
-    upgradePlacement: {x: 0, y: 0, z: 0}
     playerTarget: {x: 0, y: 0, z: 0}
   fuel:
     amount: 0
@@ -387,11 +375,7 @@ MonoBehaviour:
     efficiency: 0
     damageRate: 0
     startHealth: 100
-    x: 0
-    z: 0
     name: 
-    healthPlacement: {x: 0, y: 0, z: 0}
-    upgradePlacement: {x: 0, y: 0, z: 0}
     playerTarget: {x: 0, y: 0, z: 0}
   activated: 0
   repairing: 0
@@ -560,7 +544,7 @@ Prefab:
     - target: {fileID: 224563495390276174, guid: 4675ada665b8f30419ab34eed7c8bf56,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 257
+      value: 427.5
       objectReference: {fileID: 0}
     - target: {fileID: 224563495390276174, guid: 4675ada665b8f30419ab34eed7c8bf56,
         type: 2}
@@ -1253,11 +1237,7 @@ MonoBehaviour:
     efficiency: 0
     damageRate: 0
     startHealth: 100
-    x: 0
-    z: 0
     name: 
-    healthPlacement: {x: 0, y: 0, z: 0}
-    upgradePlacement: {x: 0, y: 0, z: 0}
     playerTarget: {x: 0, y: 0, z: 0}
   fuel:
     amount: 0
@@ -1265,11 +1245,7 @@ MonoBehaviour:
     efficiency: 0
     damageRate: 0
     startHealth: 100
-    x: 0
-    z: 0
     name: 
-    healthPlacement: {x: 0, y: 0, z: 0}
-    upgradePlacement: {x: 0, y: 0, z: 0}
     playerTarget: {x: 0, y: 0, z: 0}
   activated: 0
   repairing: 0
@@ -1869,11 +1845,7 @@ MonoBehaviour:
       efficiency: 0
       damageRate: 0
       startHealth: 100
-      x: 0
-      z: 0
       name: 
-      healthPlacement: {x: 0, y: 0, z: 0}
-      upgradePlacement: {x: 0, y: 0, z: 0}
       playerTarget: {x: 0, y: 0, z: 0}
     scrap:
       amount: 0
@@ -1881,11 +1853,7 @@ MonoBehaviour:
       efficiency: 0
       damageRate: 0
       startHealth: 100
-      x: 0
-      z: 0
       name: 
-      healthPlacement: {x: 0, y: 0, z: 0}
-      upgradePlacement: {x: 0, y: 0, z: 0}
       playerTarget: {x: 0, y: 0, z: 0}
     playerHungerStart: 100
     playerThirstStart: 100
