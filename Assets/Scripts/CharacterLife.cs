@@ -38,7 +38,7 @@ namespace MarsFrenzy
             starveDecay = _starveDecay;
             hunger = _hunger;
             thirst = _thirst;
-            for (int i = 0; i < gm.data.resources.Length; i++)
+            for (int i = 0; i < gm.data.resources.Count; i++)
             {
                 if (gm.data.resources[i].name == "potatoes")
                 {

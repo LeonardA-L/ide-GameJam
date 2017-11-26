@@ -75,7 +75,7 @@ namespace MarsFrenzy
 
             particles = new List<ParticleSystem>();
 
-            data = LoadGameData("gamedata.json");
+            data = PopulateData.Init();
 
             modules = new Dictionary<string, ModuleManager>();
             modules.Add("water", waterModule);
@@ -83,12 +83,12 @@ namespace MarsFrenzy
             modules.Add("electricity", electricityModule);
 
             int i = 0;
-            for (; i < data.resources.Length; i++)
+            for (; i < data.resources.Count; i++)
             {
                 int prevI = i - 1;
                 if (prevI < 0)
                 {
-                    prevI += data.resources.Length;
+                    prevI += data.resources.Count;
                 }
                 ModuleManager module = modules[data.resources[i].name].GetComponent<ModuleManager>();
                 module.id = i;
@@ -110,7 +110,7 @@ namespace MarsFrenzy
             RegisterAnimator(cameraAnimator);
             RegisterAnimator(uiAnimator);
 
-            crateSlots = new int[data.crateDropPoints.Length];
+            crateSlots = new int[data.crateDropPoints.Count];
 
             GameObject[] particlesGOs;
             particlesGOs = GameObject.FindGameObjectsWithTag("Particles");
@@ -180,28 +180,6 @@ namespace MarsFrenzy
             get
             {
                 return instance;
-            }
-        }
-
-        private GameDataModel LoadGameData(string path)
-        {
-            // Path.Combine combines strings into a file path
-            // Application.StreamingAssets points to Assets/StreamingAssets in the Editor, and the StreamingAssets folder in a build
-            string filePath = Path.Combine(Application.streamingAssetsPath, path);
-
-            if (File.Exists(filePath))
-            {
-                // Read the json from the file into a string
-                string dataAsJson = File.ReadAllText(filePath);
-                // Pass the json to JsonUtility, and tell it to create a GameData object from it
-                GameDataModel loadedData = JsonUtility.FromJson<GameDataModel>(dataAsJson);
-
-                return loadedData;
-            }
-            else
-            {
-                Debug.LogError("Cannot load game data!");
-                throw new System.Exception("Cannot load data");
             }
         }
 
@@ -375,11 +353,11 @@ namespace MarsFrenzy
         public void CreateCrate(float _water, float _potatoes, float _electricity, float _scrap, float _ductTape)
         {
 
-            int baseRandSlot = (int)(Random.value * data.crateDropPoints.Length);
+            int baseRandSlot = (int)(Random.value * data.crateDropPoints.Count);
             int successSlot = -1;
-            for (int i = 0; i < data.crateDropPoints.Length; i++)
+            for (int i = 0; i < data.crateDropPoints.Count; i++)
             {
-                int slot = (baseRandSlot + i) % data.crateDropPoints.Length;
+                int slot = (baseRandSlot + i) % data.crateDropPoints.Count;
                 if (crateSlots[slot] != 1)
                 {
                     successSlot = slot;

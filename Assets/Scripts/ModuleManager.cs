@@ -212,8 +212,8 @@ namespace MarsFrenzy
         private void updateEfficiency()
         {
             // Update efficiency
-            efficiencyModifier = gm.data.moduleHealthThresholds[gm.data.moduleHealthThresholds.Length - 1];
-            for (int i = 0; i < gm.data.moduleHealthThresholds.Length; i++)
+            efficiencyModifier = gm.data.moduleHealthThresholds[gm.data.moduleHealthThresholds.Count - 1];
+            for (int i = 0; i < gm.data.moduleHealthThresholds.Count; i++)
             {
                 ModuleHealthThreshold thr = gm.data.moduleHealthThresholds[i];
                 if (moduleHealth <= thr.threshold)

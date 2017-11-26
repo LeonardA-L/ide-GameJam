@@ -11,12 +11,8 @@ namespace MarsFrenzy
         public float efficiency = 0;
         public float damageRate = 0;
         public float startHealth = 100;
-        public float x = 0;
-        public float z = 0;
         public string name;
 
-        public Vector3 healthPlacement;
-        public Vector3 upgradePlacement;
         public Vector3 playerTarget;
     }
 }

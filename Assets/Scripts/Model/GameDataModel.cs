@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace MarsFrenzy
@@ -6,10 +8,10 @@ namespace MarsFrenzy
     [System.Serializable]
     public class GameDataModel
     {
-        public ResourceModel[] resources;
-        public int gameClock = 1;
+        public List<ResourceModel> resources;
+        public float gameClock = 1;
         public int clockSmoothing = 1;
-        public ModuleHealthThreshold[] moduleHealthThresholds;
+        public List<ModuleHealthThreshold> moduleHealthThresholds;
         public ResourceModel ductTape;
         public ResourceModel scrap;
 
@@ -22,6 +24,6 @@ namespace MarsFrenzy
         public float upgradeConsumptionFactor;
         public float upgradeEfficiencyFactor;
 
-        public Vector3[] crateDropPoints;
+        public List<Vector3> crateDropPoints;
     }
 }
