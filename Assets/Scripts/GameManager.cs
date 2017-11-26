@@ -197,6 +197,10 @@ namespace MarsFrenzy
             {
                 particle.Pause();
             }
+
+            waterModule.StopAction();
+            potatoesModule.StopAction();
+            electricityModule.StopAction();
         }
 
         public void PauseMenu()

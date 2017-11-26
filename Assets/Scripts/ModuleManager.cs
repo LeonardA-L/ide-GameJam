@@ -116,7 +116,7 @@ namespace MarsFrenzy
             }
         }
 
-        private void StopAction()
+        public void StopAction()
         {
             if (clicking && !repairing && queuedAction != "repair")
             {
