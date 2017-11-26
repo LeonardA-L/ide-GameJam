@@ -23,12 +23,10 @@ namespace MarsFrenzy
         public float moduleHealth = 100.0f;
         private ModuleHealthThreshold efficiencyModifier = null;
 
-        private Animator animator;
+        public Animator viewAnimator;
 
         private GameManager gm;
-
-        private GameObject healthyView;
-        private GameObject brokenView;
+        
         public GameObject tools;
 
         public float level = 1;
@@ -49,57 +47,26 @@ namespace MarsFrenzy
             healthAnimator = health.gameObject.GetComponent<Animator>();
         }
 
-        public void Init(int _id, ResourceModel _resource, ResourceModel _fuelResource, GameManager _manager)
+        public void Init(int _id, ResourceModel _resource, ResourceModel _fuelResource)
         {
             Debug.Log("Init " + id + " " + _resource.name + " " + _fuelResource);
+            gm = GameManager.Instance;
             id = _id;
             res = _resource;
             fuel = _fuelResource;
             moduleHealth = res.startHealth;
-
-            Debug.Log(res.name + "_view_prefab");
-            GameObject view = (GameObject)GameObject.Instantiate(Resources.Load("Prefabs/Views/" + res.name + "_view_prefab"));
-            view.transform.position = new Vector3(0, 0, 0);
-            view.transform.parent = transform;
-            view.name = "View";
-
-            healthBarWrap.position = res.healthPlacement;
-
-            foreach (Transform child in view.transform)
-            {
-                if (child.gameObject.tag == "ModuleBroken")
-                {
-                    brokenView = child.gameObject;
-                }
-                if (child.gameObject.tag == "ModuleHealthy")
-                {
-                    healthyView = child.gameObject;
-                }
-            }
-
-            if (healthyView != null)
-            {
-                healthyView.SetActive(true);
-                brokenView.SetActive(false);
-            }
+            
             tools.SetActive(false);
 
-            animator = view.GetComponent<Animator>();
-
-            _manager.RegisterAnimator(animator);
-            _manager.RegisterAnimator(healthAnimator);
-
-            ViewScript vs = view.GetComponent<ViewScript>();
-            vs.manager = this;
-
-            transform.position = new Vector3(res.x, 0.0f, res.z);
+            gm.RegisterAnimator(viewAnimator);
+            gm.RegisterAnimator(healthAnimator);
+            
             playerTarget = transform.position + res.playerTarget;
 
             GameObject stockObj = GameObject.Find("/UI_prefab/MainCanvas/Resources/BackgroundOrange/" + res.name + "/"+ res.name+"_Stock");
             stock = stockObj.GetComponent<Text>();
 
             // Upgrade UI
-            upgradeUI.transform.localPosition = res.upgradePlacement;
             upgradeUI.SetActive(false);
             foreach (Transform child in upgradeUI.transform)
             {
@@ -110,15 +77,13 @@ namespace MarsFrenzy
 
                 if (child.gameObject.name == "scrap_amount")
                 {
-                    child.gameObject.GetComponent<TextMesh>().text = "" + _manager.data.upgradeCostScrap;
+                    child.gameObject.GetComponent<TextMesh>().text = "" + gm.data.upgradeCostScrap;
                 }
                 if (child.gameObject.name == "resource_amount")
                 {
-                    child.gameObject.GetComponent<TextMesh>().text = "" + _manager.data.upgradeCostResource;
+                    child.gameObject.GetComponent<TextMesh>().text = "" + gm.data.upgradeCostResource;
                 }
             }
-
-            gm = _manager;
         }
 
         // Update is called once per frame
@@ -242,20 +207,6 @@ namespace MarsFrenzy
             {
                 healthAnimator.SetFloat("health", moduleHealth);
             }
-            if (healthyView != null)
-            {
-                float healhyBrokenThreshold = gm.data.moduleHealthThresholds[2].threshold;  // 60%
-                if (moduleHealth < healhyBrokenThreshold && healthyView.activeSelf)
-                {
-                    healthyView.SetActive(false);
-                    brokenView.SetActive(true);
-                }
-                if (moduleHealth > healhyBrokenThreshold && !healthyView.activeSelf)
-                {
-                    healthyView.SetActive(true);
-                    brokenView.SetActive(false);
-                }
-            }
         }
 
         private void updateEfficiency()
@@ -330,7 +281,7 @@ namespace MarsFrenzy
         public void SetActive(bool _newValue)
         {
             activated = _newValue;
-            animator.SetBool("activated", activated);
+            viewAnimator.SetBool("activated", activated);
         }
     }
 }

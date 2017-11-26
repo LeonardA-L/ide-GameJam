@@ -11,7 +11,7 @@ namespace MarsFrenzy
     {
         protected static GameManager instance;
         public GameDataModel data;
-        private List<ModuleManager> modules;
+        private Dictionary<string, ModuleManager> modules;
 
         public bool timeRuns = false;
         public bool gameOver = false;
@@ -35,12 +35,16 @@ namespace MarsFrenzy
         public Transform player;
         public Vector3 lastPlayerPosition;
         private bool playerWalking;
-        public Animator playerAnimator;
+        private Animator playerAnimator;
         private float agentSpeed;
 
         public int[] crateSlots;
 
         private List<ParticleSystem> particles;
+
+        public ModuleManager waterModule;
+        public ModuleManager potatoesModule;
+        public ModuleManager electricityModule;
 
         public int OnboardingStep
         {
@@ -73,7 +77,10 @@ namespace MarsFrenzy
 
             data = LoadGameData("gamedata.json");
 
-            modules = new List<ModuleManager>();
+            modules = new Dictionary<string, ModuleManager>();
+            modules.Add("water", waterModule);
+            modules.Add("potatoes", potatoesModule);
+            modules.Add("electricity", electricityModule);
 
             int i = 0;
             for (; i < data.resources.Length; i++)
@@ -83,13 +90,9 @@ namespace MarsFrenzy
                 {
                     prevI += data.resources.Length;
                 }
-                GameObject res = (GameObject)GameObject.Instantiate(Resources.Load("Prefabs/Module_prefab"));
-                res.transform.position = new Vector3(0, 0, 0);
-                res.name = "Module_" + data.resources[i].name;
-                ModuleManager module = res.GetComponent<ModuleManager>();
+                ModuleManager module = modules[data.resources[i].name].GetComponent<ModuleManager>();
                 module.id = i;
-                module.Init(i, data.resources[i], data.resources[prevI], this);
-                modules.Add(module);
+                module.Init(i, data.resources[i], data.resources[prevI]);
             }
 
             character.Init(this, data.playerHungerStart, data.playerThirstStart, data.starvationDecay);
@@ -149,10 +152,9 @@ namespace MarsFrenzy
 
         private void Tick()
         {
-            for (int i = 0; i < modules.Count; i++)
-            {
-                modules[i].Tick();
-            }
+            waterModule.Tick();
+            potatoesModule.Tick();
+            electricityModule.Tick();
 
             character.Tick();
         }
@@ -259,25 +261,14 @@ namespace MarsFrenzy
 
         public bool IsActive(string name)
         {
-            for (int i = 0; i < modules.Count; i++)
-            {
-                if (modules[i].res.name == name)
-                {
-                    return modules[i].activated;
-                }
-            }
-            return false;
+            ModuleManager module = modules[name];
+            return module.activated;
         }
 
         public void SetActive(string name, bool _active)
         {
-            for (int i = 0; i < modules.Count; i++)
-            {
-                if (modules[i].res.name == name)
-                {
-                    modules[i].SetActive(_active);
-                }
-            }
+            ModuleManager module = modules[name];
+            module.SetActive(_active);
         }
 
         public void AddAmount(string name, float _howMuch)
@@ -302,16 +293,11 @@ namespace MarsFrenzy
                 return;
             }
 
-            for (int i = 0; i < modules.Count; i++)
+            ModuleManager module = modules[name];
+            module.res.amount += _howMuch;
+            if (module.res.amount < 0.0f)
             {
-                if (modules[i].res.name == name)
-                {
-                    modules[i].res.amount += _howMuch;
-                    if(modules[i].res.amount < 0.0f)
-                    {
-                        modules[i].res.amount = 0.0f;
-                    }
-                }
+                module.res.amount = 0.0f;
             }
         }
 
@@ -327,40 +313,23 @@ namespace MarsFrenzy
                 return data.scrap.amount;
             }
 
-            for (int i = 0; i < modules.Count; i++)
-            {
-                if (modules[i].res.name == name)
-                {
-                    return modules[i].res.amount;
-                }
-            }
-            return 0.0f;
+            ModuleManager module = modules[name];
+            return module.res.amount;
         }
 
         public float GetModuleHealth(string name)
         {
-            for (int i = 0; i < modules.Count; i++)
-            {
-                if (modules[i].res.name == name)
-                {
-                    return modules[i].moduleHealth;
-                }
-            }
-            return -1.0f;
+            ModuleManager module = modules[name];
+            return module.moduleHealth;
         }
 
         public void AddModuleHealth(string name, float _howMuch)
         {
-            for (int i = 0; i < modules.Count; i++)
+            ModuleManager module = modules[name];
+            module.moduleHealth += _howMuch;
+            if (module.moduleHealth < 0.0f)
             {
-                if (modules[i].res.name == name)
-                {
-                    modules[i].moduleHealth += _howMuch;
-                    if(modules[i].moduleHealth < 0.0f)
-                    {
-                        modules[i].moduleHealth = 0.0f;
-                    }
-                }
+                module.moduleHealth = 0.0f;
             }
         }
 
@@ -444,9 +413,9 @@ namespace MarsFrenzy
 
         public void CollectCrate(DropController _crate)
         {
-            modules[0].res.amount += _crate.water;
-            modules[1].res.amount += _crate.potatoes;
-            modules[2].res.amount += _crate.electricity;
+            waterModule.res.amount += _crate.water;
+            potatoesModule.res.amount += _crate.potatoes;
+            electricityModule.res.amount += _crate.electricity;
 
             data.ductTape.amount += _crate.ductTape;
             data.scrap.amount += _crate.scrap;
