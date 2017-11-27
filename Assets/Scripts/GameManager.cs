@@ -48,7 +48,7 @@ namespace MarsFrenzy
 
         public Transform marsBase;
 
-        public float maxDistanceToBase = 12.0f;
+        public Vector3 maxDistanceToBase = new Vector3(6.0f, 0, 24.0f);
 
         public int OnboardingStep
         {
@@ -175,10 +175,12 @@ namespace MarsFrenzy
                 }
             } else
             {
-                if ((player.position - marsBase.position).magnitude < maxDistanceToBase)
+                Vector3 diffWithBase = (marsBase.position - player.position);
+                if (CameraController.Instance.mode == CameraMode.EXPLORE && (Mathf.Abs(diffWithBase.x) < maxDistanceToBase.x || Mathf.Abs(diffWithBase.z) < maxDistanceToBase.z))
                 {
                     ReachBase();
-                } else
+                }
+                if (CameraController.Instance.mode == CameraMode.BASE && (Mathf.Abs(diffWithBase.x) > maxDistanceToBase.x || Mathf.Abs(diffWithBase.z) > maxDistanceToBase.z))
                 {
                     LeaveBase();
                 }

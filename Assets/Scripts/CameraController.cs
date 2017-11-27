@@ -67,14 +67,12 @@ namespace MarsFrenzy
             disp.z = lockZ ? 0 : disp.z;
             disp.y = lockZ ? 0 : disp.y;
 
-            transform.localPosition += Vector3.Lerp(Vector3.zero, disp, 0.1f);
+            transform.localPosition += Vector3.Lerp(Vector3.zero, disp, 0.06f);
         }
 
         public void SetModeBase()
         {
             mode = CameraMode.BASE;
-            lockX = true;
-            lockZ = true;
         }
 
         public void SetModeExplore()
