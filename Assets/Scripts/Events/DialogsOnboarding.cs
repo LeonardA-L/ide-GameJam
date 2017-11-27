@@ -28,13 +28,18 @@ namespace MarsFrenzy
             ));*/
 
             events.Add(new DialogEvent(
-                Dialogs.CreateListString("Noise", "Noise2", "FirstContact", "FirstContact2"),
+                Dialogs.CreateListString("Noise", "Noise2", "FirstContact", "FirstContact2", "FirstContact3"),
                 Step10,
                 MoveOnboarding
             ));
 
             // Step 50
-          
+
+            events.Add(new DialogEvent(
+                Dialogs.CreateListString(),
+                Step50_blank
+            ));
+
             events.Add(new DialogEvent(
                 Dialogs.CreateListString("IntroTutorial"),
                 Step50,
@@ -214,10 +219,14 @@ namespace MarsFrenzy
         }
 
 
+        static bool Step50_blank()
+        {
+            return Dialogs.OnboardingStep == 50;
+        }
         static bool Step50()
         {
             return Dialogs.OnboardingStep == 50
-                && Dialogs.TimeSinceLastDialogIs(10.0f);
+                && Dialogs.TimeSinceLastDialogIs(3.0f);
         }
 
         static bool Step60_Water_Active()

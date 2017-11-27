@@ -1,5 +1,5 @@
 {
-    "IntroTutorial": "Je suis en direct de l'orbite de Mars. Pas de panique : j'ai activé la capsule de secours, elle sera prête dans 7 minutes.",
+    "IntroTutorial": "Bien. Elle n'a pas l'air trop endommagée... Commence par activer les modules de production.",
     "AskActivateWater": "Conseil de voisin martien : tu devrais activer le module eau.",
     "RemindActivateWater" : "On ne t'a pas appris que l'eau est la base de la survie ?",
     "AskActivatePotatoes":"Tu n'as pas un petit creux ? Il paraît que les patates ne sont pas mauvaises.",
@@ -26,6 +26,7 @@
     "Noise2": "..... @@@##&%##shhhhreçois ? .....",
     "FirstContact": "... Tu me reçois ? Ah ! On dirait que la connexion est rétablie.",
     "FirstContact2": "Sacré atterrissage ! Je vois que tu es toujours en vie. Pas mal pour un débutant !",
+    "FirstContact3": "Si tu veux rester en vie d'ici à ce que les secours arrivent, commence par trouver l'ancienne base martienne.",
 
     "victoryTitle": "Bravo Captain Capsule!",
     "victorySub": "Tu es un vrai Martien !",
