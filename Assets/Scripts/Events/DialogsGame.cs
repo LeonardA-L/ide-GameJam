@@ -12,6 +12,7 @@ namespace MarsFrenzy
         {
             List<DialogEvent> events = new List<DialogEvent>();
 
+            return events;
 
             // Step 500 BeforeMarsStorm
 
