@@ -46,6 +46,8 @@ namespace MarsFrenzy
         public ModuleManager potatoesModule;
         public ModuleManager electricityModule;
 
+        public Transform marsBase;
+
         public int OnboardingStep
         {
             get
@@ -139,7 +141,7 @@ namespace MarsFrenzy
                     {
                         if(hit.transform.gameObject.tag == "Ground")
                         {
-                            //SetPlayerAction(hit.point);
+                            SetPlayerAction(hit.point);
                         }
                     }
                 }
@@ -161,6 +163,14 @@ namespace MarsFrenzy
             {
                 playerWalking = false;
                 AudioManager.Instance.StopSound("characterWalking");
+            }
+
+            if (OnboardingStep < 50)
+            {
+                if ((player.position - marsBase.position).magnitude < 1.0f)
+                {
+                    ActivateBase();
+                }
             }
         }
 
@@ -422,9 +432,12 @@ namespace MarsFrenzy
             animators.Add(_animator);
         }
 
-        public void GroundAction()
+        public void ActivateBase()
         {
-
+            OnboardingStep = 50;
+            WidenView();
+            ShowUI();
+            CameraController.Instance.SetModeBase();
         }
     }
 

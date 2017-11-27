@@ -21,22 +21,16 @@ namespace MarsFrenzy
                 MoveOnboarding
             ));
             
-            events.Add(new DialogEvent(
+            /*events.Add(new DialogEvent(
                 Dialogs.CreateListString(),
                 Step10,
                 WidenView
-            ));
-
-            events.Add(new DialogEvent(
-                Dialogs.CreateListString(),
-                Step15,
-                ActionShowUi
-            ));
+            ));*/
 
             events.Add(new DialogEvent(
                 Dialogs.CreateListString("Noise", "Noise2", "FirstContact", "FirstContact2"),
-                Step20,
-                ExitFirstPart
+                Step10,
+                MoveOnboarding
             ));
 
             // Step 50
@@ -198,7 +192,7 @@ namespace MarsFrenzy
         static bool WaitScreen()
         {
             return Dialogs.OnboardingStep == 0
-                && Dialogs.timeIs(4.0f);
+                && Dialogs.timeIs(1.0f);
         }
 
         static bool Wait(float _howLong)
@@ -210,12 +204,6 @@ namespace MarsFrenzy
         static bool Step10()
         {
             return Dialogs.OnboardingStep == 10
-                && Wait(1.0f);
-        }
-
-        static bool Step15()
-        {
-            return Dialogs.OnboardingStep == 15
                 && Wait(1.0f);
         }
 
