@@ -48,6 +48,8 @@ namespace MarsFrenzy
 
         public Transform marsBase;
 
+        public float maxDistanceToBase = 12.0f;
+
         public int OnboardingStep
         {
             get
@@ -167,9 +169,18 @@ namespace MarsFrenzy
 
             if (OnboardingStep < 50)
             {
-                if ((player.position - marsBase.position).magnitude < 1.0f)
+                if ((player.position - marsBase.position).magnitude < 2.0f)
                 {
                     ActivateBase();
+                }
+            } else
+            {
+                if ((player.position - marsBase.position).magnitude < maxDistanceToBase)
+                {
+                    ReachBase();
+                } else
+                {
+                    LeaveBase();
                 }
             }
         }
@@ -438,6 +449,16 @@ namespace MarsFrenzy
             WidenView();
             ShowUI();
             CameraController.Instance.SetModeBase();
+        }
+
+        public void ReachBase()
+        {
+            CameraController.Instance.SetModeBase();
+        }
+
+        public void LeaveBase()
+        {
+            CameraController.Instance.SetModeExplore();
         }
     }
 
