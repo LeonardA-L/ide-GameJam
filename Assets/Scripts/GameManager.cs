@@ -139,7 +139,7 @@ namespace MarsFrenzy
                     {
                         if(hit.transform.gameObject.tag == "Ground")
                         {
-                            SetPlayerAction(hit.point);
+                            //SetPlayerAction(hit.point);
                         }
                     }
                 }
