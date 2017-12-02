@@ -95,7 +95,7 @@ namespace MarsFrenzy
                 module.Init(i, data.resources[i], data.resources[prevI]);
             }
 
-            character.Init(this, data.playerHungerStart, data.playerThirstStart, data.starvationDecay);
+            character.Init(this, data.playerHungerStart, data.playerThirstStart, data.starvationDecay, data.playerRegen);
 
             GameObject ductTapeStockObj = GameObject.Find("/UI_prefab/MainCanvas/Resources/BackgroundBlue/ductTape/ductTape_Stock");
             ductTapeStock = ductTapeStockObj.GetComponent<Text>();

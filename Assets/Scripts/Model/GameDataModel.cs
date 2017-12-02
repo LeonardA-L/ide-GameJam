@@ -18,6 +18,7 @@ namespace MarsFrenzy
         public float playerHungerStart = 100.0f;
         public float playerThirstStart = 100.0f;
         public float starvationDecay = 10.0f;
+        public float playerRegen = 1.0f;
 
         public float upgradeCostResource;
         public float upgradeCostScrap;

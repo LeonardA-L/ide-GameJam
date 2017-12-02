@@ -14,6 +14,7 @@ namespace MarsFrenzy
         public float hunger;
         public float thirst;
         public float starveDecay;
+        public float regen;
         public bool dead = false;
 
         public Text hungerGauge;
@@ -32,12 +33,13 @@ namespace MarsFrenzy
             thirstGauge.text = "" + thirst.ToString("0") + "%";
         }
 
-        public void Init(GameManager _gm, float _hunger, float _thirst, float _starveDecay)
+        public void Init(GameManager _gm, float _hunger, float _thirst, float _starveDecay, float _regen)
         {
             gm = _gm;
             starveDecay = _starveDecay;
             hunger = _hunger;
             thirst = _thirst;
+            regen = _regen;
             for (int i = 0; i < gm.data.resources.Count; i++)
             {
                 if (gm.data.resources[i].name == "potatoes")
@@ -56,16 +58,26 @@ namespace MarsFrenzy
             if(food.amount <= 0.0f)
             {
                 hunger -= starveDecay;
+            } else
+            {
+                hunger += regen;
             }
             if (water.amount <= 0.0f)
             {
                 thirst -= starveDecay;
             }
+            else
+            {
+                thirst += regen;
+            }
 
-            if(hunger <= 0.0f || thirst <= 0.0f)
+            if (hunger <= 0.0f || thirst <= 0.0f)
             {
                 dead = true;
             }
+
+            thirst = Mathf.Clamp(thirst, 0.0f, 100.0f);
+            hunger = Mathf.Clamp(hunger, 0.0f, 100.0f);
         }
     }
 }

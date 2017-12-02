@@ -24,6 +24,7 @@ namespace MarsFrenzy
                 clockSmoothing = 2,
 
                 playerHungerStart = 100.0f,
+                playerRegen = 0.01f,
                 playerThirstStart = 100.0f,
                 starvationDecay = 5.0f,
 
