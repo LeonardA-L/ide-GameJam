@@ -8,7 +8,6 @@ namespace MarsFrenzy
     {
         public Transform character;
         private Vector3 positionOffset;
-        private Camera cam;
 
         public bool lockX = true;
         public bool lockZ = true;
@@ -19,7 +18,6 @@ namespace MarsFrenzy
         // Use this for initialization
         void Start()
         {
-            cam = GetComponent<Camera>();
             positionOffset = transform.position - character.position;
             active = true;
 

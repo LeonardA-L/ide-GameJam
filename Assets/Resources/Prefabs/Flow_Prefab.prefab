@@ -200,7 +200,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1128283067305368}
   m_LocalRotation: {x: 0.2588191, y: 0, z: 0, w: 0.9659258}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 6.778941, y: 1.4300163e-17, z: 7.759779}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4828645958561946}
@@ -347,7 +347,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   amount: {fileID: 102508883362415302}
-  wrapper: {fileID: 4828645958561946}
   waterLogo: {fileID: 1310703007362196}
   potatoesLogo: {fileID: 1756248614547660}
   electricityLogo: {fileID: 1415483016110148}

@@ -167,7 +167,7 @@ namespace MarsFrenzy
             // DECAY
             resDiff = res.decay * smoothingFactor;
             res.amount -= resDiff;
-            totalResDiff -= resDiff;
+            //totalResDiff -= resDiff;
 
             if (res.amount < 0.0f)
             {
@@ -196,7 +196,10 @@ namespace MarsFrenzy
             }
 
             // Show flows
-            SpawnFlow(res.name, totalResDiff, 0);
+            if(Mathf.Abs(totalResDiff) >= 0.1f)
+                SpawnFlow(res.name, totalResDiff, 0);
+            if (Mathf.Abs(totalFuelDiff) >= 0.1f)
+                SpawnFlow(fuel.name, totalFuelDiff, 1);
 
         }
 
@@ -276,7 +279,9 @@ namespace MarsFrenzy
         {
             if(queuedAction == "toggle")
             {
+                Debug.Log(activated);
                 SetActive(!activated);
+                Debug.Log(activated);
                 if (activated)
                 {
                     AudioManager.Instance.PlaySound("module" + res.name);
@@ -298,7 +303,8 @@ namespace MarsFrenzy
 
         public void SetActive(bool _newValue)
         {
-            
+            activated = _newValue;
+            viewAnimator.SetBool("activated", activated);
         }
 
         public void SpawnFlow(string _resourceName, float _amount, int _offset)
@@ -308,6 +314,8 @@ namespace MarsFrenzy
 
             FlowController flow = flowObj.GetComponent<FlowController>();
             flow.Init(_resourceName, _amount, _offset);
+
+            GameManager.Instance.RegisterAnimator(flowObj.GetComponent<Animator>());
         }
     }
 }

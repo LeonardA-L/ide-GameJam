@@ -8,7 +8,6 @@ namespace MarsFrenzy
     {
 
         public TextMesh amount;
-        public Transform wrapper;
 
         public GameObject waterLogo;
         public GameObject potatoesLogo;
@@ -45,7 +44,7 @@ namespace MarsFrenzy
                     break;
             }
 
-            wrapper.localPosition += new Vector3(0, 0.5f * _offset, 0);
+            transform.localPosition -= new Vector3(0, 0.7f * _offset, 0);
         }
     }
 

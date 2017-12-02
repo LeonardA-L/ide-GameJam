@@ -422,6 +422,11 @@ namespace MarsFrenzy
             animators.Add(_animator);
         }
 
+        public void UnregisterAnimator(Animator _animator)
+        {
+            animators.Remove(_animator);
+        }
+
         public void GroundAction()
         {
 
