@@ -67,7 +67,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1062577345811798}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.8974476, y: -3.8697002e-18, z: 15.942758}
+  m_LocalPosition: {x: 8.857127, y: -8.133526e-18, z: 17.863014}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4450504405084786}
@@ -179,3 +179,4 @@ MonoBehaviour:
   scrap: 0
   ductTape: 0
   slot: 0
+  flowPrefab: {fileID: 1128283067305368, guid: 438d5f945f9806d40be4f3b6609787b3, type: 2}

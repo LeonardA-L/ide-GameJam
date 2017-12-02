@@ -14,6 +14,8 @@ namespace MarsFrenzy
         public float ductTape;
         public int slot;
 
+        public GameObject flowPrefab;
+
         public void SetValues(float _water, float _potatoes, float _electricity, float _scrap, float _ductTape, int _slot)
         {
             water = _water;
@@ -36,16 +38,68 @@ namespace MarsFrenzy
 
             if((gm.player.position - transform.position).magnitude < 1.0f)
             {
-                Debug.Log("Touch");
-                gm.CollectCrate(this);
-                Destroy(gameObject);
+                Collect();
             }
         }
 
         void OnMouseDown()
         {
-            Debug.Log("Touch2");
             GameManager.Instance.SetPlayerAction(transform.position);
+        }
+
+        private void Collect()
+        {
+            gm.CollectCrate(this);
+
+            /*water = _water;
+            potatoes = _potatoes;
+            electricity = _electricity;
+            scrap = _scrap;
+            ductTape = _ductTape;*/
+
+            int offset = 0;
+            if(water != 0.0f)
+            {
+                SpawnFlow("water", water, offset);
+                offset--;
+            }
+
+            if (potatoes != 0.0f)
+            {
+                SpawnFlow("potatoes", potatoes, offset);
+                offset--;
+            }
+
+            if (electricity != 0.0f)
+            {
+                SpawnFlow("electricity", electricity, offset);
+                offset--;
+            }
+
+            if (scrap != 0.0f)
+            {
+                SpawnFlow("scrap", scrap, offset);
+                offset--;
+            }
+
+            if (ductTape != 0.0f)
+            {
+                SpawnFlow("ductTape", ductTape, offset);
+                offset--;
+            }
+
+            Destroy(gameObject);
+        }
+
+        public void SpawnFlow(string _resourceName, float _amount, int _offset)
+        {
+            GameObject flowObj = Instantiate(flowPrefab, GameManager.Instance.gameObject.transform);
+            flowObj.transform.localPosition =  transform.position + new Vector3(-0.75f, 2.0f, 0);
+
+            FlowController flow = flowObj.GetComponent<FlowController>();
+            flow.Init(_resourceName, _amount, _offset);
+
+            GameManager.Instance.RegisterAnimator(flowObj.GetComponent<Animator>());
         }
     }
 }
