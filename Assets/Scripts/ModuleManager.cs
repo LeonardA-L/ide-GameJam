@@ -28,6 +28,8 @@ namespace MarsFrenzy
         private GameManager gm;
         
         public GameObject tools;
+        public Transform flowSpawner;
+        public GameObject flowPrefab;
 
         public float level = 1;
 
@@ -138,6 +140,11 @@ namespace MarsFrenzy
         {
             float smoothingFactor = 1.0f / (1.0f * gm.data.clockSmoothing);
 
+            float totalResDiff = 0.0f;
+            float totalFuelDiff = 0.0f;
+            float resDiff;
+            float fuelDiff;
+
             // deactivate if health is 0
             if (moduleHealth <= 0.0f)
             {
@@ -148,12 +155,19 @@ namespace MarsFrenzy
             // PRODUCTION
             if (activated && fuel.amount > 0)
             {
-                res.amount += res.efficiency * efficiencyModifier.modifier * smoothingFactor * (level == 1 ? 1.0f : gm.data.upgradeEfficiencyFactor);
-                fuel.amount -= (level == 1 ? 1.0f : gm.data.upgradeConsumptionFactor) * smoothingFactor;
+                resDiff = res.efficiency * efficiencyModifier.modifier * smoothingFactor * (level == 1 ? 1.0f : gm.data.upgradeEfficiencyFactor);
+                fuelDiff = (level == 1 ? 1.0f : gm.data.upgradeConsumptionFactor) * smoothingFactor;
+
+                res.amount += resDiff;
+                totalResDiff += resDiff;
+                fuel.amount -= fuelDiff;
+                totalFuelDiff -= fuelDiff;
             }
 
             // DECAY
-            res.amount -= res.decay * smoothingFactor;
+            resDiff = res.decay * smoothingFactor;
+            res.amount -= resDiff;
+            totalResDiff -= resDiff;
 
             if (res.amount < 0.0f)
             {
@@ -180,6 +194,10 @@ namespace MarsFrenzy
             {
                 StopAction();
             }
+
+            // Show flows
+            SpawnFlow(res.name, totalResDiff, 0);
+
         }
 
         public void OnClick(GameObject clicked)
@@ -280,8 +298,16 @@ namespace MarsFrenzy
 
         public void SetActive(bool _newValue)
         {
-            activated = _newValue;
-            viewAnimator.SetBool("activated", activated);
+            
+        }
+
+        public void SpawnFlow(string _resourceName, float _amount, int _offset)
+        {
+            GameObject flowObj = Instantiate(flowPrefab, flowSpawner);
+            flowObj.transform.localPosition = new Vector3(0, 0, 0);
+
+            FlowController flow = flowObj.GetComponent<FlowController>();
+            flow.Init(_resourceName, _amount, _offset);
         }
     }
 }

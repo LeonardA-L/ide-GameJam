@@ -21,7 +21,7 @@ namespace MarsFrenzy
 
                 // Generic data
                 gameClock = 2.0f,
-                clockSmoothing = 4,
+                clockSmoothing = 2,
 
                 playerHungerStart = 100.0f,
                 playerThirstStart = 100.0f,

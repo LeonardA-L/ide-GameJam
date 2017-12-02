@@ -166,6 +166,8 @@ MonoBehaviour:
   moduleHealth: 100
   viewAnimator: {fileID: 819372478}
   tools: {fileID: 1840933458}
+  flowSpawner: {fileID: 75946801}
+  flowPrefab: {fileID: 1128283067305368, guid: 438d5f945f9806d40be4f3b6609787b3, type: 2}
   level: 1
   upgradeUI: {fileID: 1676298617}
   clicking: 0
@@ -187,8 +189,38 @@ Transform:
   - {fileID: 1676298618}
   - {fileID: 1840933459}
   - {fileID: 1058051549}
+  - {fileID: 75946801}
   m_Father: {fileID: 0}
   m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &75946800
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 75946801}
+  m_Layer: 0
+  m_Name: FlowSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &75946801
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 75946800}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.911, y: 4.524, z: -1.911}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 857881443}
+  m_Father: {fileID: 29794137}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &106543389
 Prefab:
@@ -378,6 +410,34 @@ Transform:
   m_PrefabParentObject: {fileID: 4892547254935658, guid: e88f51f3f2a13ae4385de78e1b0ebc56,
     type: 2}
   m_PrefabInternal: {fileID: 173650672}
+--- !u!1 &201268485
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 201268486}
+  m_Layer: 0
+  m_Name: FlowSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &201268486
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 201268485}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 220327492}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &220327490
 GameObject:
   m_ObjectHideFlags: 0
@@ -432,6 +492,8 @@ MonoBehaviour:
   moduleHealth: 100
   viewAnimator: {fileID: 1060241799}
   tools: {fileID: 173650673}
+  flowSpawner: {fileID: 201268486}
+  flowPrefab: {fileID: 1128283067305368, guid: 438d5f945f9806d40be4f3b6609787b3, type: 2}
   level: 1
   upgradeUI: {fileID: 1181649385}
   clicking: 0
@@ -453,8 +515,37 @@ Transform:
   - {fileID: 1181649386}
   - {fileID: 173650674}
   - {fileID: 1252528933}
+  - {fileID: 201268486}
   m_Father: {fileID: 0}
   m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &261893786
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 261893787}
+  m_Layer: 0
+  m_Name: FlowSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &261893787
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 261893786}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1795251080}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &400434166 stripped
 Transform:
@@ -544,7 +635,7 @@ Prefab:
     - target: {fileID: 224563495390276174, guid: 4675ada665b8f30419ab34eed7c8bf56,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 408
+      value: 577.5
       objectReference: {fileID: 0}
     - target: {fileID: 224563495390276174, guid: 4675ada665b8f30419ab34eed7c8bf56,
         type: 2}
@@ -810,6 +901,57 @@ Animator:
   m_PrefabParentObject: {fileID: 95076864508241484, guid: 1d33167aab02a6a4bacd03f625b66076,
     type: 2}
   m_PrefabInternal: {fileID: 818781733}
+--- !u!1001 &857881442
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 75946801}
+    m_Modifications:
+    - target: {fileID: 4544118722492006, guid: 438d5f945f9806d40be4f3b6609787b3, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4544118722492006, guid: 438d5f945f9806d40be4f3b6609787b3, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4544118722492006, guid: 438d5f945f9806d40be4f3b6609787b3, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4544118722492006, guid: 438d5f945f9806d40be4f3b6609787b3, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0.2588191
+      objectReference: {fileID: 0}
+    - target: {fileID: 4544118722492006, guid: 438d5f945f9806d40be4f3b6609787b3, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4544118722492006, guid: 438d5f945f9806d40be4f3b6609787b3, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4544118722492006, guid: 438d5f945f9806d40be4f3b6609787b3, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.9659258
+      objectReference: {fileID: 0}
+    - target: {fileID: 4544118722492006, guid: 438d5f945f9806d40be4f3b6609787b3, type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1918091045684634, guid: 438d5f945f9806d40be4f3b6609787b3, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 438d5f945f9806d40be4f3b6609787b3, type: 2}
+  m_IsPrefabParent: 0
+--- !u!4 &857881443 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4544118722492006, guid: 438d5f945f9806d40be4f3b6609787b3,
+    type: 2}
+  m_PrefabInternal: {fileID: 857881442}
 --- !u!1 &953411690
 GameObject:
   m_ObjectHideFlags: 0
@@ -1255,6 +1397,8 @@ MonoBehaviour:
   moduleHealth: 100
   viewAnimator: {fileID: 2021092269}
   tools: {fileID: 1694017956}
+  flowSpawner: {fileID: 261893787}
+  flowPrefab: {fileID: 1128283067305368, guid: 438d5f945f9806d40be4f3b6609787b3, type: 2}
   level: 1
   upgradeUI: {fileID: 1640675666}
   clicking: 0
@@ -1734,6 +1878,7 @@ Transform:
   - {fileID: 1640675669}
   - {fileID: 1694017958}
   - {fileID: 953411691}
+  - {fileID: 261893787}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
