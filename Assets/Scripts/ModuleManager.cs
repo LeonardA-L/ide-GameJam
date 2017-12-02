@@ -129,8 +129,11 @@ namespace MarsFrenzy
                 gm.SetPlayerAction(gm.player.position);
                 queuedAction = null;
             }
+            if (repairing)
+            {
+                AudioManager.Instance.StopSound("moduleRepairs");
+            }
             repairing = false;
-            AudioManager.Instance.StopSound("moduleRepairs");
 
             clicking = false;
             tools.SetActive(false);
@@ -279,9 +282,7 @@ namespace MarsFrenzy
         {
             if(queuedAction == "toggle")
             {
-                Debug.Log(activated);
                 SetActive(!activated);
-                Debug.Log(activated);
                 if (activated)
                 {
                     AudioManager.Instance.PlaySound("module" + res.name);

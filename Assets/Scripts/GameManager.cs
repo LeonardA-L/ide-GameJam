@@ -238,6 +238,8 @@ namespace MarsFrenzy
             timeRuns = true;
             playerAgent.speed = agentSpeed;
 
+            animators.RemoveAll(item => item == null);
+
             foreach (Animator anim in animators)
             {
                 anim.enabled = true;
