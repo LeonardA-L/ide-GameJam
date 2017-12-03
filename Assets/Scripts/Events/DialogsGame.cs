@@ -14,6 +14,13 @@ namespace MarsFrenzy
 
 
             // Step 500 BeforeMarsStorm
+            events.Add(new DialogEvent(
+                Dialogs.CreateListString("BeforeMarsStorm"),
+                TestStormIn,
+                TestStormOut
+                ));
+
+            return events;
 
             events.Add(new DialogEvent(
                 Dialogs.CreateListString("BeforeMarsStorm"),
@@ -179,6 +186,11 @@ namespace MarsFrenzy
 
 // Step 500 BeforeMarsStorm
 
+            static bool TestStormIn()
+{
+            return Dialogs.timeIs(10.0f);
+        }
+
 static bool Step500()
 {
             return Dialogs.OnboardingStep >= 140
@@ -321,6 +333,13 @@ static bool Step650()
 
 
         */
+
+        static void TestStormOut()
+        {
+            Debug.Log("Launch Storm");
+            GameManager.Instance.StartStorm();
+        }
+
         static void End_Of_Step500()
         {
             Debug.Log("User just did step 500");

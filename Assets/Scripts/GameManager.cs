@@ -18,6 +18,7 @@ namespace MarsFrenzy
         public float timer = 0;
         public int frame = 0;
         private float lastTime;
+        private float lastSmoothTime;
         public float lastDialog = 0;
 
         private Text ductTapeStock;
@@ -43,6 +44,7 @@ namespace MarsFrenzy
         private List<ParticleSystem> particles;
 
         private bool storm;
+        private int stormTicks = 0;
         public Animator stormAnimator;
 
         public ModuleManager waterModule;
@@ -73,6 +75,7 @@ namespace MarsFrenzy
             timer = 0;
             frame = 0;
             lastTime = 0;
+            lastSmoothTime = 0;
             storm = false;
 
             animators = new List<Animator>();
@@ -155,6 +158,11 @@ namespace MarsFrenzy
                 lastTime = timer;
                 Tick();
             }
+            if (timeRuns && (timer - lastSmoothTime) > data.gameClock / (1.0f * data.clockSubSmoothing))
+            {
+                lastSmoothTime = timer;
+                SubSmoothTick();
+            }
 
             ductTapeStock.text = "" + data.ductTape.amount.ToString("0.00");
             scrapStock.text = "" + data.scrap.amount.ToString("0");
@@ -176,6 +184,31 @@ namespace MarsFrenzy
             electricityModule.Tick();
 
             character.Tick();
+        }
+
+        private void SubSmoothTick()
+        {
+            // STOOOOORM
+            if(storm)
+            {
+                if (stormTicks > 30)
+                {
+                    foreach (KeyValuePair<string, ModuleManager> entry in modules)
+                    {
+                        ModuleManager module = entry.Value;
+                        if(module.activated)
+                        {
+                            module.AddHealth(-data.stormDamage);
+                        }
+                    }
+                }
+                stormTicks++;
+
+                if(stormTicks > data.stormDuration)
+                {
+                    StopStorm();
+                }
+            }
         }
 
         public void SetPlayerAction(Vector3 goal)
@@ -329,11 +362,7 @@ namespace MarsFrenzy
         public void AddModuleHealth(string name, float _howMuch)
         {
             ModuleManager module = modules[name];
-            module.moduleHealth += _howMuch;
-            if (module.moduleHealth < 0.0f)
-            {
-                module.moduleHealth = 0.0f;
-            }
+            module.AddHealth(_howMuch);
         }
 
         public float GetPlayerHunger()
@@ -379,6 +408,7 @@ namespace MarsFrenzy
         {
             storm = true;
             stormAnimator.SetBool("activated", storm);
+            stormTicks = 0;
         }
 
         public void StopStorm()

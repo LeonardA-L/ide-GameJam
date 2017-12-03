@@ -302,6 +302,12 @@ namespace MarsFrenzy
             queuedAction = null;
         }
 
+        public void AddHealth(float _howMuch)
+        {
+            moduleHealth += _howMuch;
+            moduleHealth = Mathf.Clamp(moduleHealth, 0.0f, 100.0f);
+        }
+
         public void SetActive(bool _newValue)
         {
             activated = _newValue;

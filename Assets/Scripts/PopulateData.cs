@@ -22,11 +22,15 @@ namespace MarsFrenzy
                 // Generic data
                 gameClock = 2.0f,
                 clockSmoothing = 2,
+                clockSubSmoothing = 10,
 
                 playerHungerStart = 100.0f,
                 playerRegen = 0.01f,
                 playerThirstStart = 100.0f,
                 starvationDecay = 5.0f,
+
+                stormDamage = 1.5f,
+                stormDuration = 60,
 
                 // Upgrades
                 upgradeCostResource = 50.0f,
