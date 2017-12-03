@@ -42,6 +42,9 @@ namespace MarsFrenzy
 
         private List<ParticleSystem> particles;
 
+        private bool storm;
+        public Animator stormAnimator;
+
         public ModuleManager waterModule;
         public ModuleManager potatoesModule;
         public ModuleManager electricityModule;
@@ -70,6 +73,7 @@ namespace MarsFrenzy
             timer = 0;
             frame = 0;
             lastTime = 0;
+            storm = false;
 
             animators = new List<Animator>();
 
@@ -109,6 +113,7 @@ namespace MarsFrenzy
             RegisterAnimator(playerAnimator);
             RegisterAnimator(cameraAnimator);
             RegisterAnimator(uiAnimator);
+            RegisterAnimator(stormAnimator);
 
             crateSlots = new int[data.crateDropPoints.Count];
 
@@ -368,6 +373,18 @@ namespace MarsFrenzy
         public void ShowUI()
         {
             uiAnimator.SetBool("uiActive", true);
+        }
+
+        public void StartStorm()
+        {
+            storm = true;
+            stormAnimator.SetBool("activated", storm);
+        }
+
+        public void StopStorm()
+        {
+            storm = false;
+            stormAnimator.SetBool("activated", storm);
         }
 
         public void CreateCrate(float _water, float _potatoes, float _electricity, float _scrap, float _ductTape)
