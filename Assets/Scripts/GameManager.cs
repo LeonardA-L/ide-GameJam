@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.AI;
 using System.IO;
+using EZCameraShake;
 
 namespace MarsFrenzy
 {
@@ -50,6 +51,8 @@ namespace MarsFrenzy
         public ModuleManager waterModule;
         public ModuleManager potatoesModule;
         public ModuleManager electricityModule;
+
+        private CameraShakeInstance stormShake;
 
         public int OnboardingStep
         {
@@ -147,7 +150,7 @@ namespace MarsFrenzy
                     {
                         if(hit.transform.gameObject.tag == "Ground")
                         {
-                            //SetPlayerAction(hit.point);
+                            SetPlayerAction(hit.point);
                         }
                     }
                 }
@@ -409,12 +412,16 @@ namespace MarsFrenzy
             storm = true;
             stormAnimator.SetBool("activated", storm);
             stormTicks = 0;
+
+            stormShake = CameraShaker.Instance.StartShake(4.5f, 7, 10);
+            //CameraShaker.Instance.ShakeOnce(Magnitude, Roughness, 0, FadeOutTime);
         }
 
         public void StopStorm()
         {
             storm = false;
             stormAnimator.SetBool("activated", storm);
+            stormShake.StartFadeOut(5f);
         }
 
         public void CreateCrate(float _water, float _potatoes, float _electricity, float _scrap, float _ductTape)
