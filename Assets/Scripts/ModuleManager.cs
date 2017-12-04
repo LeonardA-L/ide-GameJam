@@ -42,6 +42,8 @@ namespace MarsFrenzy
         public string queuedAction = null;
         private Vector3 playerTarget;
 
+        public Animator alarmAnimator;
+
         // Use this for initialization
         void Start()
         {
@@ -62,6 +64,7 @@ namespace MarsFrenzy
 
             gm.RegisterAnimator(viewAnimator);
             gm.RegisterAnimator(healthAnimator);
+            gm.RegisterAnimator(alarmAnimator);
             
             playerTarget = transform.position + res.playerTarget;
 
@@ -100,6 +103,8 @@ namespace MarsFrenzy
             updateEfficiency();
             updateHealthView();
             updateUpgradeUI();
+
+            alarmAnimator.SetFloat("health", res.amount);
 
             // Stop repairing
             if (!Input.GetMouseButton(0))
