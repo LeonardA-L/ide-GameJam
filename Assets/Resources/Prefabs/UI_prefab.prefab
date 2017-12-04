@@ -156,6 +156,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224727240428876222}
   - component: {fileID: 114166391913602936}
+  - component: {fileID: 95718156431759674}
   m_Layer: 5
   m_Name: thirst
   m_TagString: Untagged
@@ -688,6 +689,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224623642567645534}
   - component: {fileID: 114411315548242630}
+  - component: {fileID: 95721774704453738}
   m_Layer: 5
   m_Name: hunger
   m_TagString: Untagged
@@ -805,6 +807,40 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: ac4739645c4c2724ea577dd8fef87206, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!95 &95718156431759674
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1255114702654414}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9ad6b95483269bc4bbbf4e68a2e278e3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!95 &95721774704453738
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1908991557653560}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e71bdba1f89cb81449f144fc98fcdeab, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

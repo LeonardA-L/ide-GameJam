@@ -43,6 +43,7 @@ namespace MarsFrenzy
         private Vector3 playerTarget;
 
         public Animator alarmAnimator;
+        public Animator lifeAnimator;
 
         // Use this for initialization
         void Start()
@@ -65,7 +66,11 @@ namespace MarsFrenzy
             gm.RegisterAnimator(viewAnimator);
             gm.RegisterAnimator(healthAnimator);
             gm.RegisterAnimator(alarmAnimator);
-            
+            if (lifeAnimator != null)
+            {
+                gm.RegisterAnimator(lifeAnimator);
+            }
+
             playerTarget = transform.position + res.playerTarget;
 
             GameObject stockObj = GameObject.Find("/UI_prefab/MainCanvas/Resources/BackgroundOrange/" + res.name + "/"+ res.name+"_Stock");
@@ -105,6 +110,11 @@ namespace MarsFrenzy
             updateUpgradeUI();
 
             alarmAnimator.SetFloat("health", res.amount);
+
+            if (lifeAnimator != null)
+            {
+                lifeAnimator.SetBool("alert", res.amount <= 0.0f);
+            }
 
             // Stop repairing
             if (!Input.GetMouseButton(0))
