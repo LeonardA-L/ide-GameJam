@@ -55,6 +55,8 @@ namespace MarsFrenzy
 
         private CameraShakeInstance stormShake;
 
+        public GameObject workbenchUI;
+
         public int OnboardingStep
         {
             get
@@ -130,6 +132,8 @@ namespace MarsFrenzy
             {
                 particles.Add(particle.GetComponent<ParticleSystem>());
             }
+
+            HideWorkbench();
 
             timeRuns = true;
         }
@@ -415,6 +419,13 @@ namespace MarsFrenzy
         public void ShowWorkbench()
         {
             Debug.Log("Showing Workbench");
+            workbenchUI.SetActive(true);
+        }
+
+        public void HideWorkbench()
+        {
+            Debug.Log("Hiding Workbench");
+            workbenchUI.SetActive(false);
         }
 
         public void StartStorm()

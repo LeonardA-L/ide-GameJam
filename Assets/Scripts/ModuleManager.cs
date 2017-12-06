@@ -224,6 +224,10 @@ namespace MarsFrenzy
 
         public void OnClick(GameObject clicked)
         {
+            if(EventSystem.current.IsPointerOverGameObject())
+            {
+                return;
+            }
             if(DialogManager.Instance.IsActive())
             {
                 return;
