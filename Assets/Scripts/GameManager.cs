@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.AI;
 using System.IO;
 using EZCameraShake;
+using UnityEngine.EventSystems;
 
 namespace MarsFrenzy
 {
@@ -144,6 +145,10 @@ namespace MarsFrenzy
                 // Detect click on ground
                 if (Input.GetMouseButtonDown(0))
                 {
+                    if (EventSystem.current.IsPointerOverGameObject())
+                    {
+                        return;
+                    }
                     RaycastHit hit;
 
                     if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100))
@@ -405,6 +410,11 @@ namespace MarsFrenzy
         public void ShowUI()
         {
             uiAnimator.SetBool("uiActive", true);
+        }
+
+        public void ShowWorkbench()
+        {
+            Debug.Log("Showing Workbench");
         }
 
         public void StartStorm()
