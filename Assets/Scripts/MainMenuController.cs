@@ -18,6 +18,7 @@ namespace MarsFrenzy
         public Text uiOptions;
         public Text uiLanguagePrefs;
         public Text uiExit;
+        public Text uiContinue;
 
         // Use this for initialization
         void Start()
@@ -63,6 +64,7 @@ namespace MarsFrenzy
             uiOptions.text = i18n.__("MainMenuOptions");
             uiLanguagePrefs.text = i18n.__("MainMenuLanguage");
             uiExit.text = i18n.__("MainMenuExit");
+            uiContinue.text = i18n.__("MainMenuContinue");
         }
     }
 }

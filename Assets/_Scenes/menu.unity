@@ -1082,6 +1082,7 @@ MonoBehaviour:
   uiOptions: {fileID: 1312088168}
   uiLanguagePrefs: {fileID: 1728942544}
   uiExit: {fileID: 1261420460}
+  uiContinue: {fileID: 1852382406}
 --- !u!95 &827954158
 Animator:
   serializedVersion: 3
