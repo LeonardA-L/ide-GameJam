@@ -20,10 +20,7 @@ namespace MarsFrenzy
         // Use this for initialization
         void Start()
         {
-            background.SetActive(false);
-            lost.SetActive(false);
-            win.SetActive(false);
-            pause.SetActive(false);
+            Unpause();
 
         }
 
@@ -54,6 +51,15 @@ namespace MarsFrenzy
             SetTexts();
             background.SetActive(true);
             pause.SetActive(true);
+        }
+
+        public void Unpause()
+        {
+            SetTexts();
+            background.SetActive(false);
+            lost.SetActive(false);
+            win.SetActive(false);
+            pause.SetActive(false);
         }
     }
 }

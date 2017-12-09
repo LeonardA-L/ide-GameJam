@@ -57,6 +57,8 @@ namespace MarsFrenzy
 
         public GameObject workbenchUI;
 
+        public bool pauseMenu;
+
         public int OnboardingStep
         {
             get
@@ -83,6 +85,7 @@ namespace MarsFrenzy
             lastTime = 0;
             lastSmoothTime = 0;
             storm = false;
+            pauseMenu = false;
 
             animators = new List<Animator>();
 
@@ -187,6 +190,10 @@ namespace MarsFrenzy
                 playerWalking = false;
                 AudioManager.Instance.StopSound("characterWalking");
             }
+
+            if (Input.GetKeyDown(KeyCode.Escape)) {
+                PauseMenu();
+            }
         }
 
         private void Tick()
@@ -269,8 +276,18 @@ namespace MarsFrenzy
 
         public void PauseMenu()
         {
-            Pause();
-            endScreen.Pause();
+            if (!pauseMenu)
+            {
+                Pause();
+                endScreen.Pause();
+                pauseMenu = true;
+            }
+            else
+            {
+                endScreen.Unpause();
+                pauseMenu = false;
+                Play();
+            }
         }
 
         public void Stop()
@@ -299,6 +316,11 @@ namespace MarsFrenzy
             {
                 particle.Play();
             }
+        }
+
+        public void GotoMainMenu()
+        {
+            GetComponent<Scene>().LaunchMenuScene();
         }
 
         public void EndDialog()

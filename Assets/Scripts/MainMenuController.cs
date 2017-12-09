@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 namespace MarsFrenzy
 {
     public class MainMenuController : MonoBehaviour
     {
         private static I18n i18n;
-        private static int gameSceneIndex = 1;
         private Animator uiAnimator;
 
 
@@ -26,24 +24,11 @@ namespace MarsFrenzy
             UpdateI18N();
         }
 
-        IEnumerator LoadSceneAsync()
-        {
-            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(gameSceneIndex);
-
-            while (!asyncLoad.isDone)
-            {
-                yield return null;
-            }
-        }
-
-        private void LaunchGameScene()
-        {
-            StartCoroutine(LoadSceneAsync());
-        }
+        
 
         public void StartGame()
         {
-            LaunchGameScene();
+            GetComponent<Scene>().LaunchGameScene();
         }
 
         public void GotoOptions()
