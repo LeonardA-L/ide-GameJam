@@ -58,6 +58,8 @@ namespace MarsFrenzy
 
         public bool pauseMenu;
 
+        private SaveManager saveManager;
+
         public int OnboardingStep
         {
             get
@@ -139,10 +141,12 @@ namespace MarsFrenzy
 
             HideWorkbench();
 
+            saveManager = GetComponent<SaveManager>();
+
             int shouldLoad = PlayerPrefs.GetInt("shouldLoadGame");
             if (shouldLoad == 1)
             {
-                GetComponent<SaveManager>().Load();
+                saveManager.Load();
 
                 PlayerPrefs.SetInt("shouldLoadGame", 0);
                 PlayerPrefs.Save();
@@ -218,6 +222,8 @@ namespace MarsFrenzy
             electricityModule.Tick();
 
             character.Tick();
+
+            saveManager.Tick();
         }
 
         private void SubSmoothTick()

@@ -11,9 +11,23 @@ namespace MarsFrenzy
         public static string savePathName = "/SCC_savegame.sav";
         private static string savePath;
 
+        private float lastSave = 0;
+        private float saveInterval = 5.0f; // autosave every 5 ticks
+
         // Use this for initialization
         void Start()
         {
+
+        }
+
+        public void Tick()
+        {
+            lastSave++;
+            if (lastSave > saveInterval)
+            {
+                lastSave = 0;
+                Save();
+            }
         }
 
         public void Save()
@@ -123,8 +137,6 @@ namespace MarsFrenzy
             int i = 0;
             foreach (bool done in save.eventsFlags)
             {
-                Debug.Log(done);
-                Debug.Log(DialogManager.Instance.events[i]);
                 if (DialogManager.Instance.events[i] != null)
                 {
                     DialogManager.Instance.events[i].SetDone(true);
