@@ -12,7 +12,6 @@ namespace MarsFrenzy
         {
             List<DialogEvent> events = new List<DialogEvent>();
             i18n = I18n.Instance;
-            I18n.SetLocale("fr-FR");
             // Write new dialog events here
 
             // Step 0
