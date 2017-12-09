@@ -262,7 +262,9 @@ namespace MarsFrenzy
 
         private void updateUpgradeUI()
         {
-            
+            if (upgrButton == null)
+                return;
+            upgrButton.interactable = hasEnoughForUpgrade();
         }
 
         private void initUpgradeUI()
@@ -275,15 +277,29 @@ namespace MarsFrenzy
             upgrDescription.text = i18n.__("UpgradeDesc" + res.name);
             upgrBtnText.text = i18n.__("UpgradeBtn");
 
-            upgrResCost.text = "" + gm.data.upgradeCostResource;
-            upgrScrapCost.text = "" + gm.data.upgradeCostScrap;
+            upgrResCost.text = "" + computeUpgradeCost(res.upgradeResCostRatio, res.upgradeResCostStarter);
+            upgrScrapCost.text = "" + computeUpgradeCost(res.upgradeScrapCostRatio, res.upgradeScrapCostStarter);
+        }
+
+        private bool hasEnoughForUpgrade()
+        {
+            return res.amount >= computeUpgradeCost(res.upgradeResCostRatio, res.upgradeResCostStarter)
+                && gm.data.scrap.amount >= computeUpgradeCost(res.upgradeScrapCostRatio, res.upgradeScrapCostStarter);
+        }
+
+        private float computeUpgradeCost(float _ratio, float _starter)
+        {
+            return Mathf.Floor(_starter * Mathf.Pow(_ratio, level - 1));
         }
 
         public void UpgradeModule()
         {
-            res.amount -= gm.data.upgradeCostResource;
-            gm.data.scrap.amount -= gm.data.upgradeCostScrap;
-            level = 2;
+            if (!hasEnoughForUpgrade())
+                return;
+            res.amount -= computeUpgradeCost(res.upgradeResCostRatio, res.upgradeResCostStarter);
+            gm.data.scrap.amount -= computeUpgradeCost(res.upgradeScrapCostRatio, res.upgradeScrapCostStarter);
+            level++;
+            initUpgradeUI();
             AudioManager.Instance.PlaySound("moduleUpdate");
 
         }

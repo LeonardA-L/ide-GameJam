@@ -33,8 +33,6 @@ namespace MarsFrenzy
                 stormDuration = 60,
 
                 // Upgrades
-                upgradeCostResource = 50.0f,
-                upgradeCostScrap = 50.0f,
                 upgradeConsumptionFactor = 0.9f,
                 upgradeEfficiencyFactor = 1.5f,
 
@@ -86,7 +84,11 @@ namespace MarsFrenzy
                 efficiency = 1.8f,
                 damageRate = 0.3f,
                 startHealth = 100.0f,
-                playerTarget = new Vector3(0.8f, 0.0f, -1.4f)
+                playerTarget = new Vector3(0.8f, 0.0f, -1.4f),
+                upgradeResCostRatio = 1.5f,
+                upgradeScrapCostRatio = 1.1f,
+                upgradeResCostStarter = 50.0f,
+                upgradeScrapCostStarter = 50.0f
             };
 
             ResourceModel potatoes = new ResourceModel()
@@ -97,7 +99,11 @@ namespace MarsFrenzy
                 efficiency = 1.9f,
                 damageRate = 0.5f,
                 startHealth = 100.0f,
-                playerTarget = new Vector3(4.0f, 0.0f, -2.0f)
+                playerTarget = new Vector3(4.0f, 0.0f, -2.0f),
+                upgradeResCostRatio = 1.5f,
+                upgradeScrapCostRatio = 1.1f,
+                upgradeResCostStarter = 50.0f,
+                upgradeScrapCostStarter = 50.0f
             };
 
             ResourceModel electricity = new ResourceModel()
@@ -108,7 +114,11 @@ namespace MarsFrenzy
                 efficiency = 1.8f,
                 damageRate = 0.6f,
                 startHealth = 90.0f,
-                playerTarget = new Vector3(-2.5f, 0.0f, 3.4f)
+                playerTarget = new Vector3(-2.5f, 0.0f, 3.4f),
+                upgradeResCostRatio = 1.5f,
+                upgradeScrapCostRatio = 1.1f,
+                upgradeResCostStarter = 50.0f,
+                upgradeScrapCostStarter = 50.0f
             };
 
 

@@ -1726,8 +1726,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114312943262872384}
   m_HandleRect: {fileID: 224939030297092312}
   m_Direction: 2
-  m_Value: 0.9999601
-  m_Size: 0.17413124
+  m_Value: 0.9999578
+  m_Size: 0.22000436
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2034,7 +2034,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
@@ -2045,7 +2045,7 @@ MonoBehaviour:
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 21300000, guid: bf166a69e3c977c44b7ef4d028876c27, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -3286,8 +3286,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114361529475313704}
   m_HandleRect: {fileID: 224321092483494598}
   m_Direction: 0
-  m_Value: 0.5
-  m_Size: 0.99999994
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
