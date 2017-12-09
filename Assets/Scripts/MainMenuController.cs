@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,7 @@ namespace MarsFrenzy
     {
         private static I18n i18n;
         private Animator uiAnimator;
+        public GameObject continueButton;
 
 
         // Translatable UI elements
@@ -23,6 +25,20 @@ namespace MarsFrenzy
             i18n = I18n.Instance;
             uiAnimator = GetComponent<Animator>();
             UpdateI18N();
+
+            string savePath = Application.persistentDataPath + SaveManager.savePathName;
+            if (File.Exists(savePath))
+            {
+                continueButton.SetActive(true);
+            }
+        }
+
+        public void ContinueGame()
+        {
+            PlayerPrefs.SetInt("shouldLoadGame", 1);
+            PlayerPrefs.Save();
+
+            GetComponent<Scene>().LaunchGameScene();
         }
 
         public void GotoOptions()

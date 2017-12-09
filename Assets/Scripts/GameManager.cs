@@ -139,7 +139,14 @@ namespace MarsFrenzy
 
             HideWorkbench();
 
-            GetComponent<SaveManager>().Load();
+            int shouldLoad = PlayerPrefs.GetInt("shouldLoadGame");
+            if (shouldLoad == 1)
+            {
+                GetComponent<SaveManager>().Load();
+
+                PlayerPrefs.SetInt("shouldLoadGame", 0);
+                PlayerPrefs.Save();
+            }
 
             timeRuns = true;
         }

@@ -100,6 +100,7 @@ namespace MarsFrenzy
             idx = 0;
             parts = null;
             active = false;
+            currentDialog.SetDone(true);
             if (currentDialog.postHook != null)
             {
                 currentDialog.postHook();

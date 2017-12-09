@@ -25,7 +25,6 @@ namespace MarsFrenzy
 
         public void StartThis()
         {
-            done = true;
         }
 
         public bool isDone()

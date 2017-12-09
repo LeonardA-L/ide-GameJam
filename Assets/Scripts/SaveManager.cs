@@ -8,7 +8,7 @@ namespace MarsFrenzy
 {
     public class SaveManager : MonoBehaviour
     {
-
+        public static string savePathName = "/SCC_savegame.sav";
         private static string savePath;
 
         // Use this for initialization
@@ -18,7 +18,7 @@ namespace MarsFrenzy
 
         public void Save()
         {
-            savePath = Application.persistentDataPath + "/SCC_savegame.sav";
+            savePath = Application.persistentDataPath + savePathName;
             SaveModel save = new SaveModel();
             GameManager gm = GameManager.Instance;
 
@@ -67,11 +67,13 @@ namespace MarsFrenzy
 
             bf.Serialize(file, save);
             file.Close();
+
+            Debug.Log("Game saved");
         }
 
         public void Load()
         {
-            savePath = Application.persistentDataPath + "/SCC_savegame.sav";
+            savePath = Application.persistentDataPath + savePathName;
             if (!File.Exists(savePath))
             {
                 Debug.Log("Savegame doesn't exist");
