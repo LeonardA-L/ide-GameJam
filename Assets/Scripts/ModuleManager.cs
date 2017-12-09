@@ -170,8 +170,8 @@ namespace MarsFrenzy
             // PRODUCTION
             if (activated && fuel.amount > 0)
             {
-                resDiff = res.efficiency * efficiencyModifier.modifier * smoothingFactor * (level == 1 ? 1.0f : gm.data.upgradeEfficiencyFactor);
-                fuelDiff = (level == 1 ? 1.0f : gm.data.upgradeConsumptionFactor) * smoothingFactor;
+                resDiff = res.efficiency * efficiencyModifier.modifier * smoothingFactor * Mathf.Pow(gm.data.upgradeEfficiencyFactor, level - 1);
+                fuelDiff = Mathf.Pow(gm.data.upgradeConsumptionFactor, level - 1) * smoothingFactor;
 
                 res.amount += resDiff;
                 totalResDiff += resDiff;
