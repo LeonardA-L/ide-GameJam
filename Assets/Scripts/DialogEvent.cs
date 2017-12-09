@@ -32,5 +32,10 @@ namespace MarsFrenzy
         {
             return done;
         }
+
+        public void SetDone(bool _done)
+        {
+            done = _done;
+        }
     }
 }

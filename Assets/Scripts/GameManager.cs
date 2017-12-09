@@ -18,9 +18,8 @@ namespace MarsFrenzy
         public bool timeRuns = false;
         public bool gameOver = false;
         public float timer = 0;
-        public int frame = 0;
-        private float lastTime;
-        private float lastSmoothTime;
+        public float lastTime;
+        public float lastSmoothTime;
         public float lastDialog = 0;
 
         private Text ductTapeStock;
@@ -29,7 +28,7 @@ namespace MarsFrenzy
         public CharacterLife character;
         public EndScreen endScreen;
 
-        private int onboardingStep = 0;
+        public int onboardingStep = 0;
 
         public Animator cameraAnimator;
         public Animator uiAnimator;
@@ -81,12 +80,13 @@ namespace MarsFrenzy
             setInstance(this);
             timeRuns = false;
             timer = 0;
-            frame = 0;
             lastTime = 0;
             lastSmoothTime = 0;
             storm = false;
             pauseMenu = false;
             agentSpeed = playerAgent.speed;
+
+            DialogManager.Instance.Init();
 
             animators = new List<Animator>();
 
@@ -139,6 +139,8 @@ namespace MarsFrenzy
 
             HideWorkbench();
 
+            GetComponent<SaveManager>().Load();
+
             timeRuns = true;
         }
 
@@ -148,7 +150,6 @@ namespace MarsFrenzy
             if (timeRuns)
             {
                 timer += Time.deltaTime;
-                frame++;
                 
                 // Detect click on ground
                 if (Input.GetMouseButtonDown(0))
@@ -287,6 +288,8 @@ namespace MarsFrenzy
                 Pause();
                 endScreen.Pause();
                 pauseMenu = true;
+
+                GetComponent<SaveManager>().Save();
             }
             else
             {
@@ -471,6 +474,12 @@ namespace MarsFrenzy
             storm = false;
             stormAnimator.SetBool("activated", storm);
             stormShake.StartFadeOut(5f);
+        }
+
+        public void RestoreGame()
+        {
+            uiAnimator.SetBool("uiActive", true);
+            cameraAnimator.SetBool("wide", true);
         }
 
         public void CreateCrate(float _water, float _potatoes, float _electricity, float _scrap, float _ductTape)

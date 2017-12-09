@@ -14,24 +14,33 @@ namespace MarsFrenzy
         private int idx = 0;
         private List<string> parts;
         private bool active = false;
-        private List<DialogEvent> events;
+        public List<DialogEvent> events;
         private DialogEvent currentDialog;
+        private bool inited = false;
 
         // Use this for initialization
         void Start()
         {
             instance = this;
             //window.SetActive(false);
+        }
+
+        public void Init()
+        {
             idx = 0;
             active = false;
             events = Dialogs.InitDialogs();
             animator = gameObject.GetComponent<Animator>();
             animator.SetBool("active", false);
+            inited = true;
         }
 
         // Update is called once per frame
         void Update()
         {
+            if (!inited)
+                return;
+
             if (!active)
             {
                 for (int i = 0; i < events.Count; i++)
@@ -60,7 +69,7 @@ namespace MarsFrenzy
             _de.StartThis();
             currentDialog = _de;
             parts = _de.parts;
-            events.Remove(_de);
+            //events.Remove(_de);
             GameManager.Instance.Pause();
             //window.SetActive(true);
             animator.SetBool("active", true);
