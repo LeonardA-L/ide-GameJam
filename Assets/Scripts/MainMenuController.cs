@@ -15,6 +15,7 @@ namespace MarsFrenzy
         public Text uiStartGame;
         public Text uiOptions;
         public Text uiLanguagePrefs;
+        public Text uiExit;
 
         // Use this for initialization
         void Start()
@@ -22,13 +23,6 @@ namespace MarsFrenzy
             i18n = I18n.Instance;
             uiAnimator = GetComponent<Animator>();
             UpdateI18N();
-        }
-
-        
-
-        public void StartGame()
-        {
-            GetComponent<Scene>().LaunchGameScene();
         }
 
         public void GotoOptions()
@@ -52,6 +46,7 @@ namespace MarsFrenzy
             uiStartGame.text = i18n.__("MainMenuNewGame");
             uiOptions.text = i18n.__("MainMenuOptions");
             uiLanguagePrefs.text = i18n.__("MainMenuLanguage");
+            uiExit.text = i18n.__("MainMenuExit");
         }
     }
 }

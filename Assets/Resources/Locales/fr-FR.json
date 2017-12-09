@@ -43,5 +43,6 @@
 
     "MainMenuNewGame":"Nouvelle Partie",
     "MainMenuOptions":"Options",
-    "MainMenuLanguage":"Langue"
+    "MainMenuLanguage":"Langue",
+    "MainMenuExit": "Quitter le jeu"
 }

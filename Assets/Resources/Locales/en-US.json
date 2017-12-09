@@ -43,6 +43,7 @@
 
     "MainMenuNewGame":"New Game",
     "MainMenuOptions":"Settings",
-    "MainMenuLanguage":"Language Preferences"
+    "MainMenuLanguage":"Language Preferences",
+    "MainMenuExit": "Exit Game"
 
 }

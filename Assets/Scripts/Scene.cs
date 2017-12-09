@@ -30,5 +30,9 @@ namespace MarsFrenzy
             StartCoroutine(LoadSceneAsync(menuSceneIndex));
         }
 
+        public void QuitGame()
+        {
+            Application.Quit();
+        }
     }
 }

@@ -86,6 +86,7 @@ namespace MarsFrenzy
             lastSmoothTime = 0;
             storm = false;
             pauseMenu = false;
+            agentSpeed = playerAgent.speed;
 
             animators = new List<Animator>();
 
@@ -192,7 +193,13 @@ namespace MarsFrenzy
             }
 
             if (Input.GetKeyDown(KeyCode.Escape)) {
-                PauseMenu();
+                if (pauseMenu)
+                {
+                    GetComponent<Scene>().QuitGame();
+                } else
+                {
+                    PauseMenu();
+                }
             }
         }
 
@@ -257,7 +264,6 @@ namespace MarsFrenzy
         public void Pause()
         {
             timeRuns = false;
-            agentSpeed = playerAgent.speed;
             playerAgent.speed = 0;
 
             foreach(Animator anim in animators) {
