@@ -34,8 +34,6 @@ namespace MarsFrenzy
 
         public float level = 1;
 
-        public GameObject upgradeUI;
-
         public bool clicking = false;
         public float clickingTime = 0;
         public float timeToRepair = 0.4f;
@@ -45,6 +43,19 @@ namespace MarsFrenzy
 
         public Animator alarmAnimator;
         public Animator lifeAnimator;
+
+        // Upgrade UI elements
+        public Text upgrLevel;
+        public Text upgrResCost;
+        public Text upgrScrapCost;
+        public Button upgrButton;
+        // Static upgrade UI elements
+        public Text upgrTitle;
+        public Text upgrDescription;
+        public Text upgrBtnText;
+
+
+        public static I18n i18n;
 
         // Use this for initialization
         void Start()
@@ -61,7 +72,9 @@ namespace MarsFrenzy
             res = _resource;
             fuel = _fuelResource;
             moduleHealth = res.startHealth;
-            
+
+            i18n = I18n.Instance;
+
             tools.SetActive(false);
 
             gm.RegisterAnimator(viewAnimator);
@@ -77,24 +90,7 @@ namespace MarsFrenzy
             GameObject stockObj = GameObject.Find("/UI_prefab/MainCanvas/Resources/BackgroundOrange/" + res.name + "/"+ res.name+"_Stock");
             stock = stockObj.GetComponent<Text>();
 
-            // Upgrade UI
-            upgradeUI.SetActive(false);
-            foreach (Transform child in upgradeUI.transform)
-            {
-                if (child.gameObject.name == res.name + "_logo")
-                {
-                    child.gameObject.SetActive(true);
-                }
-
-                if (child.gameObject.name == "scrap_amount")
-                {
-                    child.gameObject.GetComponent<TextMesh>().text = "" + gm.data.upgradeCostScrap;
-                }
-                if (child.gameObject.name == "resource_amount")
-                {
-                    child.gameObject.GetComponent<TextMesh>().text = "" + gm.data.upgradeCostResource;
-                }
-            }
+            initUpgradeUI();
         }
 
         // Update is called once per frame
@@ -238,10 +234,6 @@ namespace MarsFrenzy
                 clickingTime = gm.timer;
                 gm.SetPlayerAction(playerTarget);
             }
-            else if (clicked.name == "Upgrade")
-            {
-                UpgradeModule();
-            }
         }
 
         private void updateHealthView()
@@ -270,26 +262,24 @@ namespace MarsFrenzy
 
         private void updateUpgradeUI()
         {
-            if(upgradeUI.activeSelf)
-            {
-                if(level > 1)
-                {
-                    upgradeUI.SetActive(false);
-                }
-                if(res.amount < gm.data.upgradeCostResource || gm.data.scrap.amount < gm.data.upgradeCostScrap)
-                {
-                    upgradeUI.SetActive(false);
-                }
-            }
-            else {
-                if (level == 1 && res.amount >= gm.data.upgradeCostResource && gm.data.scrap.amount >= gm.data.upgradeCostScrap)
-                {
-                    upgradeUI.SetActive(true);
-                }
-            }
+            
         }
 
-        private void UpgradeModule()
+        private void initUpgradeUI()
+        {
+            if (upgrLevel == null)
+                return;
+            upgrLevel.text = i18n.__("UpgradeLevel") + " " + level;
+
+            upgrTitle.text = i18n.__("UpgradeTitle" + res.name);
+            upgrDescription.text = i18n.__("UpgradeDesc" + res.name);
+            upgrBtnText.text = i18n.__("UpgradeBtn");
+
+            upgrResCost.text = "" + gm.data.upgradeCostResource;
+            upgrScrapCost.text = "" + gm.data.upgradeCostScrap;
+        }
+
+        public void UpgradeModule()
         {
             res.amount -= gm.data.upgradeCostResource;
             gm.data.scrap.amount -= gm.data.upgradeCostScrap;

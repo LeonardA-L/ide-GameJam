@@ -30,7 +30,16 @@
     "victoryTitle": "Bravo Captain Capsule!",
     "victorySub": "Tu es un vrai Martien !",
     "defeatTitle": "Game Over",
-    "defeatSub": "Tu n'est pas fait pour Mars. Tu devrais plutôt essayer la survie sur Terre."
+    "defeatSub": "Tu n'est pas fait pour Mars. Tu devrais plutôt essayer la survie sur Terre.",
+
+    "UpgradeLevel": "Niveau",
+    "UpgradeTitlepotatoes": "Serre",
+    "UpgradeTitlewater": "Citerne",
+    "UpgradeTitleelectricity": "Générateur",
+    "UpgradeDescpotatoes": "Consomme de l'eau pour produire des pommes de terre.",
+    "UpgradeDescwater": "Consomme de l'électricité pour produire de l'eau.",
+    "UpgradeDescelectricity": "Consomme des pommes de terre pour produire de l'électricité.",
+    "UpgradeBtn": "Améliorer",
 
 }
 
