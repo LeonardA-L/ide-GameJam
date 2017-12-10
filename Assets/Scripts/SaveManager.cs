@@ -39,7 +39,7 @@ namespace MarsFrenzy
             if (gm.gameOver)
                 return;
 
-            if (gm.OnboardingStep < 20)
+            if (gm.OnboardingStep < GameManager.OnboardingFirstSection)
                 return;
 
             save.playerX = gm.player.position.x;

@@ -61,6 +61,11 @@ namespace MarsFrenzy
 
         private SaveManager saveManager;
 
+        public Transform marsBase;
+        public Vector3 maxDistanceToBase = new Vector3(6.0f, 0, 24.0f);
+
+        public static int OnboardingFirstSection = 50;
+
         public int OnboardingStep
         {
             get
@@ -205,6 +210,26 @@ namespace MarsFrenzy
             {
                 playerWalking = false;
                 AudioManager.Instance.StopSound("characterWalking");
+            }
+
+            if (OnboardingStep < OnboardingFirstSection)
+            {
+                if ((player.position - marsBase.position).magnitude < 2.0f)
+                {
+                    ActivateBase();
+                }
+            }
+            else
+            {
+                Vector3 diffWithBase = (marsBase.position - player.position);
+                if (CameraController.Instance.mode == CameraMode.EXPLORE && (Mathf.Abs(diffWithBase.x) < maxDistanceToBase.x || Mathf.Abs(diffWithBase.z) < maxDistanceToBase.z))
+                {
+                    ReachBase();
+                }
+                if (CameraController.Instance.mode == CameraMode.BASE && (Mathf.Abs(diffWithBase.x) > maxDistanceToBase.x || Mathf.Abs(diffWithBase.z) > maxDistanceToBase.z))
+                {
+                    LeaveBase();
+                }
             }
 
             if (Input.GetKeyDown(KeyCode.Escape)) {
@@ -567,6 +592,24 @@ namespace MarsFrenzy
         public void SetSwitch(string _name, bool _value)
         {
             switches.Add(_name, _value);
+        }
+
+        public void ActivateBase()
+        {
+            OnboardingStep = OnboardingFirstSection;
+            WidenView();
+            ShowUI();
+            CameraController.Instance.SetModeBase();
+        }
+
+        public void ReachBase()
+        {
+            CameraController.Instance.SetModeBase();
+        }
+
+        public void LeaveBase()
+        {
+            CameraController.Instance.SetModeExplore();
         }
     }
 

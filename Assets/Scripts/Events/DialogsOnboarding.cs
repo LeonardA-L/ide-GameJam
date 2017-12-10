@@ -20,7 +20,7 @@ namespace MarsFrenzy
                 WaitScreen,
                 MoveOnboarding
             ));
-            
+            /*
             events.Add(new DialogEvent(
                 Dialogs.CreateListString(),
                 Step10,
@@ -32,6 +32,7 @@ namespace MarsFrenzy
                 Step15,
                 ActionShowUi
             ));
+            */
             return events;
             events.Add(new DialogEvent(
                 Dialogs.CreateListString("Noise", "Noise2", "FirstContact", "FirstContact2"),
