@@ -216,7 +216,8 @@ namespace MarsFrenzy
         static bool Step15()
         {
             return Dialogs.OnboardingStep == 15
-                && Wait(1.0f);
+                && Wait(1.0f)
+                && Dialogs.ReadSwitch("ViewWide");
         }
 
         static bool Step20()
@@ -384,6 +385,7 @@ namespace MarsFrenzy
             Dialogs.WidenView();
             Dialogs.ShowUI();
             Dialogs.SetOnboardingStep(15);
+            Dialogs.SetSwitch("ViewWide", true);
         }
 
         static void ActionShowUi()

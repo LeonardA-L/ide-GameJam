@@ -14,6 +14,7 @@ namespace MarsFrenzy
         protected static GameManager instance;
         public GameDataModel data;
         private Dictionary<string, ModuleManager> modules;
+        private Dictionary<string, bool> switches;
 
         public bool timeRuns = false;
         public bool gameOver = false;
@@ -95,6 +96,8 @@ namespace MarsFrenzy
             particles = new List<ParticleSystem>();
 
             data = PopulateData.Init();
+
+            switches = new Dictionary<string, bool>();
 
             modules = new Dictionary<string, ModuleManager>();
             modules.Add("water", waterModule);
@@ -554,9 +557,16 @@ namespace MarsFrenzy
             animators.Remove(_animator);
         }
 
-        public void GroundAction()
+        public bool ReadSwitch(string _name)
         {
+            bool ret = false;
+            switches.TryGetValue(_name, out ret);
+            return ret;
+        }
 
+        public void SetSwitch(string _name, bool _value)
+        {
+            switches.Add(_name, _value);
         }
     }
 

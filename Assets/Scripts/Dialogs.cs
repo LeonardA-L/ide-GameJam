@@ -164,5 +164,16 @@ namespace MarsFrenzy
         {
             GameManager.Instance.CreateCrate(_water, _potatoes, _electricity, _scrap, _ductTape);
         }
+
+        public static bool ReadSwitch(string _name)
+        {
+            return GameManager.Instance.ReadSwitch(_name);
+        }
+
+        public static void SetSwitch(string _name, bool _value)
+        {
+            GameManager.Instance.SetSwitch(_name, _value);
+        }
+
     }
 }
