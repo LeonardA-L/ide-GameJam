@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 82716318587010350}
   - component: {fileID: 82204452902595700}
   m_Layer: 0
-  m_Name: ModulePotato
+  m_Name: modulepotatoes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54,7 +54,7 @@ GameObject:
   - component: {fileID: 4153644579090102}
   - component: {fileID: 82589711510551496}
   m_Layer: 0
-  m_Name: CharacterWalking
+  m_Name: characterWalking
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -70,7 +70,7 @@ GameObject:
   - component: {fileID: 4403880680699690}
   - component: {fileID: 82263533472543722}
   m_Layer: 0
-  m_Name: Communication
+  m_Name: communication
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 4610747520844040}
   - component: {fileID: 82706691989221576}
   m_Layer: 0
-  m_Name: ModuleUpdate
+  m_Name: moduleUpdate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 82539668050475480}
   - component: {fileID: 82229997100972656}
   m_Layer: 0
-  m_Name: ModuleElectricity
+  m_Name: moduleelectricity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -119,7 +119,7 @@ GameObject:
   - component: {fileID: 4530528147165194}
   - component: {fileID: 82860416008756868}
   m_Layer: 0
-  m_Name: Win
+  m_Name: win
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 82184160763812784}
   - component: {fileID: 82793847574397878}
   m_Layer: 0
-  m_Name: ModuleWater
+  m_Name: modulewater
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -152,7 +152,7 @@ GameObject:
   - component: {fileID: 4962747112897162}
   - component: {fileID: 82393682559527678}
   m_Layer: 0
-  m_Name: ModuleRepairs
+  m_Name: moduleRepairs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -168,7 +168,7 @@ GameObject:
   - component: {fileID: 4282883831090060}
   - component: {fileID: 82433922942559050}
   m_Layer: 0
-  m_Name: GameOver
+  m_Name: gameOver
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 4580662457745814}
   - component: {fileID: 82756777005619494}
   m_Layer: 0
-  m_Name: ModuleStopProduction
+  m_Name: moduleStopProduction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

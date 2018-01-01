@@ -10,6 +10,7 @@ TagManager:
   - ModuleBroken
   - Particles
   - Ground
+  - Sound
   layers:
   - Default
   - TransparentFX
