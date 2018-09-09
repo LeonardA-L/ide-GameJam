@@ -14,6 +14,8 @@ namespace MarsFrenzy
             i18n = I18n.Instance;
             // Write new dialog events here
 
+            return events;
+
             // Step 0
             
             if(true)
