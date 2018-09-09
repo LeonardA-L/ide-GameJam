@@ -143,7 +143,6 @@ namespace MarsFrenzy
                 module.Init(i, _gameState.resources[i], _gameState.resources[prevI]);
             }
             */
-            character.Init(this, _gameState.playerHungerStart, _gameState.playerThirstStart, _gameState.starvationDecay, _gameState.playerRegen, globalStorage.GetGenerator("potato"), globalStorage.GetGenerator("water"));
 
             playerAnimator = player.gameObject.GetComponent<Animator>();
             lastPlayerPosition = player.position;
@@ -192,10 +191,34 @@ namespace MarsFrenzy
             potatoModule.AddOutput(Constants.POTATO, 1.9, globalStorage);
             GeneratorManager.Instance.RegisterGeneratorClass("potatoModule", potatoModule);
 
-            Generator elecModule = new Generator("elecModule", new GenerationIntervalUtils.IntervalPowered(2.0f * 1000), new GenerationUtils.GenerateLinear(), new CostsUtils.CostsStandard(), false, false);
+            Generator elecModule = new Generator("electricityModule", new GenerationIntervalUtils.IntervalPowered(2.0f * 1000), new GenerationUtils.GenerateLinear(), new CostsUtils.CostsStandard(), false, false);
             elecModule.AddFuel(Constants.POTATO, 1, globalStorage);
             elecModule.AddOutput(Constants.ELECTRICITY, 1.8, globalStorage);
-            GeneratorManager.Instance.RegisterGeneratorClass("elecModule", elecModule);
+            GeneratorManager.Instance.RegisterGeneratorClass("electricityModule", elecModule);
+
+            // Player Health stats
+            Generator playerConsumption = new Generator(Constants.PLAYER_CONSUMPTION, new GenerationIntervalUtils.IntervalPowered(2.0f * 1000), new GenerationUtils.GenerateLinear(0, 1), new CostsUtils.CostsStandard(), false, false);
+            playerConsumption.AddFuel(Constants.WATER, 0.7f, globalStorage);
+            playerConsumption.AddFuel(Constants.POTATO, 0.7f, globalStorage);
+            GeneratorManager.Instance.RegisterGeneratorClass(Constants.PLAYER_CONSUMPTION, playerConsumption);
+
+            Generator hunger = new Generator(Constants.HUNGER, new GenerationIntervalUtils.IntervalPowered(2.0f * 1000), new GenerationUtils.GenerateLinear(0,1), new CostsUtils.CostsStandard(), false, false);
+            hunger.AddFuel(Constants.HUNGER, _gameState.starvationDecay, globalStorage);
+            hunger.SetClampingValues(0, _gameState.playerHungerStart);
+            GeneratorManager.Instance.RegisterGeneratorClass(Constants.HUNGER, hunger);
+
+            Generator thirst = new Generator(Constants.THIRST, new GenerationIntervalUtils.IntervalPowered(2.0f * 1000), new GenerationUtils.GenerateLinear(0,1), new CostsUtils.CostsStandard(), false, false);
+            thirst.AddFuel(Constants.THIRST, _gameState.starvationDecay, globalStorage);
+            thirst.SetClampingValues(0, _gameState.playerThirstStart);
+            GeneratorManager.Instance.RegisterGeneratorClass(Constants.THIRST, thirst);
+
+            Generator regen = new Generator(Constants.REGEN_THIRST, new GenerationIntervalUtils.IntervalPowered(2.0f * 1000), new GenerationUtils.GenerateLinear(), new CostsUtils.CostsStandard(), true, false);
+            regen.AddOutput(Constants.THIRST, _gameState.playerRegen, globalStorage);
+            GeneratorManager.Instance.RegisterGeneratorClass(Constants.REGEN_THIRST, regen);
+
+            Generator regenHunger = new Generator(Constants.REGEN_HUNGER, new GenerationIntervalUtils.IntervalPowered(2.0f * 1000), new GenerationUtils.GenerateLinear(), new CostsUtils.CostsStandard(), true, false);
+            regenHunger.AddOutput(Constants.HUNGER, _gameState.playerRegen, globalStorage);
+            GeneratorManager.Instance.RegisterGeneratorClass(Constants.REGEN_HUNGER, regenHunger);
 
             // Add Start values
             globalStorage.Add(Constants.WATER, 20);
@@ -205,10 +228,15 @@ namespace MarsFrenzy
             globalStorage.Add(Constants.DUCTTAPE, 50);
             globalStorage.Add(Constants.SCRAP, 75);
 
+            globalStorage.Add(Constants.HUNGER, _gameState.playerHungerStart);
+            globalStorage.Add(Constants.THIRST, _gameState.playerThirstStart);
 
             globalStorage.Add("waterModule", 1);
             globalStorage.Add("potatoModule", 1);
-            globalStorage.Add("elecModule", 1);
+            globalStorage.Add("electricityModule", 1);
+            globalStorage.Add(Constants.REGEN_HUNGER, 1);
+            globalStorage.Add(Constants.REGEN_THIRST, 1);
+            globalStorage.Add(Constants.PLAYER_CONSUMPTION, 1);
         }
 
         // Update is called once per frame
@@ -434,14 +462,14 @@ namespace MarsFrenzy
             throw new NotImplementedException();
         }
 
-        public float GetPlayerHunger()
+        public double GetPlayerHunger()
         {
-            return character.hunger;
+            return character.Hunger;
         }
 
-        public float GetPlayerThirst()
+        public double GetPlayerThirst()
         {
-            return character.thirst;
+            return character.Thirst;
         }
 
         public bool IsPlayerDead()
@@ -585,6 +613,8 @@ namespace MarsFrenzy
             WidenView();
             ShowUI();
             CameraController.Instance.SetModeBase();
+            // start player decay
+            globalStorage.GetGenerator(Constants.PLAYER_CONSUMPTION).SetActive(true);
         }
 
         public void ReachBase()

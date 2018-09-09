@@ -16,21 +16,13 @@ namespace MarsFrenzy
 
 
             // Generic data
-            gameState.gameClock = 2.0f;
-            gameState.clockSmoothing = 2;
-            gameState.clockSubSmoothing = 10;
-
             gameState.playerHungerStart = 100.0f;
-            gameState.playerRegen = 0.01f;
+            gameState.playerRegen = 1.0f;
             gameState.playerThirstStart = 100.0f;
             gameState.starvationDecay = 5.0f;
 
             gameState.stormDamage = 1.5f;
             gameState.stormDuration = 60;
-
-            // Upgrades
-            gameState.upgradeConsumptionFactor = 0.9f;
-            gameState.upgradeEfficiencyFactor = 1.5f;
 
             
 

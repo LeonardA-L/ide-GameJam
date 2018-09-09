@@ -16,18 +16,12 @@ namespace MarsFrenzy
         public IdleWorks.GeneratorManager m_generatorManager = new IdleWorks.GeneratorManager();
         public IdleWorks.MultiplierManager m_multiplierManager = new IdleWorks.MultiplierManager();
         // MarsFrenzy
-        public float gameClock = 1;
-        public int clockSmoothing = 1;
-        public int clockSubSmoothing = 1;
         public List<ModuleHealthThreshold> moduleHealthThresholds;
 
         public float playerHungerStart = 100.0f;
         public float playerThirstStart = 100.0f;
         public float starvationDecay = 10.0f;
         public float playerRegen = 1.0f;
-
-        public float upgradeConsumptionFactor;
-        public float upgradeEfficiencyFactor;
 
         public float stormDamage = 0.0f;
         public int stormDuration = 10;

@@ -12,8 +12,7 @@ namespace MarsFrenzy
         public bool repairing = false;
 
         public Transform health;
-        public Transform healthBarWrap;
-        public Animator healthAnimator;
+        private Animator healthAnimator;
         private Text stock;
 
         public float moduleHealth = 100.0f;
@@ -124,12 +123,6 @@ namespace MarsFrenzy
 
         public void Tick()
         {
-            float smoothingFactor = 1.0f / (1.0f * GameManager.Instance.GameState.clockSmoothing);
-
-            float totalResDiff = 0.0f;
-            float totalFuelDiff = 0.0f;
-            float resDiff;
-            float fuelDiff;
 
             // deactivate if health is 0
             if (moduleHealth <= 0.0f)
@@ -159,14 +152,6 @@ namespace MarsFrenzy
                 StopAction();
             }
             */
-
-            // Show flows
-            /*
-            if(Mathf.Abs(totalResDiff) >= 0.1f)
-                SpawnFlow(res.name, totalResDiff, 0);
-            if (Mathf.Abs(totalFuelDiff) >= 0.1f)
-                SpawnFlow(fuel.name, totalFuelDiff, 1);
-                */
 
         }
 

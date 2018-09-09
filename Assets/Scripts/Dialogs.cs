@@ -83,12 +83,12 @@ namespace MarsFrenzy
             return GameManager.Instance.IsPlayerDead();
         }
 
-        public static float GetPlayerHunger()
+        public static double GetPlayerHunger()
         {
             return GameManager.Instance.GetPlayerHunger();
         }
 
-        public static float GetPlayerThirst()
+        public static double GetPlayerThirst()
         {
             return GameManager.Instance.GetPlayerThirst();
         }
