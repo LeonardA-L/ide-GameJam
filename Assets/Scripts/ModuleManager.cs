@@ -153,7 +153,7 @@ namespace MarsFrenzy
 
         public void Tick()
         {
-            float smoothingFactor = 1.0f / (1.0f * gm.data.clockSmoothing);
+            float smoothingFactor = 1.0f / (1.0f * gm.GameState.clockSmoothing);
 
             float totalResDiff = 0.0f;
             float totalFuelDiff = 0.0f;
@@ -170,8 +170,8 @@ namespace MarsFrenzy
             // PRODUCTION
             if (activated && fuel.amount > 0)
             {
-                resDiff = res.efficiency * efficiencyModifier.modifier * smoothingFactor * Mathf.Pow(gm.data.upgradeEfficiencyFactor, level - 1);
-                fuelDiff = Mathf.Pow(gm.data.upgradeConsumptionFactor, level - 1) * smoothingFactor;
+                resDiff = res.efficiency * efficiencyModifier.modifier * smoothingFactor * Mathf.Pow(gm.GameState.upgradeEfficiencyFactor, level - 1);
+                fuelDiff = Mathf.Pow(gm.GameState.upgradeConsumptionFactor, level - 1) * smoothingFactor;
 
                 res.amount += resDiff;
                 totalResDiff += resDiff;
@@ -195,17 +195,17 @@ namespace MarsFrenzy
                 moduleHealth -= res.damageRate * smoothingFactor;
             }
 
-            bool notAt100percent = (moduleHealth + gm.data.ductTape.efficiency * smoothingFactor) <= 100.0f;
-            if (repairing && gm.data.ductTape.amount >= gm.data.ductTape.efficiency && notAt100percent)
+            bool notAt100percent = (moduleHealth + gm.GameState.ductTape.efficiency * smoothingFactor) <= 100.0f;
+            if (repairing && gm.GameState.ductTape.amount >= gm.GameState.ductTape.efficiency && notAt100percent)
             {
-                moduleHealth += gm.data.ductTape.efficiency * smoothingFactor;
-                gm.data.ductTape.amount -= (level == 1 ? 1.0f : gm.data.upgradeConsumptionFactor) * smoothingFactor;
+                moduleHealth += gm.GameState.ductTape.efficiency * smoothingFactor;
+                gm.GameState.ductTape.amount -= (level == 1 ? 1.0f : gm.GameState.upgradeConsumptionFactor) * smoothingFactor;
 
-                if (gm.data.ductTape.amount < 0.0f)
+                if (gm.GameState.ductTape.amount < 0.0f)
                 {
-                    gm.data.ductTape.amount = 0.0f;
+                    gm.GameState.ductTape.amount = 0.0f;
                 }
-            } else if(repairing && gm.data.ductTape.amount >= gm.data.ductTape.efficiency && !notAt100percent)
+            } else if(repairing && gm.GameState.ductTape.amount >= gm.GameState.ductTape.efficiency && !notAt100percent)
             {
                 StopAction();
             }
@@ -248,10 +248,10 @@ namespace MarsFrenzy
         private void updateEfficiency()
         {
             // Update efficiency
-            efficiencyModifier = gm.data.moduleHealthThresholds[gm.data.moduleHealthThresholds.Count - 1];
-            for (int i = 0; i < gm.data.moduleHealthThresholds.Count; i++)
+            efficiencyModifier = gm.GameState.moduleHealthThresholds[gm.GameState.moduleHealthThresholds.Count - 1];
+            for (int i = 0; i < gm.GameState.moduleHealthThresholds.Count; i++)
             {
-                ModuleHealthThreshold thr = gm.data.moduleHealthThresholds[i];
+                ModuleHealthThreshold thr = gm.GameState.moduleHealthThresholds[i];
                 if (moduleHealth <= thr.threshold)
                 {
                     efficiencyModifier = thr;
@@ -284,7 +284,7 @@ namespace MarsFrenzy
         private bool hasEnoughForUpgrade()
         {
             return res.amount >= computeUpgradeCost(res.upgradeResCostRatio, res.upgradeResCostStarter)
-                && gm.data.scrap.amount >= computeUpgradeCost(res.upgradeScrapCostRatio, res.upgradeScrapCostStarter);
+                && gm.GameState.scrap.amount >= computeUpgradeCost(res.upgradeScrapCostRatio, res.upgradeScrapCostStarter);
         }
 
         private float computeUpgradeCost(float _ratio, float _starter)
@@ -297,7 +297,7 @@ namespace MarsFrenzy
             if (!hasEnoughForUpgrade())
                 return;
             res.amount -= computeUpgradeCost(res.upgradeResCostRatio, res.upgradeResCostStarter);
-            gm.data.scrap.amount -= computeUpgradeCost(res.upgradeScrapCostRatio, res.upgradeScrapCostStarter);
+            gm.GameState.scrap.amount -= computeUpgradeCost(res.upgradeScrapCostRatio, res.upgradeScrapCostStarter);
             level++;
             initUpgradeUI();
             AudioManager.Instance.PlaySound("moduleUpdate");

@@ -18,6 +18,7 @@ namespace MarsFrenzy
         public float upgradeResCostStarter = 1.0f;
         public float upgradeScrapCostStarter = 1.0f;
 
+        [System.NonSerialized]
         public Vector3 playerTarget;
     }
 }

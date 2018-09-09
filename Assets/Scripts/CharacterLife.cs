@@ -40,15 +40,15 @@ namespace MarsFrenzy
             hunger = _hunger;
             thirst = _thirst;
             regen = _regen;
-            for (int i = 0; i < gm.data.resources.Count; i++)
+            for (int i = 0; i < gm.GameState.resources.Count; i++)
             {
-                if (gm.data.resources[i].name == "potatoes")
+                if (gm.GameState.resources[i].name == "potatoes")
                 {
-                    food = gm.data.resources[i];
+                    food = gm.GameState.resources[i];
                 }
-                if (gm.data.resources[i].name == "water")
+                if (gm.GameState.resources[i].name == "water")
                 {
-                    water = gm.data.resources[i];
+                    water = gm.GameState.resources[i];
                 }
             }
         }

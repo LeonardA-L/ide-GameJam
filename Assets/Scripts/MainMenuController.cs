@@ -27,7 +27,7 @@ namespace MarsFrenzy
             uiAnimator = GetComponent<Animator>();
             UpdateI18N();
 
-            string savePath = Application.persistentDataPath + SaveManager.savePathName;
+            string savePath = Application.persistentDataPath + GameManager.savePath;
             if (File.Exists(savePath))
             {
                 continueButton.SetActive(true);

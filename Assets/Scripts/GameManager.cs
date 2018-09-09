@@ -6,13 +6,17 @@ using UnityEngine.AI;
 using System.IO;
 using EZCameraShake;
 using UnityEngine.EventSystems;
+using IdleWorks;
+using System;
 
 namespace MarsFrenzy
 {
     public class GameManager : MonoBehaviour
     {
+        public static readonly string savePath = "/HCC_state.sav";
+
         protected static GameManager instance;
-        public GameDataModel data;
+        public GameState _gameState;
         private Dictionary<string, ModuleManager> modules;
         private Dictionary<string, bool> switches;
 
@@ -59,12 +63,14 @@ namespace MarsFrenzy
 
         public bool pauseMenu;
 
-        private SaveManager saveManager;
-
         public Transform marsBase;
         public Vector3 maxDistanceToBase = new Vector3(6.0f, 0, 24.0f);
 
         public static int OnboardingFirstSection = 50;
+
+        private Clock idleWorksClock;
+
+        public List<Vector3> crateDropPoints = new List<Vector3>();
 
         public int OnboardingStep
         {
@@ -100,7 +106,27 @@ namespace MarsFrenzy
 
             particles = new List<ParticleSystem>();
 
-            data = PopulateData.Init();
+
+            _gameState = GameState.Load(savePath);
+            idleWorksClock = _gameState.GetClock();
+
+            var storages = StorageManager.Instance.GetAllStorages();
+
+            if (_gameState.newGame)
+            {  // New game
+                Debug.Log("New game");
+                _InitNewGame();
+            } else
+            {
+
+            }
+
+
+            // Crates drop spots
+            crateDropPoints.Add(new Vector3(-2.03f, 0.0f, 30.91f));
+            crateDropPoints.Add(new Vector3(5.38f, 0.0f, 36.09f));
+            crateDropPoints.Add(new Vector3(3.59f, 0.0f, -2.85f));
+            crateDropPoints.Add(new Vector3(14.52f, 0.0f, 4.09f));
 
             switches = new Dictionary<string, bool>();
 
@@ -110,19 +136,19 @@ namespace MarsFrenzy
             modules.Add("electricity", electricityModule);
 
             int i = 0;
-            for (; i < data.resources.Count; i++)
+            for (; i < _gameState.resources.Count; i++)
             {
                 int prevI = i - 1;
                 if (prevI < 0)
                 {
-                    prevI += data.resources.Count;
+                    prevI += _gameState.resources.Count;
                 }
-                ModuleManager module = modules[data.resources[i].name].GetComponent<ModuleManager>();
+                ModuleManager module = modules[_gameState.resources[i].name].GetComponent<ModuleManager>();
                 module.id = i;
-                module.Init(i, data.resources[i], data.resources[prevI]);
+                module.Init(i, _gameState.resources[i], _gameState.resources[prevI]);
             }
 
-            character.Init(this, data.playerHungerStart, data.playerThirstStart, data.starvationDecay, data.playerRegen);
+            character.Init(this, _gameState.playerHungerStart, _gameState.playerThirstStart, _gameState.starvationDecay, _gameState.playerRegen);
 
             GameObject ductTapeStockObj = GameObject.Find("/UI_prefab/MainCanvas/Resources/BackgroundBlue/ductTape/ductTape_Stock");
             ductTapeStock = ductTapeStockObj.GetComponent<Text>();
@@ -138,7 +164,7 @@ namespace MarsFrenzy
             RegisterAnimator(uiAnimator);
             RegisterAnimator(stormAnimator);
 
-            crateSlots = new int[data.crateDropPoints.Count];
+            crateSlots = new int[crateDropPoints.Count];
 
             GameObject[] particlesGOs;
             particlesGOs = GameObject.FindGameObjectsWithTag("Particles");
@@ -149,18 +175,12 @@ namespace MarsFrenzy
 
             HideWorkbench();
 
-            saveManager = GetComponent<SaveManager>();
-
-            int shouldLoad = PlayerPrefs.GetInt("shouldLoadGame");
-            if (shouldLoad == 1)
-            {
-                saveManager.Load();
-
-                PlayerPrefs.SetInt("shouldLoadGame", 0);
-                PlayerPrefs.Save();
-            }
-
             timeRuns = true;
+        }
+
+        private void _InitNewGame()
+        {
+            PopulateData.Init(_gameState);
         }
 
         // Update is called once per frame
@@ -189,19 +209,19 @@ namespace MarsFrenzy
                 }
             }
 
-            if (timeRuns && (timer - lastTime) > data.gameClock / (1.0f * data.clockSmoothing))
+            if (timeRuns && (timer - lastTime) > _gameState.gameClock / (1.0f * _gameState.clockSmoothing))
             {
                 lastTime = timer;
                 Tick();
             }
-            if (timeRuns && (timer - lastSmoothTime) > data.gameClock / (1.0f * data.clockSubSmoothing))
+            if (timeRuns && (timer - lastSmoothTime) > _gameState.gameClock / (1.0f * _gameState.clockSubSmoothing))
             {
                 lastSmoothTime = timer;
                 SubSmoothTick();
             }
 
-            ductTapeStock.text = "" + data.ductTape.amount.ToString("0.00");
-            scrapStock.text = "" + data.scrap.amount.ToString("0");
+            ductTapeStock.text = "" + _gameState.ductTape.amount.ToString("0.00");
+            scrapStock.text = "" + _gameState.scrap.amount.ToString("0");
             
             playerAnimator.SetFloat("speed", (player.position - lastPlayerPosition).magnitude / Time.deltaTime);
             lastPlayerPosition = player.position;
@@ -250,8 +270,6 @@ namespace MarsFrenzy
             electricityModule.Tick();
 
             character.Tick();
-
-            saveManager.Tick();
         }
 
         private void SubSmoothTick()
@@ -266,13 +284,13 @@ namespace MarsFrenzy
                         ModuleManager module = entry.Value;
                         if(module.activated)
                         {
-                            module.AddHealth(-data.stormDamage);
+                            module.AddHealth(-_gameState.stormDamage);
                         }
                     }
                 }
                 stormTicks++;
 
-                if(stormTicks > data.stormDuration)
+                if(stormTicks > _gameState.stormDuration)
                 {
                     StopStorm();
                 }
@@ -330,7 +348,7 @@ namespace MarsFrenzy
                 endScreen.Pause();
                 pauseMenu = true;
 
-                GetComponent<SaveManager>().Save();
+                _gameState.Save(savePath);
             }
             else
             {
@@ -395,20 +413,20 @@ namespace MarsFrenzy
         {
             if (name == "ductTape")
             {
-                data.ductTape.amount += _howMuch;
-                if (data.ductTape.amount < 0.0f)
+                _gameState.ductTape.amount += _howMuch;
+                if (_gameState.ductTape.amount < 0.0f)
                 {
-                    data.ductTape.amount = 0.0f;
+                    _gameState.ductTape.amount = 0.0f;
                 }
                 return;
             }
 
             if (name == "scrap")
             {
-                data.scrap.amount += _howMuch;
-                if (data.scrap.amount < 0.0f)
+                _gameState.scrap.amount += _howMuch;
+                if (_gameState.scrap.amount < 0.0f)
                 {
-                    data.scrap.amount = 0.0f;
+                    _gameState.scrap.amount = 0.0f;
                 }
                 return;
             }
@@ -425,12 +443,12 @@ namespace MarsFrenzy
         {
             if (name == "ductTape")
             {
-                return data.ductTape.amount;
+                return _gameState.ductTape.amount;
             }
 
             if (name == "scrap")
             {
-                return data.scrap.amount;
+                return _gameState.scrap.amount;
             }
 
             ModuleManager module = modules[name];
@@ -526,11 +544,11 @@ namespace MarsFrenzy
         public void CreateCrate(float _water, float _potatoes, float _electricity, float _scrap, float _ductTape)
         {
 
-            int baseRandSlot = (int)(Random.value * data.crateDropPoints.Count);
+            int baseRandSlot = (int)(UnityEngine.Random.value * crateDropPoints.Count);
             int successSlot = -1;
-            for (int i = 0; i < data.crateDropPoints.Count; i++)
+            for (int i = 0; i < crateDropPoints.Count; i++)
             {
-                int slot = (baseRandSlot + i) % data.crateDropPoints.Count;
+                int slot = (baseRandSlot + i) % crateDropPoints.Count;
                 if (crateSlots[slot] != 1)
                 {
                     successSlot = slot;
@@ -545,8 +563,8 @@ namespace MarsFrenzy
             crateSlots[successSlot] = 1;
             crate.name = "Drop_Crate_"+ successSlot;
 
-            crate.transform.position = new Vector3(data.crateDropPoints[successSlot].x, 15.0f, data.crateDropPoints[successSlot].z);
-            crate.transform.Rotate(new Vector3(0.0f, 180.0f * Random.value, 0.0f));
+            crate.transform.position = new Vector3(crateDropPoints[successSlot].x, 15.0f, crateDropPoints[successSlot].z);
+            crate.transform.Rotate(new Vector3(0.0f, 180.0f * UnityEngine.Random.value, 0.0f));
 
             DropController dc = crate.GetComponent<DropController>();
             dc.SetValues(_water <= 0 ? 0 : _water + GetRandomCrateChange(),
@@ -559,7 +577,7 @@ namespace MarsFrenzy
 
         private float GetRandomCrateChange()
         {
-            return (float)System.Math.Round(Random.value * 2.0f - 1.0f, 2);
+            return (float)System.Math.Round(UnityEngine.Random.value * 2.0f - 1.0f, 2);
         }
 
         public void CollectCrate(DropController _crate)
@@ -568,8 +586,8 @@ namespace MarsFrenzy
             potatoesModule.res.amount += _crate.potatoes;
             electricityModule.res.amount += _crate.electricity;
 
-            data.ductTape.amount += _crate.ductTape;
-            data.scrap.amount += _crate.scrap;
+            _gameState.ductTape.amount += _crate.ductTape;
+            _gameState.scrap.amount += _crate.scrap;
         }
 
         public void RegisterAnimator(Animator _animator)
@@ -610,6 +628,14 @@ namespace MarsFrenzy
         public void LeaveBase()
         {
             CameraController.Instance.SetModeExplore();
+        }
+
+        public GameState GameState
+        {
+            get
+            {
+                return _gameState;
+            }
         }
     }
 
