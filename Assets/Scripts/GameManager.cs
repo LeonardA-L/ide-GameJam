@@ -8,6 +8,7 @@ using EZCameraShake;
 using UnityEngine.EventSystems;
 using IdleWorks;
 using System;
+using Timestamp = System.Double;
 
 namespace MarsFrenzy
 {
@@ -19,12 +20,9 @@ namespace MarsFrenzy
         public GameState _gameState;
         private Dictionary<string, bool> switches;
 
+        private Timestamp time;
         public bool timeRuns = false;
         public bool gameOver = false;
-        public float timer = 0;
-        public float lastTime;
-        public float lastSmoothTime;
-        public float lastDialog = 0;
 
         public CharacterLife character;
         public EndScreen endScreen;
@@ -90,9 +88,6 @@ namespace MarsFrenzy
             Debug.Log("Init GameManager");
             setInstance(this);
             timeRuns = false;
-            timer = 0;
-            lastTime = 0;
-            lastSmoothTime = 0;
             storm = false;
             pauseMenu = false;
             agentSpeed = playerAgent.speed;
@@ -106,6 +101,8 @@ namespace MarsFrenzy
             idleWorksClock = _gameState.GetClock();
 
             var storages = StorageManager.Instance.GetAllStorages();
+
+            time = TimeUtils.Timestamp();
 
             if (_gameState.newGame)
             {  // New game
@@ -219,8 +216,6 @@ namespace MarsFrenzy
         {
             if (timeRuns)
             {
-                timer += Time.deltaTime;
-                
                 // Detect click on ground
                 if (Input.GetMouseButtonDown(0))
                 {
@@ -240,23 +235,12 @@ namespace MarsFrenzy
                 }
             }
 
-            if (timeRuns && (timer - lastTime) > _gameState.gameClock / (1.0f * _gameState.clockSmoothing))
-            {
-                lastTime = timer;
-                Tick();
-            }
-            if (timeRuns && (timer - lastSmoothTime) > _gameState.gameClock / (1.0f * _gameState.clockSubSmoothing))
-            {
-                lastSmoothTime = timer;
-                SubSmoothTick();
-            }
-
             idleWorksClock.Update();
 
             //ductTapeStock.text = "" + _gameState.ductTape.amount.ToString("0.00");
             //scrapStock.text = "" + _gameState.scrap.amount.ToString("0");
 
-            playerAnimator.SetFloat("speed", (player.position - lastPlayerPosition).magnitude / Time.deltaTime);
+            playerAnimator.SetFloat("speed", (player.position - lastPlayerPosition).magnitude / ((float)Time.deltaTime));
             lastPlayerPosition = player.position;
 
             if(playerWalking && playerAgent.remainingDistance < 0.1f)
@@ -294,15 +278,6 @@ namespace MarsFrenzy
                     PauseMenu();
                 }
             }
-        }
-
-        private void Tick()
-        {
-            waterModule.Tick();
-            potatoesModule.Tick();
-            electricityModule.Tick();
-
-            character.Tick();
         }
 
         private void SubSmoothTick()
@@ -427,7 +402,6 @@ namespace MarsFrenzy
         public void EndDialog()
         {
             Play();
-            lastDialog = timer;
         }
 
         public bool IsActive(string name)
@@ -628,6 +602,14 @@ namespace MarsFrenzy
             get
             {
                 return _gameState;
+            }
+        }
+
+        public Timestamp CurrentTime
+        {
+            get
+            {
+                return time;
             }
         }
     }

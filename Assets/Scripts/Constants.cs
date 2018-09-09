@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Constants {
     // Generators
-    public static readonly string WATER = "water";
-    public static readonly string POTATO = "potato";
-    public static readonly string ELECTRICITY = "electricity";
-    public static readonly string DUCTTAPE = "ductTape";
-    public static readonly string SCRAP = "scrap";
+    public const string WATER = "water";
+    public const string POTATO = "potato";
+    public const string ELECTRICITY = "electricity";
+    public const string DUCTTAPE = "ductTape";
+    public const string SCRAP = "scrap";
 
     // Storages
-    public static readonly string STORAGE_MAIN = "Main";
+    public const string STORAGE_MAIN = "Main";
 
 }

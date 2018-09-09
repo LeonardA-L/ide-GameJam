@@ -27,19 +27,19 @@ namespace MarsFrenzy
 
             switch(_resourceName)
             {
-                case "potatoes":
+                case Constants.POTATO:
                     potatoesLogo.SetActive(true);
                     break;
-                case "water":
+                case Constants.WATER:
                     waterLogo.SetActive(true);
                     break;
-                case "electricity":
+                case Constants.ELECTRICITY:
                     electricityLogo.SetActive(true);
                     break;
-                case "ductTape":
+                case Constants.DUCTTAPE:
                     ductTapeLogo.SetActive(true);
                     break;
-                case "scrap":
+                case Constants.SCRAP:
                     scrapLogo.SetActive(true);
                     break;
             }

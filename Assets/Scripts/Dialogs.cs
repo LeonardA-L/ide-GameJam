@@ -56,7 +56,8 @@ namespace MarsFrenzy
 
         public static bool timeIs(float _time)
         {
-            return GameManager.Instance.timer >= _time;
+            throw new System.NotImplementedException();
+            return false;
         }
 
         public static bool isWaterTankActive()
@@ -99,7 +100,9 @@ namespace MarsFrenzy
 
         public static bool TimeSinceLastDialogIs(float _threshold)
         {
-            return GameManager.Instance.timer - GameManager.Instance.lastDialog >= _threshold;
+            throw new System.NotImplementedException();
+            return false;
+            //return GameManager.Instance.timer - GameManager.Instance.lastDialog >= _threshold;
         }
 
         public static int OnboardingStep

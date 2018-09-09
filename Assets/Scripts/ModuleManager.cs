@@ -28,7 +28,7 @@ namespace MarsFrenzy
         public float level = 1;
 
         public bool clicking = false;
-        public float clickingTime = 0;
+        public double clickingTime = 0;
         public float timeToRepair = 0.4f;
 
         public string queuedAction = null;
@@ -60,6 +60,8 @@ namespace MarsFrenzy
 
             module = StorageManager.Instance.GetStorage(Constants.STORAGE_MAIN).GetGenerator(generatorName);
             Debug.Assert(module != null);
+            module.SetAfterProductionHook(PostGenerationHook);
+            module.SetBeforeProductionHook(PreGenerationHook);
         }
 
         // Update is called once per frame
@@ -74,11 +76,11 @@ namespace MarsFrenzy
             updateEfficiency();
             updateHealthView();
 
-            //alarmAnimator.SetFloat("health", res.amount);
+            alarmAnimator.SetFloat("health", (float)module.Amount);
 
             if (lifeAnimator != null)
             {
-                //lifeAnimator.SetBool("alert", res.amount <= 0.0f);
+                lifeAnimator.SetBool("alert", module.Amount <= 0.0f);
             }
 
             // Stop repairing
@@ -87,11 +89,12 @@ namespace MarsFrenzy
                 StopAction();
             }
 
-            if (!repairing && clicking && GameManager.Instance.timer - clickingTime > timeToRepair)
+            
+            if (!repairing && clicking && GameManager.Instance.CurrentTime - clickingTime > timeToRepair)
             {
                 queuedAction = "repair";
             }
-
+            
             if(queuedAction != null && (GameManager.Instance.player.position - playerTarget).magnitude < 1.0f)
             {
                 executeQueuedAction();
@@ -167,6 +170,27 @@ namespace MarsFrenzy
 
         }
 
+        private bool PostGenerationHook(Generator _g, double _ts, List<StreamData> _streams)
+        {
+            SpawnFlows(_streams);
+            return true;
+        }
+
+        private bool PreGenerationHook(Generator _g, double _ts, List<StreamData> _streams)
+        {
+            SpawnFlows(_streams);
+            return true;
+        }
+
+        private void SpawnFlows(List<StreamData> _streams)
+        {
+            int idx = 0;
+            foreach (var stream in _streams)
+            {
+                SpawnFlow(stream.m_generator, (float)stream.m_amount, idx);
+            }
+        }
+
         public void OnClick(GameObject clicked)
         {
             if(EventSystem.current.IsPointerOverGameObject())
@@ -180,7 +204,7 @@ namespace MarsFrenzy
             if (clicked.tag == "ModuleView")
             {
                 clicking = true;
-                clickingTime = GameManager.Instance.timer;
+                clickingTime = GameManager.Instance.CurrentTime;
                 GameManager.Instance.SetPlayerAction(playerTarget);
             }
         }
