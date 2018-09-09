@@ -10,7 +10,6 @@ namespace MarsFrenzy
         {
             //------------ Don't touch
             gameState.moduleHealthThresholds = new List<ModuleHealthThreshold>();
-            gameState.resources = new List<ResourceModel>();
             //------------
 
 
@@ -33,22 +32,7 @@ namespace MarsFrenzy
             gameState.upgradeConsumptionFactor = 0.9f;
             gameState.upgradeEfficiencyFactor = 1.5f;
 
-            // DuctTape
-            gameState.ductTape = new ResourceModel()
-            {
-                name = "ductTape",
-                amount = 50.0f,
-                efficiency = 5.0f
-            };
-
-            // Scrap
-            gameState.scrap = new ResourceModel()
-            {
-                name = "scrap",
-                amount = 75.0f
-            };
-
-
+            
 
 
 
@@ -64,7 +48,7 @@ namespace MarsFrenzy
 
 
 
-
+            /*
             // Resources
             ResourceModel water = new ResourceModel()
             {
@@ -115,7 +99,7 @@ namespace MarsFrenzy
             // Don't touch
             gameState.resources.Add(water);
             gameState.resources.Add(potatoes);
-            gameState.resources.Add(electricity);
+            gameState.resources.Add(electricity);*/
 
         }
     }

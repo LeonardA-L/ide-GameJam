@@ -92,7 +92,7 @@ namespace MarsFrenzy
             return GameManager.Instance.GetPlayerThirst();
         }
 
-        public static float GetAmount(string name)
+        public static double GetAmount(string name)
         {
             return GameManager.Instance.GetAmount(name);
         }
@@ -137,7 +137,7 @@ namespace MarsFrenzy
             GameManager.Instance.AddModuleHealth(name, _howMuch);
         }
 
-        public static void AddAmount(string name, float _howMuch)
+        public static void AddAmount(string name, double _howMuch)
         {
             GameManager.Instance.AddAmount(name, _howMuch);
         }

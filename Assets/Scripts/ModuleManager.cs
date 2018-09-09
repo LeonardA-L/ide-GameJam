@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using IdleWorks;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -8,12 +9,6 @@ namespace MarsFrenzy
 {
     public class ModuleManager : MonoBehaviour
     {
-        public int id = 0;
-
-        public ResourceModel res;
-        public ResourceModel fuel;
-
-        public bool activated = false;
         public bool repairing = false;
 
         public Transform health;
@@ -26,8 +21,6 @@ namespace MarsFrenzy
 
         public Animator viewAnimator;
 
-        private GameManager gm;
-        
         public GameObject tools;
         public Transform flowSpawner;
         public GameObject flowPrefab;
@@ -44,73 +37,48 @@ namespace MarsFrenzy
         public Animator alarmAnimator;
         public Animator lifeAnimator;
 
-        // Upgrade UI elements
-        public Text upgrLevel;
-        public Text upgrResCost;
-        public Text upgrScrapCost;
-        public Button upgrButton;
-        // Static upgrade UI elements
-        public Text upgrTitle;
-        public Text upgrDescription;
-        public Text upgrBtnText;
 
+        public Vector3 playerTargetOffset;
 
-        public static I18n i18n;
+        private Generator module;
+        public string generatorName;
 
         // Use this for initialization
         void Start()
         {
-            SetActive(false);
             healthAnimator = health.gameObject.GetComponent<Animator>();
-        }
-
-        public void Init(int _id, ResourceModel _resource, ResourceModel _fuelResource)
-        {
-            Debug.Log("Init " + id + " " + _resource.name + " " + _fuelResource);
-            gm = GameManager.Instance;
-            id = _id;
-            res = _resource;
-            fuel = _fuelResource;
-            moduleHealth = res.startHealth;
-
-            i18n = I18n.Instance;
-
             tools.SetActive(false);
+            playerTarget = transform.position + playerTargetOffset;
 
-            gm.RegisterAnimator(viewAnimator);
-            gm.RegisterAnimator(healthAnimator);
-            gm.RegisterAnimator(alarmAnimator);
+            GameManager.Instance.RegisterAnimator(viewAnimator);
+            GameManager.Instance.RegisterAnimator(healthAnimator);
+            GameManager.Instance.RegisterAnimator(alarmAnimator);
             if (lifeAnimator != null)
             {
-                gm.RegisterAnimator(lifeAnimator);
+                GameManager.Instance.RegisterAnimator(lifeAnimator);
             }
 
-            playerTarget = transform.position + res.playerTarget;
-
-            GameObject stockObj = GameObject.Find("/UI_prefab/MainCanvas/Resources/BackgroundOrange/" + res.name + "/"+ res.name+"_Stock");
-            stock = stockObj.GetComponent<Text>();
-
-            initUpgradeUI();
+            module = StorageManager.Instance.GetStorage(Constants.STORAGE_MAIN).GetGenerator(generatorName);
+            Debug.Assert(module != null);
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (gm == null)
+            if (GameManager.Instance == null)
             {
                 return;
             }
-            stock.text = res.amount.ToString("0.00");
+            //stock.text = res.amount.ToString("0.00");
 
             updateEfficiency();
             updateHealthView();
-            updateUpgradeUI();
 
-            alarmAnimator.SetFloat("health", res.amount);
+            //alarmAnimator.SetFloat("health", res.amount);
 
             if (lifeAnimator != null)
             {
-                lifeAnimator.SetBool("alert", res.amount <= 0.0f);
+                //lifeAnimator.SetBool("alert", res.amount <= 0.0f);
             }
 
             // Stop repairing
@@ -119,12 +87,12 @@ namespace MarsFrenzy
                 StopAction();
             }
 
-            if (!repairing && clicking && gm.timer - clickingTime > timeToRepair)
+            if (!repairing && clicking && GameManager.Instance.timer - clickingTime > timeToRepair)
             {
                 queuedAction = "repair";
             }
 
-            if(queuedAction != null && (gm.player.position - playerTarget).magnitude < 1.0f)
+            if(queuedAction != null && (GameManager.Instance.player.position - playerTarget).magnitude < 1.0f)
             {
                 executeQueuedAction();
             }
@@ -138,7 +106,7 @@ namespace MarsFrenzy
             }
             else if (queuedAction == "repair")
             {
-                gm.SetPlayerAction(gm.player.position);
+                GameManager.Instance.SetPlayerAction(GameManager.Instance.player.position);
                 queuedAction = null;
             }
             if (repairing)
@@ -153,7 +121,7 @@ namespace MarsFrenzy
 
         public void Tick()
         {
-            float smoothingFactor = 1.0f / (1.0f * gm.GameState.clockSmoothing);
+            float smoothingFactor = 1.0f / (1.0f * GameManager.Instance.GameState.clockSmoothing);
 
             float totalResDiff = 0.0f;
             float totalFuelDiff = 0.0f;
@@ -167,30 +135,8 @@ namespace MarsFrenzy
                 SetActive(false);
             }
 
-            // PRODUCTION
-            if (activated && fuel.amount > 0)
-            {
-                resDiff = res.efficiency * efficiencyModifier.modifier * smoothingFactor * Mathf.Pow(gm.GameState.upgradeEfficiencyFactor, level - 1);
-                fuelDiff = Mathf.Pow(gm.GameState.upgradeConsumptionFactor, level - 1) * smoothingFactor;
-
-                res.amount += resDiff;
-                totalResDiff += resDiff;
-                fuel.amount -= fuelDiff;
-                totalFuelDiff -= fuelDiff;
-            }
-
-            // DECAY
-            resDiff = res.decay * smoothingFactor;
-            res.amount -= resDiff;
-            //totalResDiff -= resDiff;
-
-            if (res.amount < 0.0f)
-            {
-                res.amount = 0.0f;
-            }
-
             // BREAK & REPAIR
-            if (activated)
+            /*if (activated)
             {
                 moduleHealth -= res.damageRate * smoothingFactor;
             }
@@ -209,12 +155,15 @@ namespace MarsFrenzy
             {
                 StopAction();
             }
+            */
 
             // Show flows
+            /*
             if(Mathf.Abs(totalResDiff) >= 0.1f)
                 SpawnFlow(res.name, totalResDiff, 0);
             if (Mathf.Abs(totalFuelDiff) >= 0.1f)
                 SpawnFlow(fuel.name, totalFuelDiff, 1);
+                */
 
         }
 
@@ -231,8 +180,8 @@ namespace MarsFrenzy
             if (clicked.tag == "ModuleView")
             {
                 clicking = true;
-                clickingTime = gm.timer;
-                gm.SetPlayerAction(playerTarget);
+                clickingTime = GameManager.Instance.timer;
+                GameManager.Instance.SetPlayerAction(playerTarget);
             }
         }
 
@@ -248,43 +197,16 @@ namespace MarsFrenzy
         private void updateEfficiency()
         {
             // Update efficiency
-            efficiencyModifier = gm.GameState.moduleHealthThresholds[gm.GameState.moduleHealthThresholds.Count - 1];
-            for (int i = 0; i < gm.GameState.moduleHealthThresholds.Count; i++)
+            efficiencyModifier = GameManager.Instance.GameState.moduleHealthThresholds[GameManager.Instance.GameState.moduleHealthThresholds.Count - 1];
+            for (int i = 0; i < GameManager.Instance.GameState.moduleHealthThresholds.Count; i++)
             {
-                ModuleHealthThreshold thr = gm.GameState.moduleHealthThresholds[i];
+                ModuleHealthThreshold thr = GameManager.Instance.GameState.moduleHealthThresholds[i];
                 if (moduleHealth <= thr.threshold)
                 {
                     efficiencyModifier = thr;
                     break;
                 }
             }
-        }
-
-        private void updateUpgradeUI()
-        {
-            if (upgrButton == null)
-                return;
-            upgrButton.interactable = hasEnoughForUpgrade();
-        }
-
-        private void initUpgradeUI()
-        {
-            if (upgrLevel == null)
-                return;
-            upgrLevel.text = i18n.__("UpgradeLevel") + " " + level;
-
-            upgrTitle.text = i18n.__("UpgradeTitle" + res.name);
-            upgrDescription.text = i18n.__("UpgradeDesc" + res.name);
-            upgrBtnText.text = i18n.__("UpgradeBtn");
-
-            upgrResCost.text = "" + computeUpgradeCost(res.upgradeResCostRatio, res.upgradeResCostStarter);
-            upgrScrapCost.text = "" + computeUpgradeCost(res.upgradeScrapCostRatio, res.upgradeScrapCostStarter);
-        }
-
-        private bool hasEnoughForUpgrade()
-        {
-            return res.amount >= computeUpgradeCost(res.upgradeResCostRatio, res.upgradeResCostStarter)
-                && gm.GameState.scrap.amount >= computeUpgradeCost(res.upgradeScrapCostRatio, res.upgradeScrapCostStarter);
         }
 
         private float computeUpgradeCost(float _ratio, float _starter)
@@ -294,24 +216,17 @@ namespace MarsFrenzy
 
         public void UpgradeModule()
         {
-            if (!hasEnoughForUpgrade())
-                return;
-            res.amount -= computeUpgradeCost(res.upgradeResCostRatio, res.upgradeResCostStarter);
-            gm.GameState.scrap.amount -= computeUpgradeCost(res.upgradeScrapCostRatio, res.upgradeScrapCostStarter);
-            level++;
-            initUpgradeUI();
-            AudioManager.Instance.PlaySound("moduleUpdate");
-
+            throw new System.NotImplementedException();
         }
 
         private void executeQueuedAction()
         {
             if(queuedAction == "toggle")
             {
-                SetActive(!activated);
-                if (activated)
+                SetActive(!module.IsActive);
+                if (module.IsActive)
                 {
-                    AudioManager.Instance.PlaySound("module" + res.name);
+                    //AudioManager.Instance.PlaySound("module" + res.name);
                 } else
                 {
                     AudioManager.Instance.PlaySound("moduleStopProduction");
@@ -336,8 +251,8 @@ namespace MarsFrenzy
 
         public void SetActive(bool _newValue)
         {
-            activated = _newValue;
-            viewAnimator.SetBool("activated", activated);
+            viewAnimator.SetBool("activated", _newValue);
+            module.SetActive(_newValue);
         }
 
         public void SpawnFlow(string _resourceName, float _amount, int _offset)

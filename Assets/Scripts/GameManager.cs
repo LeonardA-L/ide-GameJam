@@ -17,7 +17,6 @@ namespace MarsFrenzy
 
         protected static GameManager instance;
         public GameState _gameState;
-        private Dictionary<string, ModuleManager> modules;
         private Dictionary<string, bool> switches;
 
         public bool timeRuns = false;
@@ -26,9 +25,6 @@ namespace MarsFrenzy
         public float lastTime;
         public float lastSmoothTime;
         public float lastDialog = 0;
-
-        private Text ductTapeStock;
-        private Text scrapStock;
 
         public CharacterLife character;
         public EndScreen endScreen;
@@ -69,6 +65,7 @@ namespace MarsFrenzy
         public static int OnboardingFirstSection = 50;
 
         private Clock idleWorksClock;
+        private Storage globalStorage;
 
         public List<Vector3> crateDropPoints = new List<Vector3>();
 
@@ -103,9 +100,7 @@ namespace MarsFrenzy
             DialogManager.Instance.Init();
 
             animators = new List<Animator>();
-
             particles = new List<ParticleSystem>();
-
 
             _gameState = GameState.Load(savePath);
             idleWorksClock = _gameState.GetClock();
@@ -118,7 +113,15 @@ namespace MarsFrenzy
                 _InitNewGame();
             } else
             {
+                Debug.Log("Loaded game");
 
+                foreach (Storage s in storages)
+                {
+                    if (s.Id == "Main")
+                    {
+                        globalStorage = s;
+                    }
+                }
             }
 
 
@@ -129,12 +132,7 @@ namespace MarsFrenzy
             crateDropPoints.Add(new Vector3(14.52f, 0.0f, 4.09f));
 
             switches = new Dictionary<string, bool>();
-
-            modules = new Dictionary<string, ModuleManager>();
-            modules.Add("water", waterModule);
-            modules.Add("potatoes", potatoesModule);
-            modules.Add("electricity", electricityModule);
-
+            /*
             int i = 0;
             for (; i < _gameState.resources.Count; i++)
             {
@@ -147,14 +145,8 @@ namespace MarsFrenzy
                 module.id = i;
                 module.Init(i, _gameState.resources[i], _gameState.resources[prevI]);
             }
-
-            character.Init(this, _gameState.playerHungerStart, _gameState.playerThirstStart, _gameState.starvationDecay, _gameState.playerRegen);
-
-            GameObject ductTapeStockObj = GameObject.Find("/UI_prefab/MainCanvas/Resources/BackgroundBlue/ductTape/ductTape_Stock");
-            ductTapeStock = ductTapeStockObj.GetComponent<Text>();
-
-            GameObject scrapStockObj = GameObject.Find("/UI_prefab/MainCanvas/Resources/BackgroundBlue/scrap/scrap_Stock");
-            scrapStock = scrapStockObj.GetComponent<Text>();
+            */
+            character.Init(this, _gameState.playerHungerStart, _gameState.playerThirstStart, _gameState.starvationDecay, _gameState.playerRegen, globalStorage.GetGenerator("potato"), globalStorage.GetGenerator("water"));
 
             playerAnimator = player.gameObject.GetComponent<Animator>();
             lastPlayerPosition = player.position;
@@ -181,6 +173,45 @@ namespace MarsFrenzy
         private void _InitNewGame()
         {
             PopulateData.Init(_gameState);
+
+            globalStorage = new Storage(Constants.STORAGE_MAIN);
+
+            // Primary resources
+            GeneratorManager.Instance.RegisterGeneratorClass(Constants.WATER, new Generator(Constants.WATER, null, new GenerationUtils.GenerateLinear(), new CostsUtils.CostsStandard(0, 0), false));
+            GeneratorManager.Instance.RegisterGeneratorClass(Constants.POTATO, new Generator(Constants.POTATO, null, new GenerationUtils.GenerateLinear(), new CostsUtils.CostsStandard(0, 0), false));
+            GeneratorManager.Instance.RegisterGeneratorClass(Constants.ELECTRICITY, new Generator(Constants.ELECTRICITY, null, new GenerationUtils.GenerateLinear(), new CostsUtils.CostsStandard(0, 0), false));
+
+            GeneratorManager.Instance.RegisterGeneratorClass(Constants.DUCTTAPE, new Generator(Constants.DUCTTAPE, null, new GenerationUtils.GenerateLinear(), new CostsUtils.CostsStandard(0, 0), false));
+            GeneratorManager.Instance.RegisterGeneratorClass(Constants.SCRAP, new Generator(Constants.SCRAP, null, new GenerationUtils.GenerateLinear(), new CostsUtils.CostsStandard(0, 0), false));
+
+            // Generators
+            Generator waterModule = new Generator("waterModule", new GenerationIntervalUtils.IntervalPowered(2.0f * 1000), new GenerationUtils.GenerateLinear(), new CostsUtils.CostsStandard(), false, false);
+            waterModule.AddFuel(Constants.ELECTRICITY, 1, globalStorage);
+            waterModule.AddOutput(Constants.WATER, 1.8, globalStorage);
+            GeneratorManager.Instance.RegisterGeneratorClass("waterModule", waterModule);
+
+            Generator potatoModule = new Generator("potatoModule", new GenerationIntervalUtils.IntervalPowered(2.0f * 1000), new GenerationUtils.GenerateLinear(), new CostsUtils.CostsStandard(), false, false);
+            potatoModule.AddFuel(Constants.WATER, 1, globalStorage);
+            potatoModule.AddOutput(Constants.POTATO, 1.9, globalStorage);
+            GeneratorManager.Instance.RegisterGeneratorClass("potatoModule", potatoModule);
+
+            Generator elecModule = new Generator("elecModule", new GenerationIntervalUtils.IntervalPowered(2.0f * 1000), new GenerationUtils.GenerateLinear(), new CostsUtils.CostsStandard(), false, false);
+            elecModule.AddFuel(Constants.POTATO, 1, globalStorage);
+            elecModule.AddOutput(Constants.ELECTRICITY, 1.8, globalStorage);
+            GeneratorManager.Instance.RegisterGeneratorClass("elecModule", elecModule);
+
+            // Add Start values
+            globalStorage.Add(Constants.WATER, 20);
+            globalStorage.Add(Constants.POTATO, 15);
+            globalStorage.Add(Constants.ELECTRICITY, 20);
+
+            globalStorage.Add(Constants.DUCTTAPE, 50);
+            globalStorage.Add(Constants.SCRAP, 75);
+
+
+            globalStorage.Add("waterModule", 1);
+            globalStorage.Add("potatoModule", 1);
+            globalStorage.Add("elecModule", 1);
         }
 
         // Update is called once per frame
@@ -220,9 +251,11 @@ namespace MarsFrenzy
                 SubSmoothTick();
             }
 
-            ductTapeStock.text = "" + _gameState.ductTape.amount.ToString("0.00");
-            scrapStock.text = "" + _gameState.scrap.amount.ToString("0");
-            
+            idleWorksClock.Update();
+
+            //ductTapeStock.text = "" + _gameState.ductTape.amount.ToString("0.00");
+            //scrapStock.text = "" + _gameState.scrap.amount.ToString("0");
+
             playerAnimator.SetFloat("speed", (player.position - lastPlayerPosition).magnitude / Time.deltaTime);
             lastPlayerPosition = player.position;
 
@@ -275,7 +308,7 @@ namespace MarsFrenzy
         private void SubSmoothTick()
         {
             // STOOOOORM
-            if(storm)
+            /*if(storm)
             {
                 if (stormTicks > 30)
                 {
@@ -294,7 +327,7 @@ namespace MarsFrenzy
                 {
                     StopStorm();
                 }
-            }
+            }*/
         }
 
         public void SetPlayerAction(Vector3 goal)
@@ -399,72 +432,32 @@ namespace MarsFrenzy
 
         public bool IsActive(string name)
         {
-            ModuleManager module = modules[name];
-            return module.activated;
+            return globalStorage.GetGenerator(name).IsActive;
         }
 
         public void SetActive(string name, bool _active)
         {
-            ModuleManager module = modules[name];
-            module.SetActive(_active);
+            globalStorage.GetGenerator(name).SetActive(_active);
         }
 
-        public void AddAmount(string name, float _howMuch)
+        public void AddAmount(string name, double _howMuch)
         {
-            if (name == "ductTape")
-            {
-                _gameState.ductTape.amount += _howMuch;
-                if (_gameState.ductTape.amount < 0.0f)
-                {
-                    _gameState.ductTape.amount = 0.0f;
-                }
-                return;
-            }
-
-            if (name == "scrap")
-            {
-                _gameState.scrap.amount += _howMuch;
-                if (_gameState.scrap.amount < 0.0f)
-                {
-                    _gameState.scrap.amount = 0.0f;
-                }
-                return;
-            }
-
-            ModuleManager module = modules[name];
-            module.res.amount += _howMuch;
-            if (module.res.amount < 0.0f)
-            {
-                module.res.amount = 0.0f;
-            }
+            globalStorage.Add(name, _howMuch);
         }
 
-        public float GetAmount(string name)
+        public double GetAmount(string name)
         {
-            if (name == "ductTape")
-            {
-                return _gameState.ductTape.amount;
-            }
-
-            if (name == "scrap")
-            {
-                return _gameState.scrap.amount;
-            }
-
-            ModuleManager module = modules[name];
-            return module.res.amount;
+            return globalStorage.GetAmountOf(name);
         }
 
         public float GetModuleHealth(string name)
         {
-            ModuleManager module = modules[name];
-            return module.moduleHealth;
+            throw new NotImplementedException();
         }
 
         public void AddModuleHealth(string name, float _howMuch)
         {
-            ModuleManager module = modules[name];
-            module.AddHealth(_howMuch);
+            throw new NotImplementedException();
         }
 
         public float GetPlayerHunger()
@@ -582,12 +575,12 @@ namespace MarsFrenzy
 
         public void CollectCrate(DropController _crate)
         {
-            waterModule.res.amount += _crate.water;
-            potatoesModule.res.amount += _crate.potatoes;
-            electricityModule.res.amount += _crate.electricity;
+            AddAmount(Constants.WATER, _crate.water);
+            AddAmount(Constants.POTATO, _crate.potatoes);
+            AddAmount(Constants.ELECTRICITY, _crate.electricity);
 
-            _gameState.ductTape.amount += _crate.ductTape;
-            _gameState.scrap.amount += _crate.scrap;
+            AddAmount(Constants.SCRAP, _crate.scrap);
+            AddAmount(Constants.DUCTTAPE, _crate.ductTape);
         }
 
         public void RegisterAnimator(Animator _animator)

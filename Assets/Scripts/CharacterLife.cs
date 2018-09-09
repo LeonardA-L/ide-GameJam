@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using IdleWorks;
 
 namespace MarsFrenzy
 {
     public class CharacterLife : MonoBehaviour
     {
         private GameManager gm = GameManager.Instance;
-        private ResourceModel food;
-        private ResourceModel water;
+        private Generator food;
+        private Generator water;
 
         public float hunger;
         public float thirst;
@@ -33,36 +34,28 @@ namespace MarsFrenzy
             thirstGauge.text = "" + thirst.ToString("0") + "%";
         }
 
-        public void Init(GameManager _gm, float _hunger, float _thirst, float _starveDecay, float _regen)
+        public void Init(GameManager _gm, float _hunger, float _thirst, float _starveDecay, float _regen, Generator _food, Generator _water)
         {
             gm = _gm;
             starveDecay = _starveDecay;
             hunger = _hunger;
             thirst = _thirst;
             regen = _regen;
-            for (int i = 0; i < gm.GameState.resources.Count; i++)
-            {
-                if (gm.GameState.resources[i].name == "potatoes")
-                {
-                    food = gm.GameState.resources[i];
-                }
-                if (gm.GameState.resources[i].name == "water")
-                {
-                    water = gm.GameState.resources[i];
-                }
-            }
+
+            food = _food;
+            water = _water;
         }
 
         public void Tick()
         {
-            if(food.amount <= 0.0f)
+            if(food.Amount <= 0.0f)
             {
                 hunger -= starveDecay;
             } else
             {
                 hunger += regen;
             }
-            if (water.amount <= 0.0f)
+            if (water.Amount <= 0.0f)
             {
                 thirst -= starveDecay;
             }
