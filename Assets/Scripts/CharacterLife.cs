@@ -70,33 +70,6 @@ namespace MarsFrenzy
                 dead = true;
             }
         }
-        /*
-        public void Tick()
-        {
-            if(food.Amount <= 0.0f)
-            {
-                hunger -= starveDecay;
-            } else
-            {
-                hunger += regen;
-            }
-            if (water.Amount <= 0.0f)
-            {
-                thirst -= starveDecay;
-            }
-            else
-            {
-                thirst += regen;
-            }
-
-            if (hunger <= 0.0f || thirst <= 0.0f)
-            {
-                dead = true;
-            }
-
-            thirst = Mathf.Clamp(thirst, 0.0f, 100.0f);
-            hunger = Mathf.Clamp(hunger, 0.0f, 100.0f);
-        }*/
 
         public double Thirst
         {

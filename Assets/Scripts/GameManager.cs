@@ -14,8 +14,6 @@ namespace MarsFrenzy
 {
     public class GameManager : MonoBehaviour
     {
-        public static readonly string savePath = "/HCC_state.sav";
-
         protected static GameManager instance;
         public GameState _gameState;
         private Dictionary<string, bool> switches;
@@ -97,7 +95,7 @@ namespace MarsFrenzy
             animators = new List<Animator>();
             particles = new List<ParticleSystem>();
 
-            _gameState = GameState.Load(savePath);
+            _gameState = GameState.Load(Constants.SAVE_PATH);
             idleWorksClock = _gameState.GetClock();
 
             var storages = StorageManager.Instance.GetAllStorages();
@@ -181,20 +179,20 @@ namespace MarsFrenzy
             GeneratorManager.Instance.RegisterGeneratorClass(Constants.SCRAP, new Generator(Constants.SCRAP, null, new GenerationUtils.GenerateLinear(), new CostsUtils.CostsStandard(0, 0), false));
 
             // Generators
-            Generator waterModule = new Generator("waterModule", new GenerationIntervalUtils.IntervalPowered(2.0f * 1000), new GenerationUtils.GenerateLinear(), new CostsUtils.CostsStandard(), false, false);
+            Generator waterModule = new Generator(Constants.WATER + Constants.MODULE, new GenerationIntervalUtils.IntervalPowered(2.0f * 1000), new GenerationUtils.GenerateLinear(), new CostsUtils.CostsStandard(), false, false);
             waterModule.AddFuel(Constants.ELECTRICITY, 1, globalStorage);
             waterModule.AddOutput(Constants.WATER, 1.8, globalStorage);
-            GeneratorManager.Instance.RegisterGeneratorClass("waterModule", waterModule);
+            GeneratorManager.Instance.RegisterGeneratorClass(Constants.WATER + Constants.MODULE, waterModule);
 
-            Generator potatoModule = new Generator("potatoModule", new GenerationIntervalUtils.IntervalPowered(2.0f * 1000), new GenerationUtils.GenerateLinear(), new CostsUtils.CostsStandard(), false, false);
+            Generator potatoModule = new Generator(Constants.POTATO + Constants.MODULE, new GenerationIntervalUtils.IntervalPowered(2.0f * 1000), new GenerationUtils.GenerateLinear(), new CostsUtils.CostsStandard(), false, false);
             potatoModule.AddFuel(Constants.WATER, 1, globalStorage);
             potatoModule.AddOutput(Constants.POTATO, 1.9, globalStorage);
-            GeneratorManager.Instance.RegisterGeneratorClass("potatoModule", potatoModule);
+            GeneratorManager.Instance.RegisterGeneratorClass(Constants.POTATO + Constants.MODULE, potatoModule);
 
-            Generator elecModule = new Generator("electricityModule", new GenerationIntervalUtils.IntervalPowered(2.0f * 1000), new GenerationUtils.GenerateLinear(), new CostsUtils.CostsStandard(), false, false);
+            Generator elecModule = new Generator(Constants.ELECTRICITY + Constants.MODULE, new GenerationIntervalUtils.IntervalPowered(2.0f * 1000), new GenerationUtils.GenerateLinear(), new CostsUtils.CostsStandard(), false, false);
             elecModule.AddFuel(Constants.POTATO, 1, globalStorage);
             elecModule.AddOutput(Constants.ELECTRICITY, 1.8, globalStorage);
-            GeneratorManager.Instance.RegisterGeneratorClass("electricityModule", elecModule);
+            GeneratorManager.Instance.RegisterGeneratorClass(Constants.ELECTRICITY + Constants.MODULE, elecModule);
 
             // Player Health stats
             Generator playerConsumption = new Generator(Constants.PLAYER_CONSUMPTION, new GenerationIntervalUtils.IntervalPowered(2.0f * 1000), new GenerationUtils.GenerateLinear(0, 1), new CostsUtils.CostsStandard(), false, false);
@@ -231,9 +229,9 @@ namespace MarsFrenzy
             globalStorage.Add(Constants.HUNGER, _gameState.playerHungerStart);
             globalStorage.Add(Constants.THIRST, _gameState.playerThirstStart);
 
-            globalStorage.Add("waterModule", 1);
-            globalStorage.Add("potatoModule", 1);
-            globalStorage.Add("electricityModule", 1);
+            globalStorage.Add(Constants.WATER + Constants.MODULE, 1);
+            globalStorage.Add(Constants.POTATO + Constants.MODULE, 1);
+            globalStorage.Add(Constants.ELECTRICITY + Constants.MODULE, 1);
             globalStorage.Add(Constants.REGEN_HUNGER, 1);
             globalStorage.Add(Constants.REGEN_THIRST, 1);
             globalStorage.Add(Constants.PLAYER_CONSUMPTION, 1);
@@ -384,7 +382,7 @@ namespace MarsFrenzy
                 endScreen.Pause();
                 pauseMenu = true;
 
-                _gameState.Save(savePath);
+                _gameState.Save();
             }
             else
             {

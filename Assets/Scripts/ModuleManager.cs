@@ -157,19 +157,19 @@ namespace MarsFrenzy
 
         private bool PostGenerationHook(Generator _g, double _ts, List<StreamData> _streams)
         {
-            SpawnFlows(_streams);
+            SpawnFlows(_streams, false);
             return true;
         }
 
         private bool PreGenerationHook(Generator _g, double _ts, List<StreamData> _streams)
         {
-            SpawnFlows(_streams);
+            SpawnFlows(_streams, true);
             return true;
         }
 
-        private void SpawnFlows(List<StreamData> _streams)
+        private void SpawnFlows(List<StreamData> _streams, bool _fuel)
         {
-            int idx = 0;
+            int idx = _fuel ? 1 : 0;
             foreach (var stream in _streams)
             {
                 SpawnFlow(stream.m_generator, (float)stream.m_amount, idx);
@@ -206,7 +206,7 @@ namespace MarsFrenzy
         private void updateEfficiency()
         {
             // Update efficiency
-            efficiencyModifier = GameManager.Instance.GameState.moduleHealthThresholds[GameManager.Instance.GameState.moduleHealthThresholds.Count - 1];
+            /*efficiencyModifier = GameManager.Instance.GameState.moduleHealthThresholds[GameManager.Instance.GameState.moduleHealthThresholds.Count - 1];
             for (int i = 0; i < GameManager.Instance.GameState.moduleHealthThresholds.Count; i++)
             {
                 ModuleHealthThreshold thr = GameManager.Instance.GameState.moduleHealthThresholds[i];
@@ -215,12 +215,8 @@ namespace MarsFrenzy
                     efficiencyModifier = thr;
                     break;
                 }
-            }
-        }
-
-        private float computeUpgradeCost(float _ratio, float _starter)
-        {
-            return Mathf.Floor(_starter * Mathf.Pow(_ratio, level - 1));
+            }*/
+            efficiencyModifier = null;
         }
 
         public void UpgradeModule()

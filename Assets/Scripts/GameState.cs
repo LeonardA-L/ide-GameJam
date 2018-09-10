@@ -15,8 +15,6 @@ namespace MarsFrenzy
         public IdleWorks.StorageManager m_storageManager = new IdleWorks.StorageManager();
         public IdleWorks.GeneratorManager m_generatorManager = new IdleWorks.GeneratorManager();
         public IdleWorks.MultiplierManager m_multiplierManager = new IdleWorks.MultiplierManager();
-        // MarsFrenzy
-        public List<ModuleHealthThreshold> moduleHealthThresholds;
 
         public float playerHungerStart = 100.0f;
         public float playerThirstStart = 100.0f;
@@ -45,7 +43,7 @@ namespace MarsFrenzy
             m_clock.Init();
         }
 
-        public void Save(string _path)
+        public void Save(string _path = Constants.SAVE_PATH)
         {
             string savePath = Application.persistentDataPath + _path;
             newGame = false;

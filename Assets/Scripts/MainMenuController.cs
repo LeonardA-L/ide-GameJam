@@ -27,7 +27,7 @@ namespace MarsFrenzy
             uiAnimator = GetComponent<Animator>();
             UpdateI18N();
 
-            string savePath = Application.persistentDataPath + GameManager.savePath;
+            string savePath = Application.persistentDataPath + Constants.SAVE_PATH;
             if (File.Exists(savePath))
             {
                 continueButton.SetActive(true);
@@ -36,9 +36,6 @@ namespace MarsFrenzy
 
         public void ContinueGame()
         {
-            PlayerPrefs.SetInt("shouldLoadGame", 1);
-            PlayerPrefs.Save();
-
             GetComponent<Scene>().LaunchGameScene();
         }
 

@@ -8,27 +8,26 @@ namespace MarsFrenzy
     {
         public static void Init(GameState gameState)
         {
-            //------------ Don't touch
-            gameState.moduleHealthThresholds = new List<ModuleHealthThreshold>();
             //------------
 
 
 
 
             // Generic data
-            gameState.playerHungerStart = 100.0f;
             gameState.playerRegen = 1.0f;
+            gameState.playerHungerStart = 100.0f;
             gameState.playerThirstStart = 100.0f;
             gameState.starvationDecay = 5.0f;
 
-            gameState.stormDamage = 1.5f;
-            gameState.stormDuration = 60;
+            //gameState.stormDamage = 1.5f;
+            //gameState.stormDuration = 60;
 
             
 
 
 
             // Module Health Thresholds
+            /*
             gameState.moduleHealthThresholds.Add(new ModuleHealthThreshold(20.0f, 0.3f));
             gameState.moduleHealthThresholds.Add(new ModuleHealthThreshold(30.0f, 0.5f));
             gameState.moduleHealthThresholds.Add(new ModuleHealthThreshold(60.0f, 0.7f));
@@ -37,7 +36,7 @@ namespace MarsFrenzy
             gameState.moduleHealthThresholds.Add(new ModuleHealthThreshold(90.0f, 1.2f));
             gameState.moduleHealthThresholds.Add(new ModuleHealthThreshold(100.0f, 1.3f));
 
-
+            */
 
 
             /*

@@ -60,31 +60,31 @@ namespace MarsFrenzy
             int offset = 0;
             if(water != 0.0f)
             {
-                SpawnFlow("water", water, offset);
+                SpawnFlow(Constants.WATER, water, offset);
                 offset--;
             }
 
             if (potatoes != 0.0f)
             {
-                SpawnFlow("potatoes", potatoes, offset);
+                SpawnFlow(Constants.POTATO, potatoes, offset);
                 offset--;
             }
 
             if (electricity != 0.0f)
             {
-                SpawnFlow("electricity", electricity, offset);
+                SpawnFlow(Constants.ELECTRICITY, electricity, offset);
                 offset--;
             }
 
             if (scrap != 0.0f)
             {
-                SpawnFlow("scrap", scrap, offset);
+                SpawnFlow(Constants.SCRAP, scrap, offset);
                 offset--;
             }
 
             if (ductTape != 0.0f)
             {
-                SpawnFlow("ductTape", ductTape, offset);
+                SpawnFlow(Constants.DUCTTAPE, ductTape, offset);
                 offset--;
             }
 
