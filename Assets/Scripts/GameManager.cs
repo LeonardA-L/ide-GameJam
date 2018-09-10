@@ -174,12 +174,12 @@ namespace MarsFrenzy
             const double moduleFrequency = 2 * 1000.0f;
 
             // Primary resources
-            GeneratorManager.Instance.RegisterGeneratorClass(Constants.WATER, new Generator(Constants.WATER, null, new GenerationUtils.GenerateLinear(), new CostsUtils.CostsStandard(0, 0), false));
-            GeneratorManager.Instance.RegisterGeneratorClass(Constants.POTATO, new Generator(Constants.POTATO, null, new GenerationUtils.GenerateLinear(), new CostsUtils.CostsStandard(0, 0), false));
-            GeneratorManager.Instance.RegisterGeneratorClass(Constants.ELECTRICITY, new Generator(Constants.ELECTRICITY, null, new GenerationUtils.GenerateLinear(), new CostsUtils.CostsStandard(0, 0), false));
+            GeneratorManager.Instance.RegisterGeneratorClass(Constants.WATER, new Generator(Constants.WATER, null, new GenerationUtils.GenerateLinear(), new CostsUtils.CostsStandard(0, 0), false, false, null, null, 0));
+            GeneratorManager.Instance.RegisterGeneratorClass(Constants.POTATO, new Generator(Constants.POTATO, null, new GenerationUtils.GenerateLinear(), new CostsUtils.CostsStandard(0, 0), false, false, null, null, 0));
+            GeneratorManager.Instance.RegisterGeneratorClass(Constants.ELECTRICITY, new Generator(Constants.ELECTRICITY, null, new GenerationUtils.GenerateLinear(), new CostsUtils.CostsStandard(0, 0), false, false, null, null, 0));
 
-            GeneratorManager.Instance.RegisterGeneratorClass(Constants.DUCTTAPE, new Generator(Constants.DUCTTAPE, null, new GenerationUtils.GenerateLinear(), new CostsUtils.CostsStandard(0, 0), false));
-            GeneratorManager.Instance.RegisterGeneratorClass(Constants.SCRAP, new Generator(Constants.SCRAP, null, new GenerationUtils.GenerateLinear(), new CostsUtils.CostsStandard(0, 0), false));
+            GeneratorManager.Instance.RegisterGeneratorClass(Constants.DUCTTAPE, new Generator(Constants.DUCTTAPE, null, new GenerationUtils.GenerateLinear(), new CostsUtils.CostsStandard(0, 0), false, false, null, null, 0));
+            GeneratorManager.Instance.RegisterGeneratorClass(Constants.SCRAP, new Generator(Constants.SCRAP, null, new GenerationUtils.GenerateLinear(), new CostsUtils.CostsStandard(0, 0), false, false, null, null, 0));
 
             // Generators Modules
             RegisterModule(Constants.WATER + Constants.MODULE, Constants.WATER, Constants.ELECTRICITY, maxModuleHealth, moduleFrequency, 1.8f, 0.1f, 2 * 1000.0f, 5, 3.0f * 1000.0f);
@@ -187,18 +187,25 @@ namespace MarsFrenzy
             RegisterModule(Constants.ELECTRICITY + Constants.MODULE, Constants.ELECTRICITY, Constants.POTATO, maxModuleHealth, moduleFrequency, 1.8f, 0.1f, 2 * 1000.0f, 5, 3.0f * 1000.0f);
 
             // Player Health stats
-            Generator playerConsumption = new Generator(Constants.PLAYER_CONSUMPTION, new GenerationIntervalUtils.IntervalPowered(2.0f * 1000), new GenerationUtils.GenerateLinear(0, 1), new CostsUtils.CostsStandard(), false, false);
-            playerConsumption.AddFuel(Constants.WATER, 0.7f, globalStorage);
-            playerConsumption.AddFuel(Constants.POTATO, 0.7f, globalStorage);
-            GeneratorManager.Instance.RegisterGeneratorClass(Constants.PLAYER_CONSUMPTION, playerConsumption);
+            Generator playerConsumptionHunger = new Generator(Constants.PLAYER_CONSUMPTION + Constants.POTATO, new GenerationIntervalUtils.IntervalPowered(moduleFrequency), new GenerationUtils.GenerateLinear(0, 1), new CostsUtils.CostsStandard(), false, false);
+            playerConsumptionHunger.AddFuel(Constants.POTATO, 0.7f, globalStorage);
+            playerConsumptionHunger.SetAllowPartialConsumption(true);
+            GeneratorManager.Instance.RegisterGeneratorClass(Constants.PLAYER_CONSUMPTION + Constants.POTATO, playerConsumptionHunger);
+
+            Generator playerConsumptionThirst = new Generator(Constants.PLAYER_CONSUMPTION + Constants.WATER, new GenerationIntervalUtils.IntervalPowered(moduleFrequency), new GenerationUtils.GenerateLinear(0, 1), new CostsUtils.CostsStandard(), false, false);
+            playerConsumptionThirst.AddFuel(Constants.WATER, 0.7f, globalStorage);
+            playerConsumptionThirst.SetAllowPartialConsumption(true);
+            GeneratorManager.Instance.RegisterGeneratorClass(Constants.PLAYER_CONSUMPTION + Constants.WATER, playerConsumptionThirst);
 
             Generator hunger = new Generator(Constants.HUNGER, new GenerationIntervalUtils.IntervalPowered(2.0f * 1000), new GenerationUtils.GenerateLinear(0,1), new CostsUtils.CostsStandard(), false, false);
             hunger.AddFuel(Constants.HUNGER, _gameState.starvationDecay, globalStorage);
+            hunger.SetAllowPartialConsumption(true);
             hunger.SetClampingValues(0, _gameState.playerHungerStart);
             GeneratorManager.Instance.RegisterGeneratorClass(Constants.HUNGER, hunger);
 
             Generator thirst = new Generator(Constants.THIRST, new GenerationIntervalUtils.IntervalPowered(2.0f * 1000), new GenerationUtils.GenerateLinear(0,1), new CostsUtils.CostsStandard(), false, false);
             thirst.AddFuel(Constants.THIRST, _gameState.starvationDecay, globalStorage);
+            thirst.SetAllowPartialConsumption(true);
             thirst.SetClampingValues(0, _gameState.playerThirstStart);
             GeneratorManager.Instance.RegisterGeneratorClass(Constants.THIRST, thirst);
 
@@ -239,7 +246,8 @@ namespace MarsFrenzy
 
             globalStorage.Add(Constants.REGEN_HUNGER, 1);
             globalStorage.Add(Constants.REGEN_THIRST, 1);
-            globalStorage.Add(Constants.PLAYER_CONSUMPTION, 1);
+            globalStorage.Add(Constants.PLAYER_CONSUMPTION + Constants.POTATO, 1);
+            globalStorage.Add(Constants.PLAYER_CONSUMPTION + Constants.WATER, 1);
         }
 
         private void RegisterModule(string _moduleName, string _outputName, string _fuelName, double _maxHealth, double _frequency, double _efficiency, double _damageRate, double _damageFreq, double _repairCost, double _repairFreq)
@@ -642,7 +650,8 @@ namespace MarsFrenzy
             ShowUI();
             CameraController.Instance.SetModeBase();
             // start player decay
-            globalStorage.GetGenerator(Constants.PLAYER_CONSUMPTION).SetActive(true);
+            globalStorage.GetGenerator(Constants.PLAYER_CONSUMPTION + Constants.WATER).SetActive(true);
+            globalStorage.GetGenerator(Constants.PLAYER_CONSUMPTION + Constants.POTATO).SetActive(true);
         }
 
         public void ReachBase()
