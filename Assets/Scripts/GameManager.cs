@@ -170,6 +170,9 @@ namespace MarsFrenzy
 
             globalStorage = new Storage(Constants.STORAGE_MAIN);
 
+            const double maxModuleHealth = 5;
+            const double moduleFrequency = 2 * 1000.0f;
+
             // Primary resources
             GeneratorManager.Instance.RegisterGeneratorClass(Constants.WATER, new Generator(Constants.WATER, null, new GenerationUtils.GenerateLinear(), new CostsUtils.CostsStandard(0, 0), false));
             GeneratorManager.Instance.RegisterGeneratorClass(Constants.POTATO, new Generator(Constants.POTATO, null, new GenerationUtils.GenerateLinear(), new CostsUtils.CostsStandard(0, 0), false));
@@ -178,21 +181,10 @@ namespace MarsFrenzy
             GeneratorManager.Instance.RegisterGeneratorClass(Constants.DUCTTAPE, new Generator(Constants.DUCTTAPE, null, new GenerationUtils.GenerateLinear(), new CostsUtils.CostsStandard(0, 0), false));
             GeneratorManager.Instance.RegisterGeneratorClass(Constants.SCRAP, new Generator(Constants.SCRAP, null, new GenerationUtils.GenerateLinear(), new CostsUtils.CostsStandard(0, 0), false));
 
-            // Generators
-            Generator waterModule = new Generator(Constants.WATER + Constants.MODULE, new GenerationIntervalUtils.IntervalPowered(2.0f * 1000), new GenerationUtils.GenerateLinear(), new CostsUtils.CostsStandard(), false, false);
-            waterModule.AddFuel(Constants.ELECTRICITY, 1, globalStorage);
-            waterModule.AddOutput(Constants.WATER, 1.8, globalStorage);
-            GeneratorManager.Instance.RegisterGeneratorClass(Constants.WATER + Constants.MODULE, waterModule);
-
-            Generator potatoModule = new Generator(Constants.POTATO + Constants.MODULE, new GenerationIntervalUtils.IntervalPowered(2.0f * 1000), new GenerationUtils.GenerateLinear(), new CostsUtils.CostsStandard(), false, false);
-            potatoModule.AddFuel(Constants.WATER, 1, globalStorage);
-            potatoModule.AddOutput(Constants.POTATO, 1.9, globalStorage);
-            GeneratorManager.Instance.RegisterGeneratorClass(Constants.POTATO + Constants.MODULE, potatoModule);
-
-            Generator elecModule = new Generator(Constants.ELECTRICITY + Constants.MODULE, new GenerationIntervalUtils.IntervalPowered(2.0f * 1000), new GenerationUtils.GenerateLinear(), new CostsUtils.CostsStandard(), false, false);
-            elecModule.AddFuel(Constants.POTATO, 1, globalStorage);
-            elecModule.AddOutput(Constants.ELECTRICITY, 1.8, globalStorage);
-            GeneratorManager.Instance.RegisterGeneratorClass(Constants.ELECTRICITY + Constants.MODULE, elecModule);
+            // Generators Modules
+            RegisterModule(Constants.WATER + Constants.MODULE, Constants.WATER, Constants.ELECTRICITY, maxModuleHealth, moduleFrequency, 1.8f, 0.1f, 2 * 1000.0f, 5, 10.0f * 1000.0f);
+            RegisterModule(Constants.POTATO + Constants.MODULE, Constants.POTATO, Constants.WATER, maxModuleHealth, moduleFrequency, 1.9f, 0.1f, 2 * 1000.0f, 5, 10.0f * 1000.0f);
+            RegisterModule(Constants.ELECTRICITY + Constants.MODULE, Constants.ELECTRICITY, Constants.POTATO, maxModuleHealth, moduleFrequency, 1.8f, 0.1f, 2 * 1000.0f, 5, 10.0f * 1000.0f);
 
             // Player Health stats
             Generator playerConsumption = new Generator(Constants.PLAYER_CONSUMPTION, new GenerationIntervalUtils.IntervalPowered(2.0f * 1000), new GenerationUtils.GenerateLinear(0, 1), new CostsUtils.CostsStandard(), false, false);
@@ -232,14 +224,52 @@ namespace MarsFrenzy
             globalStorage.Add(Constants.WATER + Constants.MODULE, 1);
             globalStorage.Add(Constants.POTATO + Constants.MODULE, 1);
             globalStorage.Add(Constants.ELECTRICITY + Constants.MODULE, 1);
+
+            globalStorage.Add(Constants.WATER + Constants.MODULE + Constants.MODULE_HEALTH_SUFFIX, 5);
+            globalStorage.Add(Constants.POTATO + Constants.MODULE + Constants.MODULE_HEALTH_SUFFIX, 5);
+            globalStorage.Add(Constants.ELECTRICITY + Constants.MODULE + Constants.MODULE_HEALTH_SUFFIX, 5);
+
+            globalStorage.Add(Constants.WATER + Constants.MODULE + Constants.MODULE_HEALTH_REPAIR, 1);
+            globalStorage.Add(Constants.POTATO + Constants.MODULE + Constants.MODULE_HEALTH_REPAIR, 1);
+            globalStorage.Add(Constants.ELECTRICITY + Constants.MODULE + Constants.MODULE_HEALTH_REPAIR, 1);
+
+            globalStorage.Add(Constants.WATER + Constants.MODULE + Constants.MODULE_HEALTH_DAMAGE, 1);
+            globalStorage.Add(Constants.POTATO + Constants.MODULE + Constants.MODULE_HEALTH_DAMAGE, 1);
+            globalStorage.Add(Constants.ELECTRICITY + Constants.MODULE + Constants.MODULE_HEALTH_DAMAGE, 1);
+
             globalStorage.Add(Constants.REGEN_HUNGER, 1);
             globalStorage.Add(Constants.REGEN_THIRST, 1);
             globalStorage.Add(Constants.PLAYER_CONSUMPTION, 1);
         }
 
+        private void RegisterModule(string _moduleName, string _outputName, string _fuelName, double _maxHealth, double _frequency, double _efficiency, double _damageRate, double _damageFreq, double _repairCost, double _repairFreq)
+        {
+            // The module
+            Generator waterModule = new Generator(_moduleName, new GenerationIntervalUtils.IntervalPowered(_frequency), new GenerationUtils.GenerateLinear(), new CostsUtils.CostsStandard(), false, false);
+            waterModule.AddFuel(_fuelName, 1, globalStorage);
+            waterModule.AddOutput(_outputName, _efficiency, globalStorage);
+            GeneratorManager.Instance.RegisterGeneratorClass(_moduleName, waterModule);
+
+            // Health stuff
+            GeneratorManager.Instance.RegisterGeneratorClass(_moduleName + Constants.MODULE_HEALTH_SUFFIX, new Generator(_moduleName + Constants.MODULE_HEALTH_SUFFIX, null, new GenerationUtils.GenerateLinear(), new CostsUtils.CostsStandard(0, 0), false, false, null, null, 0.0f, _maxHealth));
+
+            // Repairing unit
+            Generator waterModuleRepair = new Generator(_moduleName + Constants.MODULE_HEALTH_REPAIR, new GenerationIntervalUtils.IntervalPowered(_repairFreq), new GenerationUtils.GenerateLinear(), new CostsUtils.CostsStandard(), false, true);
+            waterModuleRepair.AddFuel(Constants.DUCTTAPE, _repairCost, globalStorage);
+            waterModuleRepair.AddOutput(_moduleName + Constants.MODULE_HEALTH_SUFFIX, 1, globalStorage);
+            GeneratorManager.Instance.RegisterGeneratorClass(_moduleName + Constants.MODULE_HEALTH_REPAIR, waterModuleRepair);
+
+            // Damaging unit
+            Generator waterModuleDamage = new Generator(_moduleName + Constants.MODULE_HEALTH_DAMAGE, new GenerationIntervalUtils.IntervalPowered(_damageFreq), new GenerationUtils.GenerateLinear(), new CostsUtils.CostsStandard(), false, false);
+            waterModuleDamage.AddFuel(_moduleName + Constants.MODULE_HEALTH_SUFFIX, _damageRate, globalStorage);
+            GeneratorManager.Instance.RegisterGeneratorClass(_moduleName + Constants.MODULE_HEALTH_DAMAGE, waterModuleDamage);
+        }
+
         // Update is called once per frame
         void Update()
         {
+            time = TimeUtils.Timestamp();
+
             if (timeRuns)
             {
                 // Detect click on ground

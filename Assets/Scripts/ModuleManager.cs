@@ -15,7 +15,6 @@ namespace MarsFrenzy
         private Animator healthAnimator;
         private Text stock;
 
-        public float moduleHealth = 100.0f;
         private ModuleHealthThreshold efficiencyModifier = null;
 
         public Animator viewAnimator;
@@ -28,7 +27,7 @@ namespace MarsFrenzy
 
         public bool clicking = false;
         public double clickingTime = 0;
-        public float timeToRepair = 0.4f;
+        public float timeToRepair = 0.4f * 1000.0f;
 
         public string queuedAction = null;
         private Vector3 playerTarget;
@@ -40,6 +39,9 @@ namespace MarsFrenzy
         public Vector3 playerTargetOffset;
 
         private Generator module;
+        private Generator moduleHealth;
+        private Generator moduleHealthRepair;
+        private Generator moduleHealthDamage;
         public string generatorName;
 
         // Use this for initialization
@@ -57,10 +59,20 @@ namespace MarsFrenzy
                 GameManager.Instance.RegisterAnimator(lifeAnimator);
             }
 
-            module = StorageManager.Instance.GetStorage(Constants.STORAGE_MAIN).GetGenerator(generatorName);
+            var storage = StorageManager.Instance.GetStorage(Constants.STORAGE_MAIN);
+
+            module = storage.GetGenerator(generatorName);
             Debug.Assert(module != null);
             module.SetAfterProductionHook(PostGenerationHook);
             module.SetBeforeProductionHook(PreGenerationHook);
+
+            // Get health related modules
+            moduleHealth = storage.GetGenerator(generatorName + Constants.MODULE_HEALTH_SUFFIX);
+            moduleHealthRepair = storage.GetGenerator(generatorName + Constants.MODULE_HEALTH_REPAIR);
+            moduleHealthDamage = storage.GetGenerator(generatorName + Constants.MODULE_HEALTH_DAMAGE);
+            Debug.Assert(moduleHealth != null);
+            Debug.Assert(moduleHealthRepair != null);
+            Debug.Assert(moduleHealthDamage != null);
         }
 
         // Update is called once per frame
@@ -73,7 +85,7 @@ namespace MarsFrenzy
             //stock.text = res.amount.ToString("0.00");
 
             updateEfficiency();
-            updateHealthView();
+            UpdateHealthView();
 
             alarmAnimator.SetFloat("health", (float)module.Amount);
 
@@ -88,7 +100,6 @@ namespace MarsFrenzy
                 StopAction();
             }
 
-            
             if (!repairing && clicking && GameManager.Instance.CurrentTime - clickingTime > timeToRepair)
             {
                 queuedAction = "repair";
@@ -97,6 +108,22 @@ namespace MarsFrenzy
             if(queuedAction != null && (GameManager.Instance.player.position - playerTarget).magnitude < 1.0f)
             {
                 executeQueuedAction();
+            }
+
+            // Enable damage
+            if(module.IsActive && !moduleHealthDamage.IsActive)
+            {
+                moduleHealthDamage.SetActive(true);
+            }
+            if (!module.IsActive && moduleHealthDamage.IsActive)
+            {
+                moduleHealthDamage.SetActive(false);
+            }
+
+            if (moduleHealth.Amount <= 0.0f)
+            {
+                moduleHealth.SetAmount(0.0f);
+                SetActive(false);
             }
         }
 
@@ -123,13 +150,6 @@ namespace MarsFrenzy
 
         public void Tick()
         {
-
-            // deactivate if health is 0
-            if (moduleHealth <= 0.0f)
-            {
-                moduleHealth = 0.0f;
-                SetActive(false);
-            }
 
             // BREAK & REPAIR
             /*if (activated)
@@ -194,12 +214,12 @@ namespace MarsFrenzy
             }
         }
 
-        private void updateHealthView()
+        private void UpdateHealthView()
         {
-            health.localScale = new Vector3(Mathf.Clamp(moduleHealth / 100.0f, 0.05f, 1.0f), 1.0f, 1.0f);
+            health.localScale = new Vector3(Mathf.Clamp((float)(moduleHealth.Amount / moduleHealth.ClampMax), 0.05f, 1.0f), 1.0f, 1.0f);
             if (healthAnimator)
             {
-                healthAnimator.SetFloat("health", moduleHealth);
+                healthAnimator.SetFloat("health", Mathf.Ceil((float)moduleHealth.Amount));
             }
         }
 
@@ -250,8 +270,7 @@ namespace MarsFrenzy
 
         public void AddHealth(float _howMuch)
         {
-            moduleHealth += _howMuch;
-            moduleHealth = Mathf.Clamp(moduleHealth, 0.0f, 100.0f);
+            moduleHealth.Add(_howMuch);
         }
 
         public void SetActive(bool _newValue)

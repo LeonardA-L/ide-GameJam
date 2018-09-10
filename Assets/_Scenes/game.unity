@@ -144,7 +144,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   repairing: 0
   health: {fileID: 1758129381}
-  moduleHealth: 100
   viewAnimator: {fileID: 819372478}
   tools: {fileID: 1840933458}
   flowSpawner: {fileID: 75946801}
@@ -474,7 +473,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   repairing: 0
   health: {fileID: 1451789932}
-  moduleHealth: 100
   viewAnimator: {fileID: 1060241799}
   tools: {fileID: 173650673}
   flowSpawner: {fileID: 201268486}
@@ -1222,7 +1220,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   repairing: 0
   health: {fileID: 1077419051}
-  moduleHealth: 100
   viewAnimator: {fileID: 2021092269}
   tools: {fileID: 1694017956}
   flowSpawner: {fileID: 261893787}
@@ -1889,7 +1886,7 @@ Prefab:
     - target: {fileID: 224939030297092312, guid: 4675ada665b8f30419ab34eed7c8bf56,
         type: 2}
       propertyPath: m_AnchorMin.y
-      value: 0.59012675
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224245936436625340, guid: 4675ada665b8f30419ab34eed7c8bf56,
         type: 2}
@@ -1924,17 +1921,17 @@ Prefab:
     - target: {fileID: 224778614936760936, guid: 4675ada665b8f30419ab34eed7c8bf56,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 285.68283
+      value: 285.1537
       objectReference: {fileID: 0}
     - target: {fileID: 224862927827245326, guid: 4675ada665b8f30419ab34eed7c8bf56,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 285.68283
+      value: 285.1537
       objectReference: {fileID: 0}
     - target: {fileID: 224862927827245326, guid: 4675ada665b8f30419ab34eed7c8bf56,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 214.31718
+      value: 214.84628
       objectReference: {fileID: 0}
     - target: {fileID: 224827458854308454, guid: 4675ada665b8f30419ab34eed7c8bf56,
         type: 2}
@@ -1954,17 +1951,17 @@ Prefab:
     - target: {fileID: 224988083313274434, guid: 4675ada665b8f30419ab34eed7c8bf56,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 285.68283
+      value: 285.1537
       objectReference: {fileID: 0}
     - target: {fileID: 224464322864727058, guid: 4675ada665b8f30419ab34eed7c8bf56,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 285.68283
+      value: 285.1537
       objectReference: {fileID: 0}
     - target: {fileID: 224464322864727058, guid: 4675ada665b8f30419ab34eed7c8bf56,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 214.31718
+      value: 214.84628
       objectReference: {fileID: 0}
     - target: {fileID: 224622814109709568, guid: 4675ada665b8f30419ab34eed7c8bf56,
         type: 2}
@@ -1984,22 +1981,27 @@ Prefab:
     - target: {fileID: 224143433476066324, guid: 4675ada665b8f30419ab34eed7c8bf56,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 285.68283
+      value: 285.1537
       objectReference: {fileID: 0}
     - target: {fileID: 224187165804214188, guid: 4675ada665b8f30419ab34eed7c8bf56,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 285.68283
+      value: 285.1537
       objectReference: {fileID: 0}
     - target: {fileID: 224187165804214188, guid: 4675ada665b8f30419ab34eed7c8bf56,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 214.31718
+      value: 214.84628
       objectReference: {fileID: 0}
     - target: {fileID: 224530223488753724, guid: 4675ada665b8f30419ab34eed7c8bf56,
         type: 2}
       propertyPath: m_AnchoredPosition.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224530223488753724, guid: 4675ada665b8f30419ab34eed7c8bf56,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.000065136446
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4675ada665b8f30419ab34eed7c8bf56, type: 2}
@@ -2046,7 +2048,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gameState:
-    moduleHealthThresholds: []
     playerHungerStart: 100
     playerThirstStart: 100
     starvationDecay: 10

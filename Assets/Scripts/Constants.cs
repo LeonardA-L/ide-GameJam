@@ -21,7 +21,7 @@ public class Constants {
     public const string MODULE = "Module";
     public const string MODULE_HEALTH_SUFFIX = "_health";
     public const string MODULE_HEALTH_REPAIR = "_repair";
-    public const string MODULE_HEALTH_DECAY = "_damage";    // "wear and tear"
+    public const string MODULE_HEALTH_DAMAGE = "_damage";    // "wear and tear"
 
     // Storages
     public const string STORAGE_MAIN = "Main";
