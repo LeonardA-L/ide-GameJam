@@ -182,9 +182,9 @@ namespace MarsFrenzy
             GeneratorManager.Instance.RegisterGeneratorClass(Constants.SCRAP, new Generator(Constants.SCRAP, null, new GenerationUtils.GenerateLinear(), new CostsUtils.CostsStandard(0, 0), false));
 
             // Generators Modules
-            RegisterModule(Constants.WATER + Constants.MODULE, Constants.WATER, Constants.ELECTRICITY, maxModuleHealth, moduleFrequency, 1.8f, 0.1f, 2 * 1000.0f, 5, 10.0f * 1000.0f);
-            RegisterModule(Constants.POTATO + Constants.MODULE, Constants.POTATO, Constants.WATER, maxModuleHealth, moduleFrequency, 1.9f, 0.1f, 2 * 1000.0f, 5, 10.0f * 1000.0f);
-            RegisterModule(Constants.ELECTRICITY + Constants.MODULE, Constants.ELECTRICITY, Constants.POTATO, maxModuleHealth, moduleFrequency, 1.8f, 0.1f, 2 * 1000.0f, 5, 10.0f * 1000.0f);
+            RegisterModule(Constants.WATER + Constants.MODULE, Constants.WATER, Constants.ELECTRICITY, maxModuleHealth, moduleFrequency, 1.8f, 0.1f, 2 * 1000.0f, 5, 3.0f * 1000.0f);
+            RegisterModule(Constants.POTATO + Constants.MODULE, Constants.POTATO, Constants.WATER, maxModuleHealth, moduleFrequency, 1.9f, 0.1f, 2 * 1000.0f, 5, 6.0f * 1000.0f);
+            RegisterModule(Constants.ELECTRICITY + Constants.MODULE, Constants.ELECTRICITY, Constants.POTATO, maxModuleHealth, moduleFrequency, 1.8f, 0.1f, 2 * 1000.0f, 5, 3.0f * 1000.0f);
 
             // Player Health stats
             Generator playerConsumption = new Generator(Constants.PLAYER_CONSUMPTION, new GenerationIntervalUtils.IntervalPowered(2.0f * 1000), new GenerationUtils.GenerateLinear(0, 1), new CostsUtils.CostsStandard(), false, false);

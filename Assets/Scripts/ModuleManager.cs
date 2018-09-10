@@ -146,6 +146,7 @@ namespace MarsFrenzy
 
             clicking = false;
             tools.SetActive(false);
+            moduleHealthRepair.SetActive(false);
         }
 
         public void Tick()
@@ -263,6 +264,7 @@ namespace MarsFrenzy
                 repairing = true;
                 AudioManager.Instance.PlaySound("moduleRepairs");
 
+                moduleHealthRepair.SetActive(true);
                 tools.SetActive(true);
             }
             queuedAction = null;
