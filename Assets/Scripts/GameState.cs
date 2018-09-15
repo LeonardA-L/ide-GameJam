@@ -16,6 +16,9 @@ namespace MarsFrenzy
         public IdleWorks.GeneratorManager m_generatorManager = new IdleWorks.GeneratorManager();
         public IdleWorks.MultiplierManager m_multiplierManager = new IdleWorks.MultiplierManager();
 
+        // MarsFrenzy
+        public FactsManager m_factsManager = new FactsManager();
+
         public float playerHungerStart = 100.0f;
         public float playerThirstStart = 100.0f;
         public float starvationDecay = 10.0f;
@@ -41,6 +44,9 @@ namespace MarsFrenzy
             m_generatorManager.Init();
             m_multiplierManager.Init();
             m_clock.Init();
+
+            // MarsFrenzy
+            m_factsManager.Init();
         }
 
         public void Save(string _path = Constants.SAVE_PATH)

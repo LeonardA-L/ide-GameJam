@@ -172,12 +172,22 @@ namespace MarsFrenzy
 
         public static bool ReadSwitch(string _name)
         {
-            return GameManager.Instance.ReadSwitch(_name);
+            return FactsManager.Instance.ReadSwitch(_name);
         }
 
         public static void SetSwitch(string _name, bool _value)
         {
-            GameManager.Instance.SetSwitch(_name, _value);
+            FactsManager.Instance.SetSwitch(_name, _value);
+        }
+
+        public static float? ReadValue(string _name)
+        {
+            return FactsManager.Instance.ReadValue(_name);
+        }
+
+        public static void SetValue(string _name, float _value)
+        {
+            FactsManager.Instance.SetValue(_name, _value);
         }
 
     }

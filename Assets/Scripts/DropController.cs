@@ -99,7 +99,7 @@ namespace MarsFrenzy
             FlowController flow = flowObj.GetComponent<FlowController>();
             flow.Init(_resourceName, _amount, _offset);
 
-            GameManager.Instance.RegisterAnimator(flowObj.GetComponent<Animator>());
+            AnimatorsManager.Instance.RegisterAnimator(flowObj.GetComponent<Animator>());
         }
     }
 }

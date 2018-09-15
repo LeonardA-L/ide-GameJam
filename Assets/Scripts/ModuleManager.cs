@@ -51,12 +51,12 @@ namespace MarsFrenzy
             tools.SetActive(false);
             playerTarget = transform.position + playerTargetOffset;
 
-            GameManager.Instance.RegisterAnimator(viewAnimator);
-            GameManager.Instance.RegisterAnimator(healthAnimator);
-            GameManager.Instance.RegisterAnimator(alarmAnimator);
+            AnimatorsManager.Instance.RegisterAnimator(viewAnimator);
+            AnimatorsManager.Instance.RegisterAnimator(healthAnimator);
+            AnimatorsManager.Instance.RegisterAnimator(alarmAnimator);
             if (lifeAnimator != null)
             {
-                GameManager.Instance.RegisterAnimator(lifeAnimator);
+                AnimatorsManager.Instance.RegisterAnimator(lifeAnimator);
             }
 
             var storage = StorageManager.Instance.GetStorage(Constants.STORAGE_MAIN);
@@ -289,7 +289,7 @@ namespace MarsFrenzy
             FlowController flow = flowObj.GetComponent<FlowController>();
             flow.Init(_resourceName, _amount, _offset);
 
-            GameManager.Instance.RegisterAnimator(flowObj.GetComponent<Animator>());
+            AnimatorsManager.Instance.RegisterAnimator(flowObj.GetComponent<Animator>());
         }
     }
 }

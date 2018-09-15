@@ -10,7 +10,7 @@ namespace MarsFrenzy
         {
             Animator animator = gameObject.GetComponent<Animator>();
             if (animator != null) {
-                GameManager.Instance.UnregisterAnimator(animator);
+                AnimatorsManager.Instance.UnregisterAnimator(animator);
             }
             Destroy(gameObject);
         }

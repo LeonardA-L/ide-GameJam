@@ -16,7 +16,6 @@ namespace MarsFrenzy
     {
         protected static GameManager instance;
         public GameState _gameState;
-        private Dictionary<string, bool> switches;
 
         private Timestamp time;
         public bool timeRuns = false;
@@ -38,8 +37,6 @@ namespace MarsFrenzy
         private float agentSpeed;
 
         public int[] crateSlots;
-
-        private List<ParticleSystem> particles;
 
         private bool storm;
         private int stormTicks = 0;
@@ -65,6 +62,9 @@ namespace MarsFrenzy
 
         public List<Vector3> crateDropPoints = new List<Vector3>();
 
+        // Unserialized managers
+        private AnimatorsManager m_animatorsManager = new AnimatorsManager();
+
         public int OnboardingStep
         {
             get
@@ -78,8 +78,6 @@ namespace MarsFrenzy
             }
         }
 
-        private List<Animator> animators;
-
         // Use this for initialization
         void Start()
         {
@@ -91,9 +89,6 @@ namespace MarsFrenzy
             agentSpeed = playerAgent.speed;
 
             DialogManager.Instance.Init();
-
-            animators = new List<Animator>();
-            particles = new List<ParticleSystem>();
 
             _gameState = GameState.Load(Constants.SAVE_PATH);
             idleWorksClock = _gameState.GetClock();
@@ -126,7 +121,6 @@ namespace MarsFrenzy
             crateDropPoints.Add(new Vector3(3.59f, 0.0f, -2.85f));
             crateDropPoints.Add(new Vector3(14.52f, 0.0f, 4.09f));
 
-            switches = new Dictionary<string, bool>();
             /*
             int i = 0;
             for (; i < _gameState.resources.Count; i++)
@@ -145,10 +139,10 @@ namespace MarsFrenzy
             playerAnimator = player.gameObject.GetComponent<Animator>();
             lastPlayerPosition = player.position;
 
-            RegisterAnimator(playerAnimator);
-            RegisterAnimator(cameraAnimator);
-            RegisterAnimator(uiAnimator);
-            RegisterAnimator(stormAnimator);
+            AnimatorsManager.Instance.RegisterAnimator(playerAnimator);
+            AnimatorsManager.Instance.RegisterAnimator(cameraAnimator);
+            AnimatorsManager.Instance.RegisterAnimator(uiAnimator);
+            AnimatorsManager.Instance.RegisterAnimator(stormAnimator);
 
             crateSlots = new int[crateDropPoints.Count];
 
@@ -156,7 +150,7 @@ namespace MarsFrenzy
             particlesGOs = GameObject.FindGameObjectsWithTag("Particles");
             foreach (GameObject particle in particlesGOs)
             {
-                particles.Add(particle.GetComponent<ParticleSystem>());
+                AnimatorsManager.Instance.RegisterParticleSystem(particle.GetComponent<ParticleSystem>());
             }
 
             HideWorkbench();
@@ -398,14 +392,7 @@ namespace MarsFrenzy
             timeRuns = false;
             playerAgent.speed = 0;
 
-            foreach(Animator anim in animators) {
-                anim.enabled = false;
-            }
-
-            foreach (ParticleSystem particle in particles)
-            {
-                particle.Pause();
-            }
+            AnimatorsManager.Instance.Pause();
 
             waterModule.StopAction();
             potatoesModule.StopAction();
@@ -445,17 +432,7 @@ namespace MarsFrenzy
             timeRuns = true;
             playerAgent.speed = agentSpeed;
 
-            animators.RemoveAll(item => item == null);
-
-            foreach (Animator anim in animators)
-            {
-                anim.enabled = true;
-            }
-
-            foreach (ParticleSystem particle in particles)
-            {
-                particle.Play();
-            }
+            AnimatorsManager.Instance.Play();
         }
 
         public void GotoMainMenu()
@@ -619,28 +596,6 @@ namespace MarsFrenzy
 
             AddAmount(Constants.SCRAP, _crate.scrap);
             AddAmount(Constants.DUCTTAPE, _crate.ductTape);
-        }
-
-        public void RegisterAnimator(Animator _animator)
-        {
-            animators.Add(_animator);
-        }
-
-        public void UnregisterAnimator(Animator _animator)
-        {
-            animators.Remove(_animator);
-        }
-
-        public bool ReadSwitch(string _name)
-        {
-            bool ret = false;
-            switches.TryGetValue(_name, out ret);
-            return ret;
-        }
-
-        public void SetSwitch(string _name, bool _value)
-        {
-            switches.Add(_name, _value);
         }
 
         public void ActivateBase()
