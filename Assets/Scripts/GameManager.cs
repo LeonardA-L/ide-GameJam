@@ -1,9 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.AI;
-using System.IO;
 using EZCameraShake;
 using UnityEngine.EventSystems;
 using IdleWorks;
@@ -14,53 +12,53 @@ namespace MarsFrenzy
 {
     public class GameManager : MonoBehaviour
     {
-        protected static GameManager instance;
+        protected static GameManager m_instance;
         public GameState _gameState;
 
-        private Timestamp time;
-        public bool timeRuns = false;
-        public bool gameOver = false;
+        private Timestamp m_time;
+        public bool m_timeRuns = false;
+        public bool m_gameOver = false;
 
-        public CharacterLife character;
-        public EndScreen endScreen;
+        public CharacterLife m_character;
+        public EndScreen m_endScreen;
 
-        public int onboardingStep = 0;
+        public int m_onboardingStep = 0;
 
-        public Animator cameraAnimator;
-        public Animator uiAnimator;
+        public Animator m_cameraAnimator;
+        public Animator m_uiAnimator;
 
-        public NavMeshAgent playerAgent;
-        public Transform player;
-        public Vector3 lastPlayerPosition;
-        private bool playerWalking;
-        private Animator playerAnimator;
-        private float agentSpeed;
+        public NavMeshAgent m_playerAgent;
+        public Transform m_player;
+        public Vector3 m_lastPlayerPosition;
+        private bool m_playerWalking;
+        private Animator m_playerAnimator;
+        private float m_agentSpeed;
 
-        public int[] crateSlots;
+        public int[] m_crateSlots;
 
-        private bool storm;
-        private int stormTicks = 0;
-        public Animator stormAnimator;
+        private bool m_storm;
+        private int m_stormTicks = 0;
+        public Animator m_stormAnimator;
 
-        public ModuleManager waterModule;
-        public ModuleManager potatoesModule;
-        public ModuleManager electricityModule;
+        public ModuleManager m_waterModule;
+        public ModuleManager m_potatoesModule;
+        public ModuleManager m_electricityModule;
 
-        private CameraShakeInstance stormShake;
+        private CameraShakeInstance m_stormShake;
 
-        public GameObject workbenchUI;
+        public GameObject m_workbenchUI;
 
-        public bool pauseMenu;
+        public bool m_pauseMenu;
 
-        public Transform marsBase;
-        public Vector3 maxDistanceToBase = new Vector3(6.0f, 0, 24.0f);
+        public Transform m_marsBase;
+        public Vector3 m_maxDistanceToBase = new Vector3(6.0f, 0, 24.0f);
 
-        public static int OnboardingFirstSection = 50;
+        public static int m_onboardingFirstSection = 50;
 
-        private Clock idleWorksClock;
-        private Storage globalStorage;
+        private Clock m_idleWorksClock;
+        private Storage m_globalStorage;
 
-        public List<Vector3> crateDropPoints = new List<Vector3>();
+        public List<Vector3> m_crateDropPoints = new List<Vector3>();
 
         // Unserialized managers
         private AnimatorsManager m_animatorsManager = new AnimatorsManager();
@@ -69,12 +67,12 @@ namespace MarsFrenzy
         {
             get
             {
-                return onboardingStep;
+                return m_onboardingStep;
             }
 
             set
             {
-                onboardingStep = value;
+                m_onboardingStep = value;
             }
         }
 
@@ -83,19 +81,19 @@ namespace MarsFrenzy
         {
             Debug.Log("Init GameManager");
             setInstance(this);
-            timeRuns = false;
-            storm = false;
-            pauseMenu = false;
-            agentSpeed = playerAgent.speed;
+            m_timeRuns = false;
+            m_storm = false;
+            m_pauseMenu = false;
+            m_agentSpeed = m_playerAgent.speed;
 
             DialogManager.Instance.Init();
 
             _gameState = GameState.Load(Constants.SAVE_PATH);
-            idleWorksClock = _gameState.GetClock();
+            m_idleWorksClock = _gameState.GetClock();
 
             var storages = StorageManager.Instance.GetAllStorages();
 
-            time = TimeUtils.Timestamp();
+            m_time = TimeUtils.Timestamp();
 
             if (_gameState.newGame)
             {  // New game
@@ -109,17 +107,17 @@ namespace MarsFrenzy
                 {
                     if (s.Id == "Main")
                     {
-                        globalStorage = s;
+                        m_globalStorage = s;
                     }
                 }
             }
 
 
             // Crates drop spots
-            crateDropPoints.Add(new Vector3(-2.03f, 0.0f, 30.91f));
-            crateDropPoints.Add(new Vector3(5.38f, 0.0f, 36.09f));
-            crateDropPoints.Add(new Vector3(3.59f, 0.0f, -2.85f));
-            crateDropPoints.Add(new Vector3(14.52f, 0.0f, 4.09f));
+            m_crateDropPoints.Add(new Vector3(-2.03f, 0.0f, 30.91f));
+            m_crateDropPoints.Add(new Vector3(5.38f, 0.0f, 36.09f));
+            m_crateDropPoints.Add(new Vector3(3.59f, 0.0f, -2.85f));
+            m_crateDropPoints.Add(new Vector3(14.52f, 0.0f, 4.09f));
 
             /*
             int i = 0;
@@ -136,15 +134,15 @@ namespace MarsFrenzy
             }
             */
 
-            playerAnimator = player.gameObject.GetComponent<Animator>();
-            lastPlayerPosition = player.position;
+            m_playerAnimator = m_player.gameObject.GetComponent<Animator>();
+            m_lastPlayerPosition = m_player.position;
 
-            AnimatorsManager.Instance.RegisterAnimator(playerAnimator);
-            AnimatorsManager.Instance.RegisterAnimator(cameraAnimator);
-            AnimatorsManager.Instance.RegisterAnimator(uiAnimator);
-            AnimatorsManager.Instance.RegisterAnimator(stormAnimator);
+            AnimatorsManager.Instance.RegisterAnimator(m_playerAnimator);
+            AnimatorsManager.Instance.RegisterAnimator(m_cameraAnimator);
+            AnimatorsManager.Instance.RegisterAnimator(m_uiAnimator);
+            AnimatorsManager.Instance.RegisterAnimator(m_stormAnimator);
 
-            crateSlots = new int[crateDropPoints.Count];
+            m_crateSlots = new int[m_crateDropPoints.Count];
 
             GameObject[] particlesGOs;
             particlesGOs = GameObject.FindGameObjectsWithTag("Particles");
@@ -155,14 +153,14 @@ namespace MarsFrenzy
 
             HideWorkbench();
 
-            timeRuns = true;
+            m_timeRuns = true;
         }
 
         private void _InitNewGame()
         {
             PopulateData.Init(_gameState);
 
-            globalStorage = new Storage(Constants.STORAGE_MAIN);
+            m_globalStorage = new Storage(Constants.STORAGE_MAIN);
 
             const double maxModuleHealth = 5;
             const double moduleFrequency = 2 * 1000.0f;
@@ -182,74 +180,74 @@ namespace MarsFrenzy
 
             // Player Health stats
             Generator playerConsumptionHunger = new Generator(Constants.PLAYER_CONSUMPTION + Constants.POTATO, new GenerationIntervalUtils.IntervalPowered(moduleFrequency), new GenerationUtils.GenerateLinear(0, 1), new CostsUtils.CostsStandard(), false, false);
-            playerConsumptionHunger.AddFuel(Constants.POTATO, 0.7f, globalStorage);
+            playerConsumptionHunger.AddFuel(Constants.POTATO, 0.7f, m_globalStorage);
             playerConsumptionHunger.SetAllowPartialConsumption(true);
             GeneratorManager.Instance.RegisterGeneratorClass(Constants.PLAYER_CONSUMPTION + Constants.POTATO, playerConsumptionHunger);
 
             Generator playerConsumptionThirst = new Generator(Constants.PLAYER_CONSUMPTION + Constants.WATER, new GenerationIntervalUtils.IntervalPowered(moduleFrequency), new GenerationUtils.GenerateLinear(0, 1), new CostsUtils.CostsStandard(), false, false);
-            playerConsumptionThirst.AddFuel(Constants.WATER, 0.7f, globalStorage);
+            playerConsumptionThirst.AddFuel(Constants.WATER, 0.7f, m_globalStorage);
             playerConsumptionThirst.SetAllowPartialConsumption(true);
             GeneratorManager.Instance.RegisterGeneratorClass(Constants.PLAYER_CONSUMPTION + Constants.WATER, playerConsumptionThirst);
 
             Generator hunger = new Generator(Constants.HUNGER, new GenerationIntervalUtils.IntervalPowered(2.0f * 1000), new GenerationUtils.GenerateLinear(0,1), new CostsUtils.CostsStandard(), false, false);
-            hunger.AddFuel(Constants.HUNGER, _gameState.starvationDecay, globalStorage);
+            hunger.AddFuel(Constants.HUNGER, _gameState.starvationDecay, m_globalStorage);
             hunger.SetAllowPartialConsumption(true);
             hunger.SetClampingValues(0, _gameState.playerHungerStart);
             GeneratorManager.Instance.RegisterGeneratorClass(Constants.HUNGER, hunger);
 
             Generator thirst = new Generator(Constants.THIRST, new GenerationIntervalUtils.IntervalPowered(2.0f * 1000), new GenerationUtils.GenerateLinear(0,1), new CostsUtils.CostsStandard(), false, false);
-            thirst.AddFuel(Constants.THIRST, _gameState.starvationDecay, globalStorage);
+            thirst.AddFuel(Constants.THIRST, _gameState.starvationDecay, m_globalStorage);
             thirst.SetAllowPartialConsumption(true);
             thirst.SetClampingValues(0, _gameState.playerThirstStart);
             GeneratorManager.Instance.RegisterGeneratorClass(Constants.THIRST, thirst);
 
             Generator regen = new Generator(Constants.REGEN_THIRST, new GenerationIntervalUtils.IntervalPowered(2.0f * 1000), new GenerationUtils.GenerateLinear(), new CostsUtils.CostsStandard(), true, false);
-            regen.AddOutput(Constants.THIRST, _gameState.playerRegen, globalStorage);
+            regen.AddOutput(Constants.THIRST, _gameState.playerRegen, m_globalStorage);
             GeneratorManager.Instance.RegisterGeneratorClass(Constants.REGEN_THIRST, regen);
 
             Generator regenHunger = new Generator(Constants.REGEN_HUNGER, new GenerationIntervalUtils.IntervalPowered(2.0f * 1000), new GenerationUtils.GenerateLinear(), new CostsUtils.CostsStandard(), true, false);
-            regenHunger.AddOutput(Constants.HUNGER, _gameState.playerRegen, globalStorage);
+            regenHunger.AddOutput(Constants.HUNGER, _gameState.playerRegen, m_globalStorage);
             GeneratorManager.Instance.RegisterGeneratorClass(Constants.REGEN_HUNGER, regenHunger);
 
             // Add Start values
-            globalStorage.Add(Constants.WATER, 20);
-            globalStorage.Add(Constants.POTATO, 15);
-            globalStorage.Add(Constants.ELECTRICITY, 20);
+            m_globalStorage.Add(Constants.WATER, 20);
+            m_globalStorage.Add(Constants.POTATO, 15);
+            m_globalStorage.Add(Constants.ELECTRICITY, 20);
 
-            globalStorage.Add(Constants.DUCTTAPE, 50);
-            globalStorage.Add(Constants.SCRAP, 75);
+            m_globalStorage.Add(Constants.DUCTTAPE, 50);
+            m_globalStorage.Add(Constants.SCRAP, 75);
 
-            globalStorage.Add(Constants.HUNGER, _gameState.playerHungerStart);
-            globalStorage.Add(Constants.THIRST, _gameState.playerThirstStart);
+            m_globalStorage.Add(Constants.HUNGER, _gameState.playerHungerStart);
+            m_globalStorage.Add(Constants.THIRST, _gameState.playerThirstStart);
 
-            globalStorage.Add(Constants.WATER + Constants.MODULE, 1);
-            globalStorage.Add(Constants.POTATO + Constants.MODULE, 1);
-            globalStorage.Add(Constants.ELECTRICITY + Constants.MODULE, 1);
+            m_globalStorage.Add(Constants.WATER + Constants.MODULE, 1);
+            m_globalStorage.Add(Constants.POTATO + Constants.MODULE, 1);
+            m_globalStorage.Add(Constants.ELECTRICITY + Constants.MODULE, 1);
 
-            globalStorage.Add(Constants.WATER + Constants.MODULE + Constants.MODULE_HEALTH_SUFFIX, 5);
-            globalStorage.Add(Constants.POTATO + Constants.MODULE + Constants.MODULE_HEALTH_SUFFIX, 5);
-            globalStorage.Add(Constants.ELECTRICITY + Constants.MODULE + Constants.MODULE_HEALTH_SUFFIX, 5);
+            m_globalStorage.Add(Constants.WATER + Constants.MODULE + Constants.MODULE_HEALTH_SUFFIX, 5);
+            m_globalStorage.Add(Constants.POTATO + Constants.MODULE + Constants.MODULE_HEALTH_SUFFIX, 5);
+            m_globalStorage.Add(Constants.ELECTRICITY + Constants.MODULE + Constants.MODULE_HEALTH_SUFFIX, 5);
 
-            globalStorage.Add(Constants.WATER + Constants.MODULE + Constants.MODULE_HEALTH_REPAIR, 1);
-            globalStorage.Add(Constants.POTATO + Constants.MODULE + Constants.MODULE_HEALTH_REPAIR, 1);
-            globalStorage.Add(Constants.ELECTRICITY + Constants.MODULE + Constants.MODULE_HEALTH_REPAIR, 1);
+            m_globalStorage.Add(Constants.WATER + Constants.MODULE + Constants.MODULE_HEALTH_REPAIR, 1);
+            m_globalStorage.Add(Constants.POTATO + Constants.MODULE + Constants.MODULE_HEALTH_REPAIR, 1);
+            m_globalStorage.Add(Constants.ELECTRICITY + Constants.MODULE + Constants.MODULE_HEALTH_REPAIR, 1);
 
-            globalStorage.Add(Constants.WATER + Constants.MODULE + Constants.MODULE_HEALTH_DAMAGE, 1);
-            globalStorage.Add(Constants.POTATO + Constants.MODULE + Constants.MODULE_HEALTH_DAMAGE, 1);
-            globalStorage.Add(Constants.ELECTRICITY + Constants.MODULE + Constants.MODULE_HEALTH_DAMAGE, 1);
+            m_globalStorage.Add(Constants.WATER + Constants.MODULE + Constants.MODULE_HEALTH_DAMAGE, 1);
+            m_globalStorage.Add(Constants.POTATO + Constants.MODULE + Constants.MODULE_HEALTH_DAMAGE, 1);
+            m_globalStorage.Add(Constants.ELECTRICITY + Constants.MODULE + Constants.MODULE_HEALTH_DAMAGE, 1);
 
-            globalStorage.Add(Constants.REGEN_HUNGER, 1);
-            globalStorage.Add(Constants.REGEN_THIRST, 1);
-            globalStorage.Add(Constants.PLAYER_CONSUMPTION + Constants.POTATO, 1);
-            globalStorage.Add(Constants.PLAYER_CONSUMPTION + Constants.WATER, 1);
+            m_globalStorage.Add(Constants.REGEN_HUNGER, 1);
+            m_globalStorage.Add(Constants.REGEN_THIRST, 1);
+            m_globalStorage.Add(Constants.PLAYER_CONSUMPTION + Constants.POTATO, 1);
+            m_globalStorage.Add(Constants.PLAYER_CONSUMPTION + Constants.WATER, 1);
         }
 
         private void RegisterModule(string _moduleName, string _outputName, string _fuelName, double _maxHealth, double _frequency, double _efficiency, double _damageRate, double _damageFreq, double _repairCost, double _repairFreq)
         {
             // The module
             Generator waterModule = new Generator(_moduleName, new GenerationIntervalUtils.IntervalPowered(_frequency), new GenerationUtils.GenerateLinear(), new CostsUtils.CostsStandard(), false, false);
-            waterModule.AddFuel(_fuelName, 1, globalStorage);
-            waterModule.AddOutput(_outputName, _efficiency, globalStorage);
+            waterModule.AddFuel(_fuelName, 1, m_globalStorage);
+            waterModule.AddOutput(_outputName, _efficiency, m_globalStorage);
             GeneratorManager.Instance.RegisterGeneratorClass(_moduleName, waterModule);
 
             // Health stuff
@@ -257,22 +255,22 @@ namespace MarsFrenzy
 
             // Repairing unit
             Generator waterModuleRepair = new Generator(_moduleName + Constants.MODULE_HEALTH_REPAIR, new GenerationIntervalUtils.IntervalPowered(_repairFreq), new GenerationUtils.GenerateLinear(), new CostsUtils.CostsStandard(), false, true);
-            waterModuleRepair.AddFuel(Constants.DUCTTAPE, _repairCost, globalStorage);
-            waterModuleRepair.AddOutput(_moduleName + Constants.MODULE_HEALTH_SUFFIX, 1, globalStorage);
+            waterModuleRepair.AddFuel(Constants.DUCTTAPE, _repairCost, m_globalStorage);
+            waterModuleRepair.AddOutput(_moduleName + Constants.MODULE_HEALTH_SUFFIX, 1, m_globalStorage);
             GeneratorManager.Instance.RegisterGeneratorClass(_moduleName + Constants.MODULE_HEALTH_REPAIR, waterModuleRepair);
 
             // Damaging unit
             Generator waterModuleDamage = new Generator(_moduleName + Constants.MODULE_HEALTH_DAMAGE, new GenerationIntervalUtils.IntervalPowered(_damageFreq), new GenerationUtils.GenerateLinear(), new CostsUtils.CostsStandard(), false, false);
-            waterModuleDamage.AddFuel(_moduleName + Constants.MODULE_HEALTH_SUFFIX, _damageRate, globalStorage);
+            waterModuleDamage.AddFuel(_moduleName + Constants.MODULE_HEALTH_SUFFIX, _damageRate, m_globalStorage);
             GeneratorManager.Instance.RegisterGeneratorClass(_moduleName + Constants.MODULE_HEALTH_DAMAGE, waterModuleDamage);
         }
 
         // Update is called once per frame
         void Update()
         {
-            time = TimeUtils.Timestamp();
+            m_time = TimeUtils.Timestamp();
 
-            if (timeRuns)
+            if (m_timeRuns)
             {
                 // Detect click on ground
                 if (Input.GetMouseButtonDown(0))
@@ -293,42 +291,42 @@ namespace MarsFrenzy
                 }
             }
 
-            idleWorksClock.Update();
+            m_idleWorksClock.Update();
 
             //ductTapeStock.text = "" + _gameState.ductTape.amount.ToString("0.00");
             //scrapStock.text = "" + _gameState.scrap.amount.ToString("0");
 
-            playerAnimator.SetFloat("speed", (player.position - lastPlayerPosition).magnitude / ((float)Time.deltaTime));
-            lastPlayerPosition = player.position;
+            m_playerAnimator.SetFloat("speed", (m_player.position - m_lastPlayerPosition).magnitude / ((float)Time.deltaTime));
+            m_lastPlayerPosition = m_player.position;
 
-            if(playerWalking && playerAgent.remainingDistance < 0.1f)
+            if(m_playerWalking && m_playerAgent.remainingDistance < 0.1f)
             {
-                playerWalking = false;
+                m_playerWalking = false;
                 AudioManager.Instance.StopSound("characterWalking");
             }
 
-            if (OnboardingStep < OnboardingFirstSection)
+            if (OnboardingStep < m_onboardingFirstSection)
             {
-                if ((player.position - marsBase.position).magnitude < 2.0f)
+                if ((m_player.position - m_marsBase.position).magnitude < 2.0f)
                 {
                     ActivateBase();
                 }
             }
             else
             {
-                Vector3 diffWithBase = (marsBase.position - player.position);
-                if (CameraController.Instance.mode == CameraMode.EXPLORE && (Mathf.Abs(diffWithBase.x) < maxDistanceToBase.x || Mathf.Abs(diffWithBase.z) < maxDistanceToBase.z))
+                Vector3 diffWithBase = (m_marsBase.position - m_player.position);
+                if (CameraController.Instance.mode == CameraMode.EXPLORE && (Mathf.Abs(diffWithBase.x) < m_maxDistanceToBase.x || Mathf.Abs(diffWithBase.z) < m_maxDistanceToBase.z))
                 {
                     ReachBase();
                 }
-                if (CameraController.Instance.mode == CameraMode.BASE && (Mathf.Abs(diffWithBase.x) > maxDistanceToBase.x || Mathf.Abs(diffWithBase.z) > maxDistanceToBase.z))
+                if (CameraController.Instance.mode == CameraMode.BASE && (Mathf.Abs(diffWithBase.x) > m_maxDistanceToBase.x || Mathf.Abs(diffWithBase.z) > m_maxDistanceToBase.z))
                 {
                     LeaveBase();
                 }
             }
 
             if (Input.GetKeyDown(KeyCode.Escape)) {
-                if (pauseMenu)
+                if (m_pauseMenu)
                 {
                     GetComponent<Scene>().QuitGame();
                 } else
@@ -369,68 +367,68 @@ namespace MarsFrenzy
             {
                 return;
             }
-            playerWalking = true;
+            m_playerWalking = true;
             AudioManager.Instance.PlaySound("characterWalking");
-            playerAgent.SetDestination(goal);
+            m_playerAgent.SetDestination(goal);
         }
 
         private static void setInstance(GameManager _instance)
         {
-            instance = _instance;
+            m_instance = _instance;
         }
 
         public static GameManager Instance
         {
             get
             {
-                return instance;
+                return m_instance;
             }
         }
 
         public void Pause()
         {
-            timeRuns = false;
-            playerAgent.speed = 0;
+            m_timeRuns = false;
+            m_playerAgent.speed = 0;
 
             AnimatorsManager.Instance.Pause();
 
-            waterModule.StopAction();
-            potatoesModule.StopAction();
-            electricityModule.StopAction();
+            m_waterModule.StopAction();
+            m_potatoesModule.StopAction();
+            m_electricityModule.StopAction();
         }
 
         public void PauseMenu()
         {
-            if (!pauseMenu)
+            if (!m_pauseMenu)
             {
                 Pause();
-                endScreen.Pause();
-                pauseMenu = true;
+                m_endScreen.Pause();
+                m_pauseMenu = true;
 
                 _gameState.Save();
             }
             else
             {
-                endScreen.Unpause();
-                pauseMenu = false;
+                m_endScreen.Unpause();
+                m_pauseMenu = false;
                 Play();
             }
         }
 
         public void Stop()
         {
-            timeRuns = false;
-            gameOver = true;
+            m_timeRuns = false;
+            m_gameOver = true;
         }
 
         public void Play()
         {
-            if(gameOver)
+            if(m_gameOver)
             {
                 return;
             }
-            timeRuns = true;
-            playerAgent.speed = agentSpeed;
+            m_timeRuns = true;
+            m_playerAgent.speed = m_agentSpeed;
 
             AnimatorsManager.Instance.Play();
         }
@@ -447,22 +445,22 @@ namespace MarsFrenzy
 
         public bool IsActive(string name)
         {
-            return globalStorage.GetGenerator(name).IsActive;
+            return m_globalStorage.GetGenerator(name).IsActive;
         }
 
         public void SetActive(string name, bool _active)
         {
-            globalStorage.GetGenerator(name).SetActive(_active);
+            m_globalStorage.GetGenerator(name).SetActive(_active);
         }
 
         public void AddAmount(string name, double _howMuch)
         {
-            globalStorage.Add(name, _howMuch);
+            m_globalStorage.Add(name, _howMuch);
         }
 
         public double GetAmount(string name)
         {
-            return globalStorage.GetAmountOf(name);
+            return m_globalStorage.GetAmountOf(name);
         }
 
         public float GetModuleHealth(string name)
@@ -477,87 +475,87 @@ namespace MarsFrenzy
 
         public double GetPlayerHunger()
         {
-            return character.Hunger;
+            return m_character.Hunger;
         }
 
         public double GetPlayerThirst()
         {
-            return character.Thirst;
+            return m_character.Thirst;
         }
 
         public bool IsPlayerDead()
         {
-            return character.dead;
+            return m_character.dead;
         }
 
         public void TriggerGameOver()
         {
             Stop();
             AudioManager.Instance.PlaySound("gameOver");
-            endScreen.GameOver();
+            m_endScreen.GameOver();
         }
 
         public void TriggerVictory()
         {
             Stop();
             AudioManager.Instance.PlaySound("win");
-            endScreen.Victory();
+            m_endScreen.Victory();
         }
 
         public void WidenView()
         {
-            cameraAnimator.SetBool("wide", true);
+            m_cameraAnimator.SetBool("wide", true);
         }
 
         public void ShowUI()
         {
-            uiAnimator.SetBool("uiActive", true);
+            m_uiAnimator.SetBool("uiActive", true);
         }
 
         public void ShowWorkbench()
         {
             Debug.Log("Showing Workbench");
-            workbenchUI.SetActive(true);
+            m_workbenchUI.SetActive(true);
         }
 
         public void HideWorkbench()
         {
             Debug.Log("Hiding Workbench");
-            workbenchUI.SetActive(false);
+            m_workbenchUI.SetActive(false);
         }
 
         public void StartStorm()
         {
-            storm = true;
-            stormAnimator.SetBool("activated", storm);
-            stormTicks = 0;
+            m_storm = true;
+            m_stormAnimator.SetBool("activated", m_storm);
+            m_stormTicks = 0;
 
-            stormShake = CameraShaker.Instance.StartShake(4.5f, 7, 10);
+            m_stormShake = CameraShaker.Instance.StartShake(4.5f, 7, 10);
             //CameraShaker.Instance.ShakeOnce(Magnitude, Roughness, 0, FadeOutTime);
         }
 
         public void StopStorm()
         {
-            storm = false;
-            stormAnimator.SetBool("activated", storm);
-            stormShake.StartFadeOut(5f);
+            m_storm = false;
+            m_stormAnimator.SetBool("activated", m_storm);
+            m_stormShake.StartFadeOut(5f);
         }
 
         public void RestoreGame()
         {
-            uiAnimator.SetBool("uiActive", true);
-            cameraAnimator.SetBool("wide", true);
+            m_uiAnimator.SetBool("uiActive", true);
+            m_cameraAnimator.SetBool("wide", true);
         }
 
         public void CreateCrate(float _water, float _potatoes, float _electricity, float _scrap, float _ductTape)
         {
 
-            int baseRandSlot = (int)(UnityEngine.Random.value * crateDropPoints.Count);
+            int baseRandSlot = (int)(UnityEngine.Random.value * m_crateDropPoints.Count);
             int successSlot = -1;
-            for (int i = 0; i < crateDropPoints.Count; i++)
+            for (int i = 0; i < m_crateDropPoints.Count; i++)
             {
-                int slot = (baseRandSlot + i) % crateDropPoints.Count;
-                if (crateSlots[slot] != 1)
+                int slot = (baseRandSlot + i) % m_crateDropPoints.Count;
+                if (m_crateSlots[slot] != 1)
                 {
                     successSlot = slot;
                 }
@@ -568,10 +566,10 @@ namespace MarsFrenzy
                 return;
             }
             GameObject crate = (GameObject)GameObject.Instantiate(Resources.Load("Prefabs/Drop_prefab"));
-            crateSlots[successSlot] = 1;
+            m_crateSlots[successSlot] = 1;
             crate.name = "Drop_Crate_"+ successSlot;
 
-            crate.transform.position = new Vector3(crateDropPoints[successSlot].x, 15.0f, crateDropPoints[successSlot].z);
+            crate.transform.position = new Vector3(m_crateDropPoints[successSlot].x, 15.0f, m_crateDropPoints[successSlot].z);
             crate.transform.Rotate(new Vector3(0.0f, 180.0f * UnityEngine.Random.value, 0.0f));
 
             DropController dc = crate.GetComponent<DropController>();
@@ -600,13 +598,13 @@ namespace MarsFrenzy
 
         public void ActivateBase()
         {
-            OnboardingStep = OnboardingFirstSection;
+            OnboardingStep = m_onboardingFirstSection;
             WidenView();
             ShowUI();
             CameraController.Instance.SetModeBase();
             // start player decay
-            globalStorage.GetGenerator(Constants.PLAYER_CONSUMPTION + Constants.WATER).SetActive(true);
-            globalStorage.GetGenerator(Constants.PLAYER_CONSUMPTION + Constants.POTATO).SetActive(true);
+            m_globalStorage.GetGenerator(Constants.PLAYER_CONSUMPTION + Constants.WATER).SetActive(true);
+            m_globalStorage.GetGenerator(Constants.PLAYER_CONSUMPTION + Constants.POTATO).SetActive(true);
         }
 
         public void ReachBase()
@@ -631,7 +629,15 @@ namespace MarsFrenzy
         {
             get
             {
-                return time;
+                return m_time;
+            }
+        }
+        
+        public Transform Player
+        {
+            get
+            {
+                return m_player;
             }
         }
     }

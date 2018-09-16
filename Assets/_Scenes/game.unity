@@ -2055,26 +2055,26 @@ MonoBehaviour:
     stormDamage: 0
     stormDuration: 10
     newGame: 1
-  timeRuns: 0
-  gameOver: 0
-  character: {fileID: 1685522897}
-  endScreen: {fileID: 1204716714}
-  onboardingStep: 0
-  cameraAnimator: {fileID: 1679226042}
-  uiAnimator: {fileID: 748880544}
-  playerAgent: {fileID: 1612169600}
-  player: {fileID: 1612169602}
-  lastPlayerPosition: {x: 0, y: 0, z: 0}
-  crateSlots: 
-  stormAnimator: {fileID: 1187719933}
-  waterModule: {fileID: 1309873606}
-  potatoesModule: {fileID: 29794136}
-  electricityModule: {fileID: 220327491}
-  workbenchUI: {fileID: 140954971}
-  pauseMenu: 0
-  marsBase: {fileID: 656798513}
-  maxDistanceToBase: {x: 6, y: 0, z: 24}
-  crateDropPoints: []
+  m_timeRuns: 0
+  m_gameOver: 0
+  m_character: {fileID: 1685522897}
+  m_endScreen: {fileID: 1204716714}
+  m_onboardingStep: 0
+  m_cameraAnimator: {fileID: 1679226042}
+  m_uiAnimator: {fileID: 748880544}
+  m_playerAgent: {fileID: 1612169600}
+  m_player: {fileID: 1612169602}
+  m_lastPlayerPosition: {x: 0, y: 0, z: 0}
+  m_crateSlots: 
+  m_stormAnimator: {fileID: 1187719933}
+  m_waterModule: {fileID: 1309873606}
+  m_potatoesModule: {fileID: 29794136}
+  m_electricityModule: {fileID: 220327491}
+  m_workbenchUI: {fileID: 140954971}
+  m_pauseMenu: 0
+  m_marsBase: {fileID: 656798513}
+  m_maxDistanceToBase: {x: 6, y: 0, z: 24}
+  m_crateDropPoints: []
 --- !u!114 &2117122587
 MonoBehaviour:
   m_ObjectHideFlags: 0

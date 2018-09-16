@@ -105,7 +105,7 @@ namespace MarsFrenzy
                 queuedAction = "repair";
             }
             
-            if(queuedAction != null && (GameManager.Instance.player.position - playerTarget).magnitude < 1.0f)
+            if(queuedAction != null && (GameManager.Instance.Player.position - playerTarget).magnitude < 1.0f)
             {
                 executeQueuedAction();
             }
@@ -135,7 +135,7 @@ namespace MarsFrenzy
             }
             else if (queuedAction == "repair")
             {
-                GameManager.Instance.SetPlayerAction(GameManager.Instance.player.position);
+                GameManager.Instance.SetPlayerAction(GameManager.Instance.Player.position);
                 queuedAction = null;
             }
             if (repairing)

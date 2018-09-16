@@ -16,7 +16,7 @@ namespace MarsFrenzy
         }
 
         private List<Animator> m_animators = new List<Animator>();
-        private List<ParticleSystem> particles = new List<ParticleSystem>();
+        private List<ParticleSystem> m_particles = new List<ParticleSystem>();
         private bool m_paused = false;
 
         public AnimatorsManager()
@@ -33,7 +33,7 @@ namespace MarsFrenzy
                 anim.enabled = true;
             }
 
-            foreach (ParticleSystem particle in particles)
+            foreach (ParticleSystem particle in m_particles)
             {
                 particle.Play();
             }
@@ -62,7 +62,7 @@ namespace MarsFrenzy
                 anim.enabled = false;
             }
 
-            foreach (ParticleSystem particle in particles)
+            foreach (ParticleSystem particle in m_particles)
             {
                 particle.Pause();
             }
@@ -76,7 +76,7 @@ namespace MarsFrenzy
             if (m_paused)
                 _system.Pause();
 
-            particles.Add(_system);
+            m_particles.Add(_system);
         }
     }
 }

@@ -36,7 +36,7 @@ namespace MarsFrenzy
                 return;
             }
 
-            if((gm.player.position - transform.position).magnitude < 1.0f)
+            if((gm.Player.position - transform.position).magnitude < 1.0f)
             {
                 Collect();
             }
